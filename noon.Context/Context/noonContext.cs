@@ -26,6 +26,7 @@ namespace noon.Context.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<UserReview> CustomerReviews { get; set; }
+        public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
 
     }
 }
