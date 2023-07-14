@@ -65,7 +65,7 @@ namespace noon.Domain.Models.Order
         public decimal GetTotal()
             => (Subtotal + DeliveryMethod.Cost);
 
-        public string PaymentIntentId { get; set; }
+        public UserPaymentMethod paymentMethod { get; set; }
 
     }
 }
