@@ -8,6 +8,6 @@ namespace noon.Application.Contract
 {
     public interface IUserPaymentMethodRepository
     {
-        public Task<UserPaymentMethod> GetDefualt(string AppUserId);
+        //public Task<UserPaymentMethod> GetDefualt(string AppUserId);
     }
 }

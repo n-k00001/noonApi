@@ -1,4 +1,7 @@
-﻿using System;
+﻿using noon.Application.Contract;
+using noon.Domain.Contract;
+using noon.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace noon.Infrastructure
 {
-    public class UserPaymentMethodRepository : Repositoy<UserPaymentMethod, int>, IUserPaymentMethodRepository
+    public class UserPaymentMethodRepository : IRepository<UserPaymentMethod, int>, IUserPaymentMethodRepository
     {
         private readonly noonContext noonContext;
 

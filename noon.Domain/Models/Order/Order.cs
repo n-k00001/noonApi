@@ -24,7 +24,7 @@ namespace noon.Domain.Models.Order
             DeliveryMethod = deliveryMethod;
             Items = items;
             Subtotal = subtotal;
-            PaymentIntentId = paymentIntentId;
+            //PaymentIntentId = paymentIntentId;
         }
         [Key]
         public Guid OrderId { get; set; }
