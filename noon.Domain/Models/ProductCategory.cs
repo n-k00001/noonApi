@@ -13,6 +13,7 @@ namespace noon.Domain.Models
         public string name { get; set; }
         public string imgUrl { set; get; }
         public bool isDeleted { get; set; }
+        public int? parentCategoryId { get; set; }
         public ProductCategory? parentCategory { get; set; }    
         // ChildrenCategories: A list of child categories id's.
         public List<ProductCategory>? childrenCategories { get; set; }
