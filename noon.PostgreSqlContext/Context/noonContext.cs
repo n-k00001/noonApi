@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using noon.Domain.Models.Identity;
 
-namespace noon.Context.Context
+namespace noon.PostgreSqlContext
 {
-    public class noonContext : IdentityDbContext<AppUser>
+    public class noonPostgrsContext : IdentityDbContext<AppUser>
     {
-        public noonContext(DbContextOptions<noonContext> options) : base(options)
+        public noonPostgrsContext(DbContextOptions<noonPostgrsContext> options) : base(options)
         {
 
         }
@@ -26,7 +26,6 @@ namespace noon.Context.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<UserReview> CustomerReviews { get; set; }
-        public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
 
     }
 }

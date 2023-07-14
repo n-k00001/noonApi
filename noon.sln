@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.Domain", "noon.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.Context", "noon.Context\noon.Context.csproj", "{FD072AB8-97D5-41A4-A221-70CC2F305184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noon.DTO", "noon.DTO\noon.DTO.csproj", "{294627C9-0C02-407C-A122-F739642E5AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.DTO", "noon.DTO\noon.DTO.csproj", "{294627C9-0C02-407C-A122-F739642E5AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noon.Application", "noon.Application\noon.Application.csproj", "{3513CE7E-A035-4821-8908-C9123BC1A73E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.Application", "noon.Application\noon.Application.csproj", "{3513CE7E-A035-4821-8908-C9123BC1A73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noon.Infrastructure", "noon.Infrastructure\noon.Infrastructure.csproj", "{BD85B9C6-C379-4CB7-9940-528B6AAEB3F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.Infrastructure", "noon.Infrastructure\noon.Infrastructure.csproj", "{BD85B9C6-C379-4CB7-9940-528B6AAEB3F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noon.API", "noon.API\noon.API.csproj", "{0C3F31A4-DC8B-432F-A669-42605AB84684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.API", "noon.API\noon.API.csproj", "{0C3F31A4-DC8B-432F-A669-42605AB84684}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.PostgreSqlContext", "noon.PostgreSqlContext\noon.PostgreSqlContext.csproj", "{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0C3F31A4-DC8B-432F-A669-42605AB84684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3F31A4-DC8B-432F-A669-42605AB84684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C3F31A4-DC8B-432F-A669-42605AB84684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

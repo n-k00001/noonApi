@@ -24,7 +24,7 @@ namespace noon.Domain.Models.Order
             DeliveryMethod = deliveryMethod;
             Items = items;
             Subtotal = subtotal;
-            PaymentIntentId = paymentIntentId;
+            //PaymentIntentId = paymentIntentId;
         }
         [Key]
         public Guid OrderId { get; set; }
@@ -65,7 +65,7 @@ namespace noon.Domain.Models.Order
         public decimal GetTotal()
             => (Subtotal + DeliveryMethod.Cost);
 
-        public string PaymentIntentId { get; set; }
+        public UserPaymentMethod paymentMethod { get; set; }
 
     }
 }

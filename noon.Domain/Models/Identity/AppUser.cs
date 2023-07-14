@@ -14,5 +14,6 @@ namespace noon.Domain.Models.Identity
         public string DisplayName { get; set; }
         public List<UserAddress> UserAddresses { get; set; }
         public List<Order.Order> Orders { set; get; }
+        public List<UserPaymentMethod> paymentMethods { set; get; }
     }
 }
