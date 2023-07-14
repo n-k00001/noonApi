@@ -15,5 +15,7 @@ namespace noon.Domain.Contract
         public Task<bool> UpdateAsync(TEntity TEntity);
         public Task<bool> DeleteAsync(TEntity TEntity);
         public Task<int> SaveChanges();
+        public Task<TEntity?> GetDetailsAsync(TId id);
+
     }
 }
