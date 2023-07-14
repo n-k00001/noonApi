@@ -16,10 +16,6 @@ namespace noon.Domain.Models.Identity
             work,
             home
         }
-        public List<UserAddress>? UserAddresses { get; set; }
-        [ForeignKey("AppUser")]
-        public string userId { get; set; }
-        public AppUser AppUser { get; set; }
-        
+        public List<UserAddress>? UserAddresses { get; set; }        
     }
 }
