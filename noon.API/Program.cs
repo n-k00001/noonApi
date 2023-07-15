@@ -1,18 +1,17 @@
-using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
+using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductServices;
 using noon.Context.Context;
+using noon.Domain.Models;
 using noon.Domain.Models.Identity;
-using noon.DTO.Helper;
-using noon.Infrastructure.Repositorys;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,24 +38,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 }).AddEntityFrameworkStores<noonContext>()
             .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
-////
-/// Get Connection string and database provider from appsettings.json
-////
-string dbProvider = builder.Configuration.GetSection("dbProvider").Value;
-string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
-
-////
-/// add Hangfire
-////
-
-builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
-/// start Hangfire servise
-////
-builder.Services.AddHangfireServer();
-
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

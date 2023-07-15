@@ -13,5 +13,7 @@ namespace noon.Application.Services.ProductBrandServices
         public Task<ProductBrandDTO> GetById(int id);
         public Task<ProductBrandDTO> Update(ProductBrandDTO propertyDTO);
         public Task<bool> Delete(int id);
+        Task<ProductBrandDTO> GetDetails(int id);
+        Task<IQueryable<ProductBrandDTO>> GetAllBrand();
     }
 }

@@ -45,5 +45,17 @@ namespace noon.Application.Services.ProductBrandServices
             await productBrandRep.UpdateAsync(model);            
             return brandDTO;
         }
+
+        public async Task<ProductBrandDTO> GetDetails(int id)
+        {
+            var brand = await productBrandRep.GetDetailsAsync(id);
+            var model = mapper.Map<ProductBrandDTO>(brand);
+            return model;
+        }
+        public async Task<IQueryable<ProductBrandDTO>> GetAllBrand()
+        {
+            var brand = await productBrandRep.GetAllAsync();
+            return brand.Select(item => mapper.Map<ProductBrandDTO>(item)); ;
+        }
     }
 }
