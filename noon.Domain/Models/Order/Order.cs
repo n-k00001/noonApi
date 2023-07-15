@@ -64,6 +64,8 @@ namespace noon.Domain.Models.Order
         public decimal GetTotal()
             => (Subtotal + DeliveryMethod.Cost);
 
+        [ForeignKey("paymentMethod")]
+        public int paymentMethodId { set; get; }
         public UserPaymentMethod paymentMethod { get; set; }
 
     }

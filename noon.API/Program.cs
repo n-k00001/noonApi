@@ -44,7 +44,7 @@ app.UseAuthorization();
 ////
 /// use dashboard path
 /// 
-app.UseHangfireDashboard("/dashboard");
+//app.UseHangfireDashboard("/dashboard");
 
 app.MapControllers();
 

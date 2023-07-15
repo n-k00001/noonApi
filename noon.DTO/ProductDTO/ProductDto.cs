@@ -36,7 +36,6 @@ namespace noon.DTO.ProductDTO
         // Reviews: A list of customer reviews for the product.
         public List<UserReview>? reviews { get; set; }
 
-        [ForeignKey("store")]
         public int storeId { set; get; }
         public string store { get; set; }
     }

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace noon.Infrastructure
 {
-    public class BrandRepository : Repositoy<ProductBrand, int>, IBrandRepository
+    public class ProductBrandRepository : Repositoy<ProductBrand, int>, IProductBrandRepository
     {
         private readonly noonContext noonContext;
 
-        public BrandRepository(noonContext noonContext) : base(noonContext)
+        public ProductBrandRepository(noonContext noonContext) : base(noonContext)
         {
             this.noonContext = noonContext;
         }
@@ -31,5 +31,4 @@ namespace noon.Infrastructure
             return noonContext.ProductBrands.Where(a => a.id == id).Include(a => a.products).ThenInclude(x => x.images).FirstOrDefault();
         }
     }
-
 }
