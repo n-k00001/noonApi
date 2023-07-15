@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using noon.Context.Context;
 using noon.Domain.Contract;
+using noon.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,9 @@ namespace noon.Infrastructure
 
         public Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return Task.FromResult(_DbSet.Select(T => T));
+            
+                return Task.FromResult(_DbSet.Select(T => T));
+            
         }
 
         public async Task<TEntity> GetByIdAsync(TId TId)
