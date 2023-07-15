@@ -22,7 +22,7 @@ namespace noon.Infrastructure
         public async Task<IEnumerable<ProductBrand>> FilterByAsync(string filter, int id)
         {
             return noonContext.ProductBrands.Where(a => (a.name.ToLower().Contains(filter.ToLower()) || a.name.Contains(filter)))
-                .Where(a => id == null ? true : a.id == id);
+                .Where(a => a.id == id);
         }
 
 
