@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using noon.Context.Context;
 using noon.Domain.Contract;
+using noon.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,9 @@ namespace noon.Infrastructure
 
         public Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return Task.FromResult(_DbSet.Select(T => T));
+            
+                return Task.FromResult(_DbSet.Select(T => T));
+            
         }
 
         public async Task<TEntity> GetByIdAsync(TId TId)
@@ -38,15 +41,33 @@ namespace noon.Infrastructure
         {
             return Task.FromResult(noonContext.SaveChanges());
         }
-        public Task<bool> DeleteAsync(TId id)
+        public async Task<bool> DeleteAsync(TId id)
         {
-            throw new NotImplementedException();
+            var TEntity = await GetByIdAsync(id);
+            if (TEntity != null)
+            {
+                _DbSet.Remove(TEntity);
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
-        public Task<bool> UpdateAsync(TEntity TEntity)
+        public async Task<bool> UpdateAsync(TEntity TEntity)
         {
-            throw new NotImplementedException();
+            if (TEntity != null)
+            {
+                _DbSet.Update(TEntity);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public virtual async Task<TEntity> GetDetailsAsync(TId id)
         {
