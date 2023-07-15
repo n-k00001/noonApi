@@ -4,6 +4,8 @@ using noon.Application.Contract;
 using noon.Application.Services.ProductServices;
 using noon.Context.Context;
 using noon.Domain.Models.Identity;
+using noon.DTO.Helper;
+using noon.Infrastructure.Repositorys;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+
+builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
+
 builder.Services.AddDbContext<noonContext>(op =>
 {
     op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
