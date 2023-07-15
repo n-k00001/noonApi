@@ -1,3 +1,6 @@
+
+using Microsoft.AspNetCore.Hosting;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
@@ -6,6 +9,10 @@ using noon.Application.Services.ProductServices;
 using noon.Context.Context;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
+using noon.DTO.Helper;
+using noon.Infrastructure;
+using noon.Infrastructure.Repositorys;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +44,30 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequiredUniqueChars = 0;
 }).AddEntityFrameworkStores<noonContext>()
             .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+
+////
+/// Get Connection string and database provider from appsettings.json
+////
+string dbProvider = builder.Configuration.GetSection("dbProvider").Value;
+string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
+
+////
+/// add Hangfire
+////
+
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
+/// start Hangfire servise
+////
+builder.Services.AddHangfireServer();
+
+
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
+builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
+
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

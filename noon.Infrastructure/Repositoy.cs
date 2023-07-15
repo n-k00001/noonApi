@@ -22,7 +22,10 @@ namespace noon.Infrastructure
         }
         public async Task<TEntity> CreateAsync(TEntity TEntity)
         {
-            return (await _DbSet.AddAsync(TEntity)).Entity;
+            var entity = (await _DbSet.AddAsync(TEntity)).Entity;
+            await SaveChanges();
+            return entity;
+
         }
 
         public Task<IQueryable<TEntity>> GetAllAsync()
@@ -32,21 +35,27 @@ namespace noon.Infrastructure
 
         public async Task<TEntity> GetByIdAsync(TId TId)
         {
-            return (await _DbSet.FindAsync(TId));
+            return (await GetDetailsAsync(TId));
         }
         public Task<int> SaveChanges()
         {
             return Task.FromResult(noonContext.SaveChanges());
         }
-        public Task<bool> DeleteAsync(TId id)
+        public async Task<bool> DeleteAsync(TId id)
         {
-            throw new NotImplementedException();
+            var entity = await GetByIdAsync(id);
+            if (entity == null) return false;
+            _DbSet.Remove(entity);
+            await SaveChanges();
+            return true;
         }
 
 
-        public Task<bool> UpdateAsync(TEntity TEntity)
+        public async Task<TEntity> UpdateAsync(TEntity TEntity)
         {
-            throw new NotImplementedException();
+            var entity = (_DbSet.Update(TEntity)).Entity;
+            await SaveChanges();
+            return entity;
         }
         public virtual async Task<TEntity> GetDetailsAsync(TId id)
         {
