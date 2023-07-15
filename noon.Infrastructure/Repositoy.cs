@@ -38,7 +38,7 @@ namespace noon.Infrastructure
         {
             return Task.FromResult(noonContext.SaveChanges());
         }
-        public Task<bool> DeleteAsync(TEntity TEntity)
+        public Task<bool> DeleteAsync(TId id)
         {
             throw new NotImplementedException();
         }

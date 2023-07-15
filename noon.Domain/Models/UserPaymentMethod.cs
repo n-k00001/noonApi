@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using noon.Domain.Models.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace noon.Domain.Models
 {
     public class UserPaymentMethod
     {
+        [Key]
         public int PaymentMethodID { get; set; }
         public string Provider { get; set; }
         public string CardNumber { get; set; }

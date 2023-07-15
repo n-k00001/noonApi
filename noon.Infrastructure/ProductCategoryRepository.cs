@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using noon.Application.Contract;
+using noon.Context.Context;
+using noon.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
