@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
@@ -38,6 +39,22 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 }).AddEntityFrameworkStores<noonContext>()
             .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
+////
+/// Get Connection string and database provider from appsettings.json
+////
+string dbProvider = builder.Configuration.GetSection("dbProvider").Value;
+string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
+
+////
+/// add Hangfire
+////
+
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
+/// start Hangfire servise
+////
+builder.Services.AddHangfireServer();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -52,7 +69,7 @@ app.UseAuthorization();
 ////
 /// use dashboard path
 /// 
-//app.UseHangfireDashboard("/dashboard");
+app.UseHangfireDashboard("/dashboard");
 
 app.MapControllers();
 
