@@ -36,15 +36,15 @@ namespace noon.Domain.Models
         public int? size { get; set; }
         public ProductSize? availableSize
         {
-            get => (ProductSize)size;
-            set => size = (int)value;
+            get => (ProductSize?)size;
+            set => size = (int?)value;
         }
         // Reviews: A list of customer reviews for the product.
         public List<UserReview>? reviews { get; set; }
 
         [ForeignKey("store")]
-        public int? storeId { set; get; }
-        public Store store { get; set; }
+        public int storeId { set; get; }
+        public Store? store { get; set; }
 
     }
 }

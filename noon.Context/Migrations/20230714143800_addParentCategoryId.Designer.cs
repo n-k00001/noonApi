@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using noon.Context.Context;
 
@@ -11,9 +12,11 @@ using noon.Context.Context;
 namespace noon.Context.Migrations
 {
     [DbContext(typeof(noonContext))]
-    partial class noonContextModelSnapshot : ModelSnapshot
+    [Migration("20230714143800_addParentCategoryId")]
+    partial class addParentCategoryId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,6 +349,10 @@ namespace noon.Context.Migrations
                     b.Property<decimal?>("OrderDiscount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("PaymentIntentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PaymentStatus")
                         .HasColumnType("int");
 
@@ -367,9 +374,6 @@ namespace noon.Context.Migrations
                     b.Property<decimal>("Subtotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("paymentMethodId")
-                        .HasColumnType("int");
-
                     b.Property<string>("userId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -379,8 +383,6 @@ namespace noon.Context.Migrations
                     b.HasIndex("DeliveryMethodid");
 
                     b.HasIndex("ShipToAddressId");
-
-                    b.HasIndex("paymentMethodId");
 
                     b.HasIndex("userId");
 
@@ -546,44 +548,6 @@ namespace noon.Context.Migrations
                     b.ToTable("Store");
                 });
 
-            modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
-                {
-                    b.Property<int>("PaymentMethodID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentMethodID"));
-
-                    b.Property<string>("CVV")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpirationDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Provider")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PaymentMethodID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserPaymentMethods");
-                });
-
             modelBuilder.Entity("noon.Domain.Models.UserReview", b =>
                 {
                     b.Property<int>("id")
@@ -713,12 +677,6 @@ namespace noon.Context.Migrations
                         .WithMany()
                         .HasForeignKey("ShipToAddressId");
 
-                    b.HasOne("noon.Domain.Models.UserPaymentMethod", "paymentMethod")
-                        .WithMany("Orders")
-                        .HasForeignKey("paymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
                         .WithMany("Orders")
                         .HasForeignKey("userId")
@@ -730,8 +688,6 @@ namespace noon.Context.Migrations
                     b.Navigation("DeliveryMethod");
 
                     b.Navigation("ShipToAddress");
-
-                    b.Navigation("paymentMethod");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Order.OrderItem", b =>
@@ -789,17 +745,6 @@ namespace noon.Context.Migrations
                     b.Navigation("parentCategory");
                 });
 
-            modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
-                {
-                    b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
-                        .WithMany("paymentMethods")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("noon.Domain.Models.UserReview", b =>
                 {
                     b.HasOne("noon.Domain.Models.Product", "Product")
@@ -829,8 +774,6 @@ namespace noon.Context.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("UserAddresses");
-
-                    b.Navigation("paymentMethods");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Order.Order", b =>
@@ -860,11 +803,6 @@ namespace noon.Context.Migrations
             modelBuilder.Entity("noon.Domain.Models.Store", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,22 +1,49 @@
+
+using Microsoft.AspNetCore.Hosting;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using noon.Application.Contract;
+using noon.Application.Services.ProductBrandServices;
+using noon.Application.Services.ProductServices;
 using noon.Context.Context;
+using noon.Domain.Models;
 using noon.Domain.Models.Identity;
-using Microsoft.Extensions.Configuration;
-using noon.PostgreSqlContext;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Hangfire;
-using Hangfire.PostgreSql;
+using noon.DTO.Helper;
+using noon.Infrastructure;
+using noon.Infrastructure.Repositorys;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+
+builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
+
+builder.Services.AddDbContext<noonContext>(op =>
+{
+    op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
+    //op.UseNpgsql(builder.Configuration.GetConnectionString("Cs"));
+});
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    // Default Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 0;
+}).AddEntityFrameworkStores<noonContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
 ////
 /// Get Connection string and database provider from appsettings.json
@@ -25,76 +52,24 @@ string dbProvider = builder.Configuration.GetSection("dbProvider").Value;
 string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
 
 ////
-/// use dbprovider to optimize context
+/// add Hangfire
 ////
-if(dbProvider == "postgresql")
-{
-    builder.Services.AddDbContext<noonPostgrsContext>(op =>
-    {
-        op.UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
-    });
 
-    ////
-    /// Identity
-    ////
-    ///
-    builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-    {
-        // Default Password settings.
-        options.Password.RequireDigit = true;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireNonAlphanumeric = true;
-        options.Password.RequireUppercase = true;
-        options.Password.RequiredLength = 6;
-        options.Password.RequiredUniqueChars = 0;
-    }).AddEntityFrameworkStores<noonPostgrsContext>()
-                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
-
-    ////
-    /// add Hangfire
-    ////
-
-    builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));
-
-}
-else
-{
-    builder.Services.AddDbContext<noonContext>(op =>
-    {
-        op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
-    });
-
-    ////
-    /// Identity
-    ////
-
-    builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-    {
-        // Default Password settings.
-        options.Password.RequireDigit = true;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireNonAlphanumeric = true;
-        options.Password.RequireUppercase = true;
-        options.Password.RequiredLength = 6;
-        options.Password.RequiredUniqueChars = 0;
-    }).AddEntityFrameworkStores<noonContext>()
-                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
-   
-    ////
-    /// add Hangfire
-    ////
-
-    builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
-
-}
-////
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 /// start Hangfire servise
 ////
 builder.Services.AddHangfireServer();
 
 
-var app = builder.Build();
 
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
+builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
+
+
+
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
