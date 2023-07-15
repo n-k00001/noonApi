@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
@@ -7,10 +6,6 @@ using noon.Application.Services.ProductServices;
 using noon.Context.Context;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
-using noon.DTO.Helper;
-using noon.Infrastructure;
-using noon.Infrastructure.Repositorys;
-using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +15,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+
+builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
+
 builder.Services.AddDbContext<noonContext>(op =>
 {
     op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
@@ -37,14 +38,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 }).AddEntityFrameworkStores<noonContext>()
             .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
-
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRep, ProductRep>();
-builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
-builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
-
-
-
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -58,7 +51,7 @@ app.UseAuthorization();
 ////
 /// use dashboard path
 /// 
-//app.UseHangfireDashboard("/dashboard");
+app.UseHangfireDashboard("/dashboard");
 
 app.MapControllers();
 
