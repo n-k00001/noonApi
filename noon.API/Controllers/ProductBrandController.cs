@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.ProductBrandServices;
@@ -22,6 +23,7 @@ namespace noon.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var property = await brandServices.GetAllBrand();
+            Console.WriteLine(BackgroundJob.Enqueue(()=> brandServices.GetAllBrand()));
             return Ok(property);
         }
 
@@ -50,7 +52,7 @@ namespace noon.API.Controllers
         [HttpPut("{Id}")]
         public async Task<IActionResult> Update(ProductBrandDTO property)
         {
-            var brand = brandServices.Update(property);
+            var brand = BackgroundJob.Enqueue(()=>brandServices.Update(property)) ;
             return Ok(brand);
         }
 

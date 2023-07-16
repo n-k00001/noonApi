@@ -12,6 +12,7 @@ using noon.Domain.Models.Identity;
 namespace noon.PostgreSqlContext
 {
     public class noonPostgrsContext : IdentityDbContext<AppUser>
+    
     {
         public noonPostgrsContext(DbContextOptions<noonPostgrsContext> options) : base(options)
         {
@@ -26,6 +27,7 @@ namespace noon.PostgreSqlContext
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<UserReview> CustomerReviews { get; set; }
+        public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
 
     }
 }
