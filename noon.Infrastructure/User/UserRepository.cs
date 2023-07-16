@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using noon.DTO.UserDTO;
+using noon.Context.Context;
+using noon.Domain.Models.Identity;
+using Microsoft.EntityFrameworkCore;
+
+namespace noon.Infrastructure.User
+{
+    public class UserRepository
+    {
+        private readonly noonContext Context;
+
+        public UserRepository(noonContext noonContext)
+        {
+            this.Context = noonContext;
+        }
+       
+         public async Task<AppUser> GetProfileAsync(string id)
+        {
+             return await Context.Users.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<AppUser> UpdateUserAsync(string id)
+        {
+
+        }
+
+        public async Task<AppUser> UpdatePhoneNumberAsync(string id)
+        {
+
+        }
+
+          public async Task<AppUser> UpdatePasswordAsync(string id)
+        {
+
+        }
+        public async Task<AppUser> DeleteUserAsync(string id)
+        {
+
+        }
+
+         public async Task<Address> GetAddressListAsync(string id)
+        {
+
+        }
+         public async Task<Address> UpdateAddressAsync(string id)
+        {
+
+        }
+
+         public async Task<Address> AddAddressAsync(string id)
+        {
+
+        }
+
+
+
+
+
+   }
+}
