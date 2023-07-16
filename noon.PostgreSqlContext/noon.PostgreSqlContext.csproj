@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\noon.Application\noon.Application.csproj" />
     <ProjectReference Include="..\noon.Domain\noon.Domain.csproj" />
+    <ProjectReference Include="..\noon.Context\noon.Context.csproj" />
   </ItemGroup>
 
 </Project>
