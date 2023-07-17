@@ -24,8 +24,8 @@ namespace noon.API.Controllers
             var property = await userAddressServices.GetAllUserAddressesAsync(userId);
             return Ok(property);
         }
-        [HttpGet]
-        [Route("{UserIdDefualt}")]
+
+        [HttpGet("default/{UserId}")]
         public async Task<IActionResult> GetDefualtAddress(string userId)
         {
             var property = await userAddressServices.getDefualtAddress(userId);

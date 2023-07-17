@@ -17,6 +17,7 @@ using AutoMapper;
 using noon.Application.Services.ProductCategoryServices;
 using noon.Application.Services.UserAddressServices;
 using noon.Application.Services.AdreessServices;
+using noon.Application.Services.Basket;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,6 +86,8 @@ builder.Services.AddScoped<IUserAddressServices, UserAddressServices>();
 builder.Services.AddScoped<IAddressServices, AddressServices>();
 
 
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddScoped<IBasketService, BasketService>();    
 
 
 var app = builder.Build();
