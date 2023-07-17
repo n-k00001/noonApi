@@ -26,7 +26,7 @@ namespace noon.Infrastructure
             return (await _DbSet.AddAsync(TEntity)).Entity;
         }
 
-        public  Task<IQueryable<TEntity>> GetAllAsync()
+        public Task<IQueryable<TEntity>> GetAllAsync()
         {
             
             return Task.FromResult(_DbSet.Select(T => T));
@@ -74,6 +74,11 @@ namespace noon.Infrastructure
             var entityType = typeof(TEntity);
             var re = await noonContext.FindAsync(entityType, id);
             return (TEntity)re;
+        }
+
+        Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

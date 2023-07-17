@@ -1,5 +1,5 @@
 ﻿using noon.Domain.Contract;
-using noon.Domain.Models;
+using noon.Domain.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace noon.Application.Contract
 {
-    public interface IUserPaymentMethodRepository: IRepository<UserPaymentMethod, int>
+    public interface IAddressRepository: IRepository<Address,int>
     {
-        public Task<UserPaymentMethod> GetDefualt(string AppUserId);
     }
 }

@@ -13,7 +13,6 @@ namespace noon.Infrastructure
     public class ProductCategoryRepository : Repositoy<ProductCategory, int>, IProductCategoryRepository
     {
         private readonly noonContext noonContext;
-
         public ProductCategoryRepository(noonContext noonContext) : base(noonContext)
         {
             this.noonContext = noonContext;
@@ -24,7 +23,6 @@ namespace noon.Infrastructure
             return noonContext.ProductCategorys.Where(a => (a.name.ToLower().Contains(filter.ToLower()) || a.name.Contains(filter)))
                 .Where(c => c.parentCategory.id == id);
         }
-
 
         public override async Task<ProductCategory> GetDetailsAsync(int id)
         {

@@ -16,7 +16,7 @@ namespace noon.DTO.ProductDTO
         public ProductCategory category { get; set; }
         public int brandId { get; set; }
         public ProductBrand brand { get; set; }
-        // Image: The URL of the product's image.        
+        // Image: The URL of the product's image.       
         public List<Image>? images { get; set; }
         public Decimal price { get; set; }
         public bool? inStock

@@ -155,6 +155,32 @@ namespace noon.Context.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.BasketItem", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("basketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("basketId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.Identity.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -181,7 +207,7 @@ namespace noon.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresss");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Identity.AppUser", b =>
@@ -274,7 +300,7 @@ namespace noon.Context.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("UserAddress");
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Image", b =>
@@ -546,6 +572,25 @@ namespace noon.Context.Migrations
                     b.ToTable("Store");
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.UserBasket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("userBaskets");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
                 {
                     b.Property<int>("PaymentMethodID")
@@ -671,6 +716,25 @@ namespace noon.Context.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.BasketItem", b =>
+                {
+                    b.HasOne("noon.Domain.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("noon.Domain.Models.UserBasket", "userBasket")
+                        .WithMany("Items")
+                        .HasForeignKey("basketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("userBasket");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.Identity.UserAddress", b =>
                 {
                     b.HasOne("noon.Domain.Models.Identity.Address", "Address")
@@ -789,6 +853,17 @@ namespace noon.Context.Migrations
                     b.Navigation("parentCategory");
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.UserBasket", b =>
+                {
+                    b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
                 {
                     b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
@@ -860,6 +935,11 @@ namespace noon.Context.Migrations
             modelBuilder.Entity("noon.Domain.Models.Store", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("noon.Domain.Models.UserBasket", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>

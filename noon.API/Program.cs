@@ -1,14 +1,20 @@
+
+using Microsoft.AspNetCore.Hosting;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
 using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductServices;
+using noon.Application.Services.UserPaymenService;
 using noon.Context.Context;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
 using noon.DTO.Helper;
+using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
+using AutoMapper;
+using noon.Application.Services.ProductCategoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +28,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
 
+    
+
 builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
@@ -29,6 +37,11 @@ builder.Services.AddDbContext<noonContext>(op =>
     op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
     //op.UseNpgsql(builder.Configuration.GetConnectionString("Cs"));
 });
+
+builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
+builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
+
+
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
     // Default Password settings.
@@ -55,6 +68,17 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 /// start Hangfire servise
 ////
 builder.Services.AddHangfireServer();
+
+
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
+builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
