@@ -15,6 +15,7 @@ using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
 using AutoMapper;
 using noon.Application.Services.ProductCategoryServices;
+using noon.Application.Services.Basket;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,7 +78,8 @@ builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
 builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
-
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddScoped<IBasketService, BasketService>();    
 
 
 var app = builder.Build();
