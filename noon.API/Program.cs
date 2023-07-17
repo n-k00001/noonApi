@@ -13,6 +13,7 @@ using noon.DTO.Helper;
 using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
 using AutoMapper;
+using noon.Application.Services.ProductCategoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
 builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
 builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
 
 

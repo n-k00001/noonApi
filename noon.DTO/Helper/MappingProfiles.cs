@@ -14,8 +14,9 @@ namespace noon.DTO.Helper
         public MappingProfiles()
         {
             
-            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();    
-                
+            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
+            CreateMap<ProductCategory,ProductCategoryDTO >().ReverseMap();
+
             CreateMap<Product, ProductDto>()
                 .ForMember(d => d.brand, o => o.MapFrom(b => b.brand.name))
                 .ForMember(d => d.category, o => o.MapFrom(b => b.category.name))
