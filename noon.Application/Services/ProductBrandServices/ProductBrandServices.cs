@@ -41,8 +41,15 @@ namespace noon.Application.Services.ProductBrandServices
 
         public async Task<ProductBrandDTO> Update(ProductBrandDTO brandDTO)
         {
-            var model = mapper.Map<ProductBrand>(brandDTO);
-            await productBrandRep.UpdateAsync(model);            
+            if (brandDTO.id == 0) {
+                Create(brandDTO);
+            }
+            else
+            {
+                var model = mapper.Map<ProductBrand>(brandDTO);
+                await productBrandRep.UpdateAsync(model); 
+            }
+                       
             return brandDTO;
         }
 

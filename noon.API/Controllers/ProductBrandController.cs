@@ -47,6 +47,18 @@ namespace noon.API.Controllers
                 return StatusCode(500, "Cant' create");
             }
         }
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update(ProductBrandDTO property)
+        {
+            var brand = brandServices.Update(property);
+            return Ok(brand);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int Id)
+        {
+            return Ok(brandServices.Delete(Id));
+        }
 
     }
 }

@@ -1,3 +1,5 @@
+
+using Microsoft.AspNetCore.Hosting;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,8 @@ using noon.Domain.Models.Identity;
 using noon.DTO.Helper;
 using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
+using AutoMapper;
+using noon.Application.Services.ProductCategoryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +68,17 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 /// start Hangfire servise
 ////
 builder.Services.AddHangfireServer();
+
+
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRep, ProductRep>();
+builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
+builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
