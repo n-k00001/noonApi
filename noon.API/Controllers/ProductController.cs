@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.ProductServices;
+using noon.DTO.ProductDTO;
 
 namespace noon.API.Controllers
 {
@@ -30,6 +31,14 @@ namespace noon.API.Controllers
         {
             var property = await productService.GetAllPropertyPagination(items, PageNumber);
             return Ok(property);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddEditProductDto AddEditProductDto)
+        {
+            await productService.Create(AddEditProductDto);
+
+            return Created("", AddEditProductDto);
         }
 
     }

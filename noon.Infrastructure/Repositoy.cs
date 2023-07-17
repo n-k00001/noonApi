@@ -26,11 +26,11 @@ namespace noon.Infrastructure
             return (await _DbSet.AddAsync(TEntity)).Entity;
         }
 
-        public Task<IQueryable<TEntity>> GetAllAsync()
+        public  Task<IQueryable<TEntity>> GetAllAsync()
         {
             
-                return Task.FromResult(_DbSet.Select(T => T));
-            
+            return Task.FromResult(_DbSet.Select(T => T));
+
         }
 
         public async Task<TEntity> GetByIdAsync(TId TId)
