@@ -18,12 +18,14 @@ namespace noon.Infrastructure.User
         {
             this.Context = noonContext;
         }
-          public async Task<UserRepository> UpdateAsync(UserRepository TEntity)
-        {
-            var entity = (Context.Update(TEntity)).Entity;
-            await SaveChanges();
-            return entity;
-        }
+        //   public async Task<UserRepository> UpdateAsync(UserRepository TEntity)
+        // {
+        //     var entity = (Context.Update(TEntity)).Entity;
+        //     await SaveChanges();
+        //     return entity;
+        // }
+
+        
       
         //  public async Task<AppUser> GetProfileAsync(string id)
         // {

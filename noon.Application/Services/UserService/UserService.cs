@@ -6,6 +6,7 @@ using noon.DTO.UserDTO;
 using noon.Application.Contract;
 using AutoMapper;
 using BCrypt.Net;
+using noon.Domain.Models.Identity;
 
 namespace noon.Application.Services.UserService
 {
@@ -15,34 +16,25 @@ namespace noon.Application.Services.UserService
         private IUserRepository userRepository;
          private  IMapper mapper;
 
-
         public UserService(IUserRepository _userRepository, IMapper mapper)
         {
             this.userRepository = _userRepository ;
             this.mapper = mapper;
         }
-        public Task<ProfileDTO> Create(ProfileDTO propertyDTO)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public Task<bool> Delete(string id)
+        public async Task<ProfileDTO> GetProfileById(string id)
         {
-            throw new NotImplementedException();
-        }
-
-      
-
-        public async Task<ProfileDTO> GetById(string id)
-        {
-          
+          ///######## OK ########
             var appUser = await userRepository.GetByIdAsync(id);
             var Profile = mapper.Map<ProfileDTO>(appUser);
             return Profile;
 
         }
 
-        public async void UpdatePasswordAsync(string password ,string id)
+   
+
+        public async void UpdatePassword(string password ,string id)
        {
         var appUser = await userRepository.GetByIdAsync(id);
         appUser.PasswordHash = password;
@@ -50,12 +42,32 @@ namespace noon.Application.Services.UserService
 
        }
 
-        // public Task<ProfileDTO> GetProfile(string id)
-        // {
+        public async Task<ProfileDTO> UpdateUser(string Id, ProfileDTO profile)
+        {
 
-        // }
+            var obj = userRepository.GetByIdAsync(Id);
 
-        public Task<ProfileDTO> Update(ProfileDTO propertyDTO)
+             if (obj == null) {
+                Console.WriteLine("User not found id : "+Id);
+            }
+            else
+            {
+                var model = mapper.Map<AppUser>(profile);
+                await userRepository.UpdateAsync(model); 
+            
+            }          
+            return profile;
+
+        }
+
+         public async Task<ProfileDTO> Create(ProfileDTO profile)
+        {
+            var brand = mapper.Map<AppUser>(profile);
+            await userRepository.CreateAsync(brand);
+            return profile;
+        }
+
+        public Task<PasswordDTO> UpdateUserPassword(PasswordDTO password)
         {
             throw new NotImplementedException();
         }
