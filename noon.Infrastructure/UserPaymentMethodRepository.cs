@@ -18,10 +18,14 @@ namespace noon.Infrastructure
             this.noonContext = noonContext;
         }
 
+      
+
         public async Task<UserPaymentMethod> GetDefualt(string AppUserId)
         {
             return noonContext.UserPaymentMethods.FirstOrDefault(p => p.UserID == AppUserId && p.IsDefault == true);
         }
+
+       
     }
 
 }

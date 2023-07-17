@@ -68,5 +68,8 @@ namespace noon.Domain.Models.Order
         public int paymentMethodId { set; get; }
         public UserPaymentMethod paymentMethod { get; set; }
 
+        //public class Order
+        //{
+        //}
     }
 }
