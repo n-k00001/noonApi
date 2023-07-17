@@ -13,6 +13,8 @@ using noon.DTO.Helper;
 using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
 using AutoMapper;
+using noon.Infrastructure.User;
+using noon.Application.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,8 +69,8 @@ builder.Services.AddScoped<IProductRep, ProductRep>();
 builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
 builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
 
-
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

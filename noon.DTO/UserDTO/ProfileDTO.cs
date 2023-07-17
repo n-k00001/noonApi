@@ -7,7 +7,7 @@ namespace noon.DTO.UserDTO
 {
     public class ProfileDTO
     {
-        public string UserId { get; set; }
+        public string Id { get; set; }
         public string DisplayName { get; set; }
 
         public string UserName { get; set; }
