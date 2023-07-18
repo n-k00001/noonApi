@@ -10,6 +10,6 @@ namespace noon.Application.Contract
 {
     public interface IUserRepository: IRepository<AppUser, string>
     {
-        
+         public  Task<AppUser> GetProfileAsync(string id);
     }
 }

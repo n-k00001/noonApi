@@ -16,4 +16,9 @@
     <ProjectReference Include="..\noon.Domain\noon.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

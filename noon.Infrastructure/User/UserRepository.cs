@@ -7,6 +7,7 @@ using noon.Context.Context;
 using noon.Domain.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace noon.Infrastructure.User
 {
@@ -14,10 +15,21 @@ namespace noon.Infrastructure.User
     {
         private readonly noonContext Context;
 
+       
         public UserRepository(noonContext noonContext):base(noonContext)
         {
             this.Context = noonContext;
         }
+
+     
+ // public async Task<bool> UpdateUserPassword(string password, AppUser appUser)
+        // {
+        //     appUser.PasswordHash = BCryptNet.HashPassword(password);
+ 
+        // }
+
+
+
         //   public async Task<UserRepository> UpdateAsync(UserRepository TEntity)
         // {
         //     var entity = (Context.Update(TEntity)).Entity;
@@ -27,10 +39,12 @@ namespace noon.Infrastructure.User
 
         
       
-        //  public async Task<AppUser> GetProfileAsync(string id)
-        // {
-        //      return await Context.Users.FirstOrDefaultAsync(c => c.Id == id);
-        // }
+         public async Task<AppUser> GetProfileAsync(string id)
+
+        {    
+
+             return await Context.Users.Where(c=> c.Id == id).FirstOrDefaultAsync();
+        }
 
         // public async Task<AppUser> UpdateUserAsync(string id)
         // {
