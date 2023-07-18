@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace noon.Domain.Models
+namespace noon.DTO.BasketDTO
 {
-    public class BasketItem
+    public class UserBasketForUpdateDto
     {
-        
+        public List<BasketItemForUpdateDto> Items { get; set; }
+
     }
 }

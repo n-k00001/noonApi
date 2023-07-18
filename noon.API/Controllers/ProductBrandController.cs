@@ -29,7 +29,6 @@ namespace noon.API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            // 11111111-2222-3333-4444-555555555555
             var property = await brandServices.GetById(id);
             return Ok(property);
         }
