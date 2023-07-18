@@ -9,6 +9,6 @@ namespace noon.Domain.Models
 {
     public class BasketItem
     {
-        
+        public int id { get; set; }
     }
 }

@@ -71,5 +71,12 @@ namespace noon.Application.Services.ProductServices
                 return AddEditProductDto;
             }
         }
+
+        public async Task<List<ProductDto>> SearchByProductName(string ProductName)
+        {
+            var product = await productRep.SearchByProductNameAsync(ProductName);
+            var model = mapper.Map<List<ProductDto>>(product);
+            return model;
+        }
     }
 }

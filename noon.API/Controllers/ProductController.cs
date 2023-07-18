@@ -33,7 +33,17 @@ namespace noon.API.Controllers
             return Ok(property);
         }
 
-        
+
+        [HttpGet]
+        [Route("Search/{ProductName}")]
+        public async Task<IActionResult> SearchByProductName(string ProductName)
+        {
+            // 11111111-2222-3333-4444-555555555555
+            var property = await productService.SearchByProductName(ProductName);
+            return Ok(property);
+        }
+
+
 
     }
 }

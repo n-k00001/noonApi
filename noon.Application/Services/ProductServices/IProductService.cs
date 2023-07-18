@@ -14,5 +14,6 @@ namespace noon.Application.Services.ProductServices
         public Task<ProductDto> GetById(Guid id);
         public Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto);
         public Task<bool> Delete(Guid id);
+        public Task<List<ProductDto>> SearchByProductName(string ProductName);
     }
 }
