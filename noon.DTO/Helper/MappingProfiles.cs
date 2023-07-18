@@ -21,23 +21,13 @@ namespace noon.DTO.Helper
             CreateMap<Product, AddEditProductDto>().ReverseMap();
 
             CreateMap<Product, ProductDto>().ReverseMap();
-            //CreateMap<Product, ProductDto>()
-            //    .ForMember(d => d.brand, o => o.MapFrom(b => b.brand.name))
-            //    .ForMember(d => d.category, o => o.MapFrom(b => b.category.name))
-            //    .ForMember(d => d.store, o => o.MapFrom(b => b.store.Name)).ReverseMap();
+            
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<ProductCategory,ProductCategoryDTO >().ReverseMap();
             CreateMap<BasketItem,BasketItemForUpdateDto>().ReverseMap();
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
             CreateMap<UserBasket,UserBasketForUpdateDto>().ReverseMap();
             CreateMap<UserBasket, UserBasketDto>().ReverseMap();
-
-
-
-            CreateMap<Product, ProductDto>()
-                .ForMember(d => d.brand, o => o.MapFrom(b => b.brand.name))
-                .ForMember(d => d.category, o => o.MapFrom(b => b.category.name))
-                .ForMember(d => d.store, o => o.MapFrom(b => b.store.Name)).ReverseMap();
 
             CreateMap<UserPaymentMethod,CreateOrUpdateUserpaymentDto>().ReverseMap();
             CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
