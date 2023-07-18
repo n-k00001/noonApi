@@ -16,18 +16,21 @@ namespace noon.API.Controllers
             _basketService = basketService;
         }
 
-        [HttpGet("/basket")]
-        public async Task<IActionResult> GetBasket()
+        [HttpGet]
+        [Route ("{id}")]
+        public async Task<IActionResult> GetBasketById(string id)
         {
-            var basket = await _basketService.GetBasketByUserIdAsync(User.Identity.Name);
+            var basket = await _basketService.GetBasketByUserIdAsync(id);
             return Ok(basket);
         }
+        //[FromBody] 
+        [HttpPut]
 
-        [HttpPut("/basket")]
-        public async Task<IActionResult> UpdateBasket([FromBody] UserBasketForUpdateDto basketDto)
+        public async Task<IActionResult> UpdateBasket(UserBasketForUpdateDto basketDto)
         {
-            await _basketService.UpdateBasketAsync(basketDto);
-            return NoContent();
+             await _basketService.UpdateBasketAsync(basketDto);
+
+            return Ok();
         }
     }
 }
