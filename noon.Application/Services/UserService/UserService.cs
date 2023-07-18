@@ -77,17 +77,18 @@ namespace noon.Application.Services.UserService
 //     Console.WriteLine("Password Un hash is {0}", password);
 //     return isMatched;
 // }
-        public async void UpdateUserPassword(string id, string password ,string currentPassword)
+        public async void UpdateUserPassword(string email, string password ,string currentPassword)
        {
 
-        // var appUser = await userRepository.GetByIdAsync(id);
-        var appUser = await userRepository.GetProfileAsync(id);
-         userManager.ChangePasswordAsync(appUser,currentPassword,password);
-
-        // appUser.PasswordHash =  BCrypt.Net.BCrypt.HashPassword(password);
-       
+         //var appUser = await userRepository.GetByIdAsync(id);
+        // var appUser =  await userManager.FindByIdAsync(id);
+        var appUser = await userManager.FindByEmailAsync(email);
+var result = await userManager.ChangePasswordAsync(appUser, currentPassword, password);
+if (!result.Succeeded)
+{
         Console.WriteLine("Update password successful");
-       }
+  }
+    }
     
 // public async void UpdateUserPassword(string password, string id)
 // {

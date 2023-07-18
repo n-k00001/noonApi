@@ -42,7 +42,7 @@ namespace noon.Infrastructure.User
          public async Task<AppUser> GetProfileAsync(string id)
 
         {    
-
+            
              return await Context.Users.Where(c=> c.Id == id).FirstOrDefaultAsync();
         }
 

@@ -19,12 +19,12 @@ namespace noon.Context.Context
         
         public noonContext(DbContextOptions<noonContext> options) : base(options)
         {
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            //ChangeTracker.AutoDetectChangesEnabled = false;
-            //ChangeTracker.LazyLoadingEnabled = false;
-            //// ChangeTracker.CascadeDeletingTiming = CascadeTiming.OnSaveChanges;
-            //ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
-            //// ChangeTracker.ConcurrencyTokenInterceptor = new ConcurrencyTokenInterceptor();
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.LazyLoadingEnabled = false;
+            // ChangeTracker.CascadeDeletingTiming = CascadeTiming.OnSaveChanges;
+            ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
+            //  ChangeTracker.ConcurrencyTokenInterceptor = new ConcurrencyTokenInterceptor();
         }
 
 

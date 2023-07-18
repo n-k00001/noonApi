@@ -16,12 +16,18 @@ namespace noon.API.Controllers
     public class UserController : ControllerBase
     {
 
-    private readonly IUserService userService;
+         private readonly IUserService userService;
+        private readonly SignInManager<AppUser> signInManager;
+        private readonly UserManager<AppUser> userManager ;
+       
 
-    public UserController(IUserService _userService)
+    public UserController(IUserService _userService,UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager)
     {
         this.userService = _userService;
+         signInManager = _signInManager;
+            userManager = _userManager;
     }
+
         [HttpGet]
         [Route("{id}")]
          public async Task<IActionResult> GetProfileByID(string id)
@@ -66,7 +72,7 @@ namespace noon.API.Controllers
 
 
 [HttpPut("{Id}/Password")]
-public async Task<IActionResult> UpdatePassword(string id, string currentPassword, string newPassword)
+public async Task<IActionResult> UpdatePassword(string email, string currentPassword, string newPassword)
 {
 
    //{ var password = await userService.GetPasswordById(id);
@@ -87,7 +93,7 @@ public async Task<IActionResult> UpdatePassword(string id, string currentPasswor
      // password.PasswordHash = passwordHasher.HashPassword(password, newPassword);
 
     //  userService.ValidatePassword(id, currentPassword);
-     userService.UpdateUserPassword(id, newPassword,currentPassword);
+     userService.UpdateUserPassword(email, newPassword,currentPassword);
 
     return Ok();
 }
