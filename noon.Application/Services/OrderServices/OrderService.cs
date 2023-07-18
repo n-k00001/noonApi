@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace noon.DTO.ProductDTO
+namespace noon.Application.Services.OrderServices
 {
-    public class OrderDTO
+    public class OrderService
     {
-
     }
 }
