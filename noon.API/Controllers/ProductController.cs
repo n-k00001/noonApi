@@ -33,13 +33,7 @@ namespace noon.API.Controllers
             return Ok(property);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(AddEditProductDto AddEditProductDto)
-        {
-            await productService.Create(AddEditProductDto);
-
-            return Created("", AddEditProductDto);
-        }
+        
 
     }
 }
