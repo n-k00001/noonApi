@@ -19,6 +19,9 @@ using noon.Application.Services.UserAddressServices;
 using noon.Application.Services.AdreessServices;
 using noon.Application.Services.Basket;
 using noon.Application.Services.Mailing_SMS_Service;
+using noon.Application.Services.OrderServices;
+using noon.Domain.Contract;
+using noon.Domain.Models.Order;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,7 +93,12 @@ builder.Services.AddScoped<IAddressServices, AddressServices>();
 
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-builder.Services.AddScoped<IBasketService, BasketService>();    
+builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+builder.Services.AddScoped<IRepository<DeliveryMethod, int>, Repositoy<DeliveryMethod, int>>();
 
 
 var app = builder.Build();

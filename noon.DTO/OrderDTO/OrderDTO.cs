@@ -14,6 +14,7 @@ namespace noon.DTO.OrderDTO
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public AddressDTO? ShipToAddress { get; set; }
         public int paymentMethodId { set; get; }
+        public int DeliveryMethodId { get; set; }
         public IReadOnlyList<OrderItemDTO> Items { get; set; }
     }
 }
