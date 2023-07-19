@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using noon.Domain.Models.Order;
 using noon.Domain.Models;
-using noon.Domain.Models.Identity;
 using noon.DTO.BasketDTO;
 using noon.Domain.Models.Identity;
+using noon.DTO.OrderDTO;
 using noon.DTO.ProductDTO;
 using noon.DTO.UserPaymentDto;
 using noon.DTO.UserPaymentDto;
@@ -20,20 +21,20 @@ namespace noon.DTO.Helper
     {
         public MappingProfiles()
         {
-            
-            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();    
+
+            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<Product, AddEditProductDto>().ReverseMap();
 
             CreateMap<Product, ProductDto>().ReverseMap();
-            
+
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
-            CreateMap<ProductCategory,ProductCategoryDTO >().ReverseMap();
-            CreateMap<BasketItem,BasketItemForUpdateDto>().ReverseMap();
+            CreateMap<ProductCategory, ProductCategoryDTO>().ReverseMap();
+            CreateMap<BasketItem, BasketItemForUpdateDto>().ReverseMap();
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
-            CreateMap<UserBasket,UserBasketForUpdateDto>().ReverseMap();
+            CreateMap<UserBasket, UserBasketForUpdateDto>().ReverseMap();
             CreateMap<UserBasket, UserBasketDto>().ReverseMap();
 
-            CreateMap<UserPaymentMethod,CreateOrUpdateUserpaymentDto>().ReverseMap();
+            CreateMap<UserPaymentMethod, CreateOrUpdateUserpaymentDto>().ReverseMap();
             CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
 
 
@@ -61,6 +62,9 @@ namespace noon.DTO.Helper
             CreateMap<AppUser, ProfileDTO>().ReverseMap();
             CreateMap<AppUser, PasswordDTO>()
             .ForMember(d => d.PasswordHash, o=> o.MapFrom(b => b.PasswordHash)).ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemUpdateDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO.OrderDTO>().ReverseMap();
 
         }
     }

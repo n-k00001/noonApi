@@ -11,5 +11,7 @@ namespace noon.Application.Contract
     {
         Task<UserBasket> GetBasketByUserIdAsync(string userId);
         Task<UserBasket> UpdateBasketAsync(UserBasket basket);
+        Task<bool> DeleteBasketAsync(int basketId);
+
     }
 }

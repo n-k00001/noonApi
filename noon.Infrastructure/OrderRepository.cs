@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 
 namespace noon.Infrastructure
 {
-    public class OrderRep : Repositoy<Order, Guid>, IOrderRep
+    public class OrderRepository : Repositoy<Order, Guid>, IOrderRepository
     {
-        public OrderRep(noonContext noonContext) : base(noonContext)
+        private readonly noonContext noonContext;
+
+        public OrderRepository(noonContext noonContext) : base(noonContext)
         {
+            this.noonContext = noonContext;
         }
     }
 }

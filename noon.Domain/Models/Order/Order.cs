@@ -36,7 +36,7 @@ namespace noon.Domain.Models.Order
 
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public Address? ShipToAddress { get; set; }
-        public DeliveryMethod DeliveryMethod { get; set; }
+        public DeliveryMethod? DeliveryMethod { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         /// Gets or sets the payment status identifier
@@ -59,17 +59,14 @@ namespace noon.Domain.Models.Order
             set => ShippingStatusId = (int)value;
         }
         public IReadOnlyList<OrderItem> Items { get; set; }
-        public decimal Subtotal { set; get; }
+        public decimal? Subtotal { set; get; }
         public decimal? OrderDiscount { get; set; }
-        public decimal GetTotal()
+        public decimal? GetTotal()
             => (Subtotal + DeliveryMethod.Cost);
 
         [ForeignKey("paymentMethod")]
         public int paymentMethodId { set; get; }
         public UserPaymentMethod paymentMethod { get; set; }
 
-        //public class Order
-        //{
-        //}
     }
 }
