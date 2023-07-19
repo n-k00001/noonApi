@@ -11,5 +11,7 @@ namespace noon.Application.Services.Basket
     {
         Task<UserBasketDto> GetBasketByUserIdAsync(string userId);
         Task UpdateBasketAsync(UserBasketForUpdateDto basketDto);
+        Task<bool> DeleteBasketAsync(int basketId);
+
     }
 }

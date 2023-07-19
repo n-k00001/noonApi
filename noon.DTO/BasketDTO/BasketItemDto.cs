@@ -11,7 +11,7 @@ namespace noon.DTO.BasketDTO
         public int Id { get; set; }
         public int BasketId { get; set; }
         public Guid ProductId { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
         public int Quantity { get; set; }
     }
 }
