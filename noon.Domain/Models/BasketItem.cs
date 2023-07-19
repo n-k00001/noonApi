@@ -9,14 +9,14 @@ namespace noon.Domain.Models
 {
     public class BasketItem
     {
-        public int id { set; get; }
+        public int id { get; set; }
         [ForeignKey("userBasket")]
-        public int basketId { set; get; }
-        public UserBasket userBasket { set; get; }  
+        public int BasketId { get; set; }
+        public UserBasket userBasket { get; set; }
         [ForeignKey("Product")]
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public decimal totalPrice { set => totalPrice = Quantity * Product.price; }
+       // public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }
     }
 }

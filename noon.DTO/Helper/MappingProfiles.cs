@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
+using noon.DTO.BasketDTO;
+using noon.Domain.Models.Identity;
 using noon.DTO.ProductDTO;
+using noon.DTO.UserPaymentDto;
 using noon.DTO.UserPaymentDto;
 using System;
 using System.Collections.Generic;
@@ -18,6 +21,26 @@ namespace noon.DTO.Helper
         public MappingProfiles()
         {
             
+            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();    
+            CreateMap<Product, AddEditProductDto>().ReverseMap();
+
+            CreateMap<Product, ProductDto>().ReverseMap();
+            
+            CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
+            CreateMap<ProductCategory,ProductCategoryDTO >().ReverseMap();
+            CreateMap<BasketItem,BasketItemForUpdateDto>().ReverseMap();
+            CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+            CreateMap<UserBasket,UserBasketForUpdateDto>().ReverseMap();
+            CreateMap<UserBasket, UserBasketDto>().ReverseMap();
+
+            CreateMap<UserPaymentMethod,CreateOrUpdateUserpaymentDto>().ReverseMap();
+            CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
+
+
+
+
+
+
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<ProductCategory,ProductCategoryDTO >().ReverseMap();
 

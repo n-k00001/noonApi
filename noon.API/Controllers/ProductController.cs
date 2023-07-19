@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.ProductServices;
+using noon.DTO.ProductDTO;
 
 namespace noon.API.Controllers
 {
@@ -31,6 +32,18 @@ namespace noon.API.Controllers
             var property = await productService.GetAllPropertyPagination(items, PageNumber);
             return Ok(property);
         }
+
+
+        [HttpGet]
+        [Route("Search/{ProductName}")]
+        public async Task<IActionResult> SearchByProductName(string ProductName)
+        {
+            // 11111111-2222-3333-4444-555555555555
+            var property = await productService.SearchByProductName(ProductName);
+            return Ok(property);
+        }
+
+
 
     }
 }

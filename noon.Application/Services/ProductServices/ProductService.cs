@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using noon.Application.Contract;
+using noon.Domain.Models;
 using noon.DTO.ProductDTO;
 using System;
 using System.Collections.Generic;
@@ -35,20 +37,46 @@ namespace noon.Application.Services.ProductServices
             var model = mapper.Map<List<ProductDto>>(PaginationList);
             return model;
         }
-        public Task<ProductDto> Create(ProductDto propertyDTO)
+        public async Task<AddEditProductDto> Create(AddEditProductDto AddEditProductDto)
         {
-            throw new NotImplementedException();
+
+            var data = mapper.Map<Product>(AddEditProductDto);
+
+            await productRep.CreateAsync(data);
+
+            await productRep.SaveChanges();
+            return AddEditProductDto;
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            await productRep.DeleteAsync(id);
+            await productRep.SaveChanges();
+            return true;
         }
 
 
-        public Task<ProductDto> Update(ProductDto propertyDTO)
+        public async Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto)
         {
-            throw new NotImplementedException();
+            if (AddEditProductDto.sku != null)
+            {
+                var data = mapper.Map<Product>(AddEditProductDto);
+                await productRep.UpdateAsync(data);
+                await productRep.SaveChanges();
+                return AddEditProductDto;
+
+            }
+            else
+            {
+                return AddEditProductDto;
+            }
+        }
+
+        public async Task<List<ProductDto>> SearchByProductName(string ProductName)
+        {
+            var product = await productRep.SearchByProductNameAsync(ProductName);
+            var model = mapper.Map<List<ProductDto>>(product);
+            return model;
         }
     }
 }

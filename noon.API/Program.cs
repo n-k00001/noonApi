@@ -6,6 +6,7 @@ using noon.Application.Contract;
 using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductServices;
 using noon.Application.Services.UserPaymenService;
+using noon.Application.Services.UserPaymenService;
 using noon.Context.Context;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
@@ -13,6 +14,11 @@ using noon.DTO.Helper;
 using noon.Infrastructure;
 using noon.Infrastructure.Repositorys;
 using AutoMapper;
+using noon.Application.Services.ProductCategoryServices;
+using noon.Application.Services.UserAddressServices;
+using noon.Application.Services.AdreessServices;
+using noon.Application.Services.Basket;
+using noon.Application.Services.Mailing_SMS_Service;
 using noon.Application.Services.ProductCategoryServices;
 using noon.Infrastructure.User;
 using noon.Application.Services.UserService;
@@ -31,6 +37,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
 
+    
+
 
 
 builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
@@ -40,6 +48,11 @@ builder.Services.AddDbContext<noonContext>(op =>
     op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
     //op.UseNpgsql(builder.Configuration.GetConnectionString("Cs"));
 });
+
+builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
+builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
+
+
 
 
 
@@ -71,6 +84,10 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 ////
 builder.Services.AddHangfireServer();
 
+// Mail settings configuration 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
+
 
 builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
 builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
@@ -80,10 +97,19 @@ builder.Services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
 builder.Services.AddScoped<IProductBrandServices, ProductBrandServices>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IUserAddressServices, UserAddressServices>();
+builder.Services.AddScoped<IAddressServices, AddressServices>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddScoped<IBasketService, BasketService>();    
 
 
 var app = builder.Build();
