@@ -1,5 +1,4 @@
 ﻿using noon.Domain.Contract;
-using noon.Domain.Models;
 using noon.Domain.Models.Order;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace noon.Application.Contract
 {
-    public interface IOrderRep : IRepository<Order, Guid>
+    public interface IOrderItemRepository : IRepository<OrderItem, int>
     {
-
     }
 }

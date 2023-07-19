@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace noon.Application.Services.OrderServices
 {
-    public class OrderService
+    public class OrderItemServices : IOrderItemServices
     {
-        private readonly IOrderRepository orderRepository;
+        private readonly IOrderItemRepository orderItemRepository;
         private readonly IMapper mapper;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper) 
+        public OrderItemServices(IOrderItemRepository orderItemRepository, IMapper mapper) 
         {
-            this.orderRepository = orderRepository;
+            this.orderItemRepository = orderItemRepository;
             this.mapper = mapper;
         }
     }
