@@ -18,6 +18,7 @@ using noon.Application.Services.ProductCategoryServices;
 using noon.Application.Services.UserAddressServices;
 using noon.Application.Services.AdreessServices;
 using noon.Application.Services.Basket;
+using noon.Application.Services.Mailing_SMS_Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,7 +73,9 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 ////
 builder.Services.AddHangfireServer();
 
-
+// Mail settings configuration 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
