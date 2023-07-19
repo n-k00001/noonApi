@@ -18,6 +18,21 @@ namespace noon.Infrastructure
         {
             _noonContext = noonContext;
         }
+
+        public async Task<bool> DeleteBasketAsync(int basketId)
+        {
+            var basket = await _noonContext.userBaskets.FindAsync(basketId);
+            if (basket == null)
+            {
+                return false; 
+            }
+
+            _noonContext.userBaskets.Remove(basket);
+            await _noonContext.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<UserBasket> GetBasketByUserIdAsync(string UserId)
         {
             return await _noonContext.userBaskets

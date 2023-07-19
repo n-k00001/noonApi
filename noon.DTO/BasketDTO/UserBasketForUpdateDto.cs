@@ -8,6 +8,8 @@ namespace noon.DTO.BasketDTO
 {
     public class UserBasketForUpdateDto
     {
+        public int Id { get; set; }
+        public string UserId { get; set; }
         public List<BasketItemForUpdateDto> Items { get; set; }
 
     }

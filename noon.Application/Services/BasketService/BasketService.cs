@@ -22,6 +22,13 @@ namespace noon.Application.Services.Basket
             _mapper = mapper;
         }
 
+        public async Task<bool> DeleteBasketAsync(int basketId)
+        {
+            return await _basketRepository.DeleteBasketAsync(basketId);
+
+
+        }
+
         public async Task<UserBasketDto> GetBasketByUserIdAsync(string userId)
         {
             var basket = await _basketRepository.GetBasketByUserIdAsync(userId);
