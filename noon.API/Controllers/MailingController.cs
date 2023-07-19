@@ -24,9 +24,33 @@ namespace noon.API.Controllers
         public async Task<IActionResult> SendMail([FromForm] MailRequestDto mailRequestDTO)
         {
 
-             BackgroundJob.Enqueue( () =>  _mailService.SendEmailAsync(mailRequestDTO.ToEmail,mailRequestDTO.Subject, mailRequestDTO.Body,mailRequestDTO.Attachments));
+            //  var filePath = $"{Directory.GetCurrentDirectory()}\\Templetes\\EmailVertificationTemplate.html";
+            // var str = new StreamReader(filePath);
+
+            // var mailText = str.ReadToEnd();
+            // str.Close();
+
+            // mailText = mailText.Replace("[username]", "Abdelrahman").Replace("[email]",mailRequestDTO.ToEmail );
+
+          await  _mailService.SendEmailAsync(mailRequestDTO.ToEmail,mailRequestDTO.Subject, mailRequestDTO.Body,mailRequestDTO.Attachments);
 
             return Ok(mailRequestDTO);
         }
+
+
+        //   [HttpPost("welcome")]
+        // public async Task<IActionResult> SendWelcomeEmail([FromBody] WelcomeRequestDto dto)
+        // {
+        //     var filePath = $"{Directory.GetCurrentDirectory()}\\Templates\\EmailTemplate.html";
+        //     var str = new StreamReader(filePath);
+
+        //     var mailText = str.ReadToEnd();
+        //     str.Close();
+
+        //     mailText = mailText.Replace("[username]", dto.UserName).Replace("[email]", dto.Email);
+
+        //     await _mailingService.SendEmailAsync(dto.Email, "Welcome to our channel", mailText);
+        //     return Ok();
+        // }
     }
 }
