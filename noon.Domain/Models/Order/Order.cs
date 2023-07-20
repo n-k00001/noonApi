@@ -11,36 +11,27 @@ namespace noon.Domain.Models.Order
 {
     public class Order
     {
-        public Order()
-        {
 
-        }
-        public Order(string buyerEmail, Address shipToAddress,
-            DeliveryMethod deliveryMethod, IReadOnlyList<OrderItem> items,
-            decimal subtotal, string paymentIntentId, int paymentStatusId)
-        {
-            BuyerEmail = buyerEmail;
-            ShipToAddress = shipToAddress;
-            DeliveryMethod = deliveryMethod;
-            Items = items;
-            Subtotal = subtotal;
-        }
         [Key]
         public Guid OrderId { get; set; }
 
-        public string BuyerEmail { get; set; }
+        public string? BuyerEmail { set; get; }
         
         [ForeignKey("AppUser")]
         public string userId { get; set; }
         public AppUser AppUser { get; set; }
 
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public Address? ShipToAddress { get; set; }
+        [ForeignKey("Address")]
+        public int ? ShipToAddressId { set; get; }
+        public Address? Address { get; set; }
+        [ForeignKey("DeliveryMethod")]
+        public int DeliveryMethodId { set; get; }
         public DeliveryMethod? DeliveryMethod { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         /// Gets or sets the payment status identifier
-        public int? PaymentStatusId { get; set; }
+        public int PaymentStatusId { get; set; }
 
         /// Gets or sets the payment status
         public PaymentStatus? PaymentStatus
@@ -50,7 +41,7 @@ namespace noon.Domain.Models.Order
         }
 
         /// Gets or sets the shipping status identifier
-        public int? ShippingStatusId { get; set; }
+        public int ShippingStatusId { get; set; }
 
         /// Gets or sets the shipping status
         public ShippingStatus? ShippingStatus
@@ -65,8 +56,8 @@ namespace noon.Domain.Models.Order
             => (Subtotal + DeliveryMethod.Cost);
 
         [ForeignKey("paymentMethod")]
-        public int paymentMethodId { set; get; }
-        public UserPaymentMethod paymentMethod { get; set; }
+        public int? PaymentIntentId { set; get; }
+        public UserPaymentMethod? paymentMethod { get; set; }
 
     }
 }

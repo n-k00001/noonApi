@@ -29,7 +29,7 @@ namespace noon.Context.Context
         public DbSet<UserBasket> userBaskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<UserAddress > UserAddress { get; set; }
-        public DbSet<Address> Addresss { get; set; }
+        public DbSet<Address> Address { get; set; }
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
 
     }

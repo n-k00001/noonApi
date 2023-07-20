@@ -14,9 +14,8 @@ namespace noon.DTO.OrderDTO
     {
         public int id { get; set; }
         public Guid ProductId { get; set; }
-        public ProductDto product { get; set; }
-        public Guid orderId { get; set; }
-        public decimal totalPrice { get => Quantity * product.price; }
+        //public ProductDto product { get; set; }
+        public Guid OrderId { get; set; }
         public int Quantity { get; set; }
     }
 }

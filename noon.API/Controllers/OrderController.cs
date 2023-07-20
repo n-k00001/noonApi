@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.OrderServices;
 using noon.Domain.Models.Order;
+using noon.DTO.OrderDTO;
 using noon.DTO.ProductDTO;
 
 namespace noon.API.Controllers
@@ -12,7 +13,7 @@ namespace noon.API.Controllers
     {
         private readonly IOrderService orderService;
 
-        OrderController(IOrderService orderService) 
+        public OrderController(IOrderService orderService) 
         {
             this.orderService = orderService;
         }

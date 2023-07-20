@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using noon.Domain.Models.Identity;
 
 namespace noon.DTO.Helper
 {
@@ -32,6 +33,9 @@ namespace noon.DTO.Helper
 
             CreateMap<UserPaymentMethod, CreateOrUpdateUserpaymentDto>().ReverseMap();
             CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
+
+            CreateMap<Address,AddressDTO>().ReverseMap();
+            CreateMap<UserAddress,UserAddressDTO>().ReverseMap();   
 
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             CreateMap<Order, OrderDTO.OrderDTO>().ReverseMap();

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using noon.Application.Contract;
 using noon.Domain.Contract;
+using noon.Domain.Models.Identity;
 using noon.Domain.Models.Order;
+using noon.DTO.OrderDTO;
 using noon.DTO.ProductDTO;
 using System;
 using System.Collections.Generic;
@@ -28,13 +30,18 @@ namespace noon.Application.Services.OrderServices
         public async Task<OrderDTO> Create(OrderDTO propertyDTO)
         {
             var order = mapper.Map<Order>(propertyDTO);
+            //order.ShipToAddress = address;
             await orderRepository.CreateAsync(order);
+            await orderRepository.SaveChanges();
             return propertyDTO;
         }
 
         public async Task<bool> Delete(Guid id)
         {
-            return await orderRepository.DeleteAsync(id);
+            bool f = await orderRepository.DeleteAsync(id);
+            await orderRepository.SaveChanges();
+            return f;
+             
         }
 
         public async Task<IQueryable<OrderDTO>> GetAllOrderForUser(string UserId)

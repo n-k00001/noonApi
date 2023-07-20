@@ -11,10 +11,13 @@ namespace noon.DTO.OrderDTO
     {
         public Guid OrderId { get; set; }
         public string userId { get; set; }
+        public string? BuyerEmail { set; get; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public AddressDTO? ShipToAddress { get; set; }
-        public int paymentMethodId { set; get; }
+        public int ShipToAddressId { get; set; }
+        public int PaymentIntentId { set; get; }
         public int DeliveryMethodId { get; set; }
+        public decimal? Subtotal { set; get; }
+
         public IReadOnlyList<OrderItemDTO> Items { get; set; }
     }
 }
