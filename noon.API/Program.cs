@@ -6,7 +6,6 @@ using noon.Application.Contract;
 using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductServices;
 using noon.Application.Services.UserPaymenService;
-using noon.Application.Services.UserPaymenService;
 using noon.Context.Context;
 using noon.Domain.Models;
 using noon.Domain.Models.Identity;
@@ -19,10 +18,11 @@ using noon.Application.Services.UserAddressServices;
 using noon.Application.Services.AdreessServices;
 using noon.Application.Services.Basket;
 using noon.Application.Services.Mailing_SMS_Service;
-using noon.Application.Services.ProductCategoryServices;
 using noon.Infrastructure.User;
 using noon.Application.Services.UserService;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,10 +75,30 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 string dbProvider = builder.Configuration.GetSection("dbProvider").Value;
 string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
 
+
+//// JWT
+builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options=>
+    {
+
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateAudience =true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+            ValidateLifetime =true
+
+        };
+
+    });
+
 ////
 /// add Hangfire
 ////
-
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
 /// start Hangfire servise
 ////
@@ -111,7 +131,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.AddScoped<IBasketService, BasketService>();    
 
-
+builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
