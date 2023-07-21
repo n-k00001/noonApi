@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
@@ -23,6 +24,8 @@ using noon.Application.Services.UserService;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore.Proxies;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,16 +41,27 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
 
     
-
+// json
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 
 
 builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
 {
-    op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
-    //op.UseNpgsql(builder.Configuration.GetConnectionString("Cs"));
+    //  op.UseLazyLoadingProxies()
+    //  .UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
+ op.UseLazyLoadingProxies()
+        .UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
 });
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
 
 builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
 builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
@@ -99,7 +113,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 ////
 /// add Hangfire
 ////
-builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));////
+builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));////
 /// start Hangfire servise
 ////
 builder.Services.AddHangfireServer();

@@ -20,11 +20,11 @@ namespace noon.Domain.Models.Order
         public int id { get; set; }
         [ForeignKey("Product")]
         public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         [ForeignKey("Order")]
         public Guid orderId { get; set; }
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
         public decimal totalPrice { get => Quantity * Product.price; }
         public int Quantity { get; set; }
     }

@@ -14,10 +14,10 @@ namespace noon.Domain.Models
         public string imgUrl { set; get; }
         public bool isDeleted { get; set; }
         public int? parentCategoryId { get; set; }
-        public ProductCategory? parentCategory { get; set; }    
+        public virtual ProductCategory? parentCategory { get; set; }    
         // ChildrenCategories: A list of child categories id's.
-        public List<ProductCategory>? childrenCategories { get; set; }
-        public List<Product> products { get; set; }
+        public virtual List<ProductCategory>? childrenCategories { get; set; }
+        public virtual List<Product> products { get; set; }
 
     }
 }

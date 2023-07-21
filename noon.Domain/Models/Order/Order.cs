@@ -32,11 +32,11 @@ namespace noon.Domain.Models.Order
         
         [ForeignKey("AppUser")]
         public string userId { get; set; }
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public Address? ShipToAddress { get; set; }
-        public DeliveryMethod? DeliveryMethod { get; set; }
+        public virtual Address?  ShipToAddress { get; set; }
+        public virtual DeliveryMethod? DeliveryMethod { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         /// Gets or sets the payment status identifier
@@ -53,12 +53,12 @@ namespace noon.Domain.Models.Order
         public int? ShippingStatusId { get; set; }
 
         /// Gets or sets the shipping status
-        public ShippingStatus? ShippingStatus
+        public virtual ShippingStatus? ShippingStatus
         {
             get => (ShippingStatus)ShippingStatusId;
             set => ShippingStatusId = (int)value;
         }
-        public IReadOnlyList<OrderItem> Items { get; set; }
+        public virtual IReadOnlyList<OrderItem> Items { get; set; }
         public decimal? Subtotal { set; get; }
         public decimal? OrderDiscount { get; set; }
         public decimal? GetTotal()
@@ -66,7 +66,7 @@ namespace noon.Domain.Models.Order
 
         [ForeignKey("paymentMethod")]
         public int paymentMethodId { set; get; }
-        public UserPaymentMethod paymentMethod { get; set; }
+        public virtual UserPaymentMethod paymentMethod { get; set; }
 
     }
 }

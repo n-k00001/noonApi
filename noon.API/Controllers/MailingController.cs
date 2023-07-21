@@ -24,7 +24,7 @@ namespace noon.API.Controllers
         public async Task<IActionResult> SendMail([FromForm] MailRequestDto mailRequestDTO)
         {
 
-             var filePath = $"{Directory.GetCurrentDirectory()}\\Templetes\\EmailVertificationTemplate.html";
+             var filePath = $"{Directory.GetCurrentDirectory()}//Templetes//EmailVertificationTemplate.html";
             var str = new StreamReader(filePath);
 
             var mailText = str.ReadToEnd();
@@ -32,7 +32,7 @@ namespace noon.API.Controllers
 
             mailText = mailText.Replace("[username]", "Abdelrahman").Replace("[email]",mailRequestDTO.ToEmail );
 
-          await  _mailService.SendEmailAsync(mailRequestDTO.ToEmail,mailRequestDTO.Subject, mailRequestDTO.Body,mailRequestDTO.Attachments);
+          await  _mailService.SendEmailAsync(mailRequestDTO.ToEmail,mailRequestDTO.Subject, mailRequestDTO.Body);
 
             return Ok(mailRequestDTO);
         }
