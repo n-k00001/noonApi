@@ -90,10 +90,19 @@ builder.Services.AddScoped<IAddressServices, AddressServices>();
 
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-builder.Services.AddScoped<IBasketService, BasketService>();    
+builder.Services.AddScoped<IBasketService, BasketService>();
+
+builder.Services.AddCors(op =>
+{
+    op.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();  //.WithOrigins("http://localhost:4200,")
+    });
+});
 
 
 var app = builder.Build();
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
