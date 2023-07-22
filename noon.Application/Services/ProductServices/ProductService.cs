@@ -23,9 +23,9 @@ namespace noon.Application.Services.ProductServices
             this.mapper = mapper;
         }
 
-        public async Task<ProductDto> GetById(Guid id)
+        public ProductDto GetById(Guid id)
         {
-            var product = await productRep.GetByIdAsync(id);
+            var product = productRep.GetById(id);
             var model = mapper.Map<ProductDto>(product);
             return model;
         }
@@ -37,6 +37,15 @@ namespace noon.Application.Services.ProductServices
             var model = mapper.Map<List<ProductDto>>(PaginationList);
             return model;
         }
+
+        public List<ProductDto> GetAll(int Items, int PageNumber)
+        {
+            var product = productRep.GetAll();
+            var PaginationList = product.Skip(Items * (PageNumber - 1)).Take(Items).Select(a => a).ToList();
+            var model = mapper.Map<List<ProductDto>>(PaginationList);
+            return model;
+        }
+
         public async Task<AddEditProductDto> Create(AddEditProductDto AddEditProductDto)
         {
 

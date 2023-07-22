@@ -11,7 +11,8 @@ namespace noon.Application.Services.ProductServices
     {
         public Task<AddEditProductDto> Create(AddEditProductDto AddEditProductDto);
         public Task<List<ProductDto>> GetAllPropertyPagination(int Items, int PageNumber);
-        public Task<ProductDto> GetById(Guid id);
+        public List<ProductDto> GetAll(int Items, int PageNumber);
+        public ProductDto GetById(Guid id);
         public Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto);
         public Task<bool> Delete(Guid id);
         public Task<List<ProductDto>> SearchByProductName(string ProductName);

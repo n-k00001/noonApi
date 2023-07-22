@@ -18,18 +18,26 @@ namespace noon.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public IActionResult GetById(Guid id)
         {
             // 11111111-2222-3333-4444-555555555555
-            var property = await productService.GetById(id);
+            var property = productService.GetById(id);
             return Ok(property);
         }
 
+        //[HttpGet]
+        //[Route("{items},{PageNumber}")]
+        //public async Task<IActionResult> GetAll(int items, int PageNumber)
+        //{
+        //    var property = await productService.GetAllPropertyPagination(items, PageNumber);
+        //    return Ok(property);
+        //}
+
         [HttpGet]
         [Route("{items},{PageNumber}")]
-        public async Task<IActionResult> GetAll(int items, int PageNumber)
+        public IActionResult GetAll(int items, int PageNumber)
         {
-            var property = await productService.GetAllPropertyPagination(items, PageNumber);
+            var property = productService.GetAll(items, PageNumber);
             return Ok(property);
         }
 

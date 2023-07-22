@@ -13,11 +13,11 @@ namespace noon.DTO.ProductDTO
         public Guid sku { get; set; }
         public string name { get; set; }
         public int categoryId { set; get; }
-        public ProductCategory category { get; set; }
+        public string category { get; set; }
         public int brandId { get; set; }
-        public ProductBrand brand { get; set; }
+        public string brand { get; set; }
         // Image: The URL of the product's image.       
-        public List<Image>? images { get; set; }
+        public List<string>? images { get; set; }
         public Decimal price { get; set; }
         public bool? inStock
         {
@@ -34,9 +34,9 @@ namespace noon.DTO.ProductDTO
         //    set => size = (int)value;
         //}
         // Reviews: A list of customer reviews for the product.
-        public List<UserReview>? reviews { get; set; }
+        public List<string>? reviews { get; set; }
 
         public int storeId { set; get; }
-        public Store store { get; set; }
+        public string store { get; set; }
     }
 }

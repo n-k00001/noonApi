@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.API", "noon.API\noon.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "noon.PostgreSqlContext", "noon.PostgreSqlContext\noon.PostgreSqlContext.csproj", "{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "noonDashboard.MVC", "noonDashboard.MVC\noonDashboard.MVC.csproj", "{5ACD8686-5E48-4B7C-BC4D-8B73715BD39D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFC3CBB0-6FDA-468C-B7B1-1C4D0D554C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ACD8686-5E48-4B7C-BC4D-8B73715BD39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ACD8686-5E48-4B7C-BC4D-8B73715BD39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ACD8686-5E48-4B7C-BC4D-8B73715BD39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ACD8686-5E48-4B7C-BC4D-8B73715BD39D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
