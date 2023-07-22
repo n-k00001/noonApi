@@ -8,6 +8,8 @@ using AutoMapper;
 using noon.Domain.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using noon.Context.Context;
+using Microsoft.VisualBasic;
 
 namespace noon.Application.Services.UserService
 {
@@ -36,79 +38,42 @@ namespace noon.Application.Services.UserService
 
         }
 
-   
-        public async Task<PasswordDTO> GetPasswordById(string id)
-        {
-          var appUser = await userRepository.GetByIdAsync(id);
-          var Password = mapper.Map<PasswordDTO>(appUser);
-          Console.WriteLine("get password");
-          return Password;
-        }
-        public async Task<bool> ValidatePassword(string id,string password_UN_Hashed)  
-        {
-            var Password = await GetPasswordById(id);
-            Password.Password_UN_Hashed = password_UN_Hashed;
-           var user = await userManager.FindByIdAsync(id);
-            var result = await signInManager.CheckPasswordSignInAsync(user, password_UN_Hashed, false);
-            // bool isMatched = BCrypt.Net.BCrypt.Verify(password_UN_Hashed, Password.PasswordHash);
-            
-            Console.WriteLine("Password hash is {0}",Password.PasswordHash);
-            Console.WriteLine("Password Un hash is {0}",password_UN_Hashed);
-            if(!result.Succeeded) 
-            {
-              Console.WriteLine("Password validation succeeded");
+        
 
-                return false;
-                
+        public async Task UpdateUserPassword(string email, string password, string currentPassword)
+        {
+            var appUser = await userManager.FindByEmailAsync(email);
+            var ValidatePassword = await userManager.CheckPasswordAsync(appUser, currentPassword);
+
+            if (ValidatePassword)
+            {
+                var result = await userManager.ChangePasswordAsync(appUser, currentPassword, password);
+                if (!result.Succeeded)
+                {
+                    Console.WriteLine("Update password failed");
+                }
+
             }
             else
             {
-                Console.WriteLine("Password validation succeeded");
-                return true;
+                Console.WriteLine("Update password successful");
             }
-            
-        } 
-        
-// public async Task<bool> ValidatePassword(string id, string password)
-// {
-//     var appUser = await userRepository.GetByIdAsync(id);
-//     bool isMatched = BCryptNet.Verify(password, appUser.PasswordHash);
-//     Console.WriteLine("Password hash is {0}", appUser.PasswordHash);
-//     Console.WriteLine("Password Un hash is {0}", password);
-//     return isMatched;
-// }
-        public async void UpdateUserPassword(string email, string password ,string currentPassword)
-       {
+        }
 
-         //var appUser = await userRepository.GetByIdAsync(id);
-        // var appUser =  await userManager.FindByIdAsync(id);
-        var appUser = await userManager.FindByEmailAsync(email);
-var result = await userManager.ChangePasswordAsync(appUser, currentPassword, password);
-if (!result.Succeeded)
-{
-        Console.WriteLine("Update password successful");
-  }
-    }
-    
-// public async void UpdateUserPassword(string password, string id)
-// {
-//     var appUser = await userRepository.GetByIdAsync(id);
-//     appUser.PasswordHash = BCryptNet.HashPassword(password, workFactor: 12);
-//     await userRepository.UpdateAsync(appUser);
-// }
 
 
         public async Task<ProfileDTO> UpdateUser(ProfileDTO profile)
         {
+            var context = new noonContext();
 
-       
-               var model = mapper.Map<AppUser>(profile);
-            await userRepository.UpdateAsync(model);
+            var model = mapper.Map<AppUser>(profile);
+
+            //await userManager.UpdateAsync(model);
+            context.Update(model);
+            await context.SaveChangesAsync();
             return profile;
-
         }
-
-         public async Task<ProfileDTO> Create(ProfileDTO profile)
+        public async Task<ProfileDTO> Create(ProfileDTO profile)
         {
             var brand = mapper.Map<AppUser>(profile);
             await userRepository.CreateAsync(brand);

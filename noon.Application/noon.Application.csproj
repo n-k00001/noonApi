@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\noon.Context\noon.Context.csproj" />
     <ProjectReference Include="..\noon.Domain\noon.Domain.csproj" />
     <ProjectReference Include="..\noon.DTO\noon.DTO.csproj" />
   </ItemGroup>

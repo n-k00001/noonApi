@@ -39,9 +39,9 @@ namespace noon.Application.Services.UserService
 
             var token = new JwtSecurityToken(
 
-                issuer: configuration["JWT:ValidIssuer"],
-                audience: configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddDays(double.Parse(configuration["JWT:DurationInDays"])),
+                issuer: configuration["JWT:Issuer"],
+                audience: configuration["JWT:Audiance"],
+                expires: DateTime.Now.AddDays(double.Parse(configuration["JWT:ExpirationInDays"])),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature)
                 );

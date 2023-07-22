@@ -13,10 +13,8 @@ namespace noon.Application.Services.UserService
 
      public Task<ProfileDTO> UpdateUser(ProfileDTO profile);
 
-    public  Task<PasswordDTO> GetPasswordById(string id);
-     public  void  UpdateUserPassword(string password ,string id,string currentPassword);
+        public Task UpdateUserPassword(string email, string password, string currentPassword);
 
-     public  Task<bool> ValidatePassword(string id,string password_UN_Hashed);
 
     }
 }
