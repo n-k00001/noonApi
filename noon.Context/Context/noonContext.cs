@@ -22,8 +22,7 @@ namespace noon.Context.Context
         public DbSet<ProductCategory> ProductCategorys { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
+
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<UserReview> CustomerReviews { get; set; }
         public DbSet<UserBasket> userBaskets { get; set; }
@@ -31,6 +30,7 @@ namespace noon.Context.Context
         public DbSet<UserAddress > UserAddress { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
