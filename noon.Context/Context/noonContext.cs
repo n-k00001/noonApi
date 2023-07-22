@@ -14,9 +14,7 @@ namespace noon.Context.Context
 {
     public class noonContext : IdentityDbContext<AppUser>
     {
-        public noonContext()
-        {
-        }
+       
 
         public noonContext(DbContextOptions<noonContext> options) : base(options)
         {

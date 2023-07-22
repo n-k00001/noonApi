@@ -65,7 +65,7 @@ namespace noon.API.Controllers
 
 
 
-  [HttpPut("{Id}/Password")]
+     [HttpPut("{Id}/Password")]
 public async Task<IActionResult> UpdatePassword(string email, string currentPassword, string newPassword)
 {
 
@@ -76,6 +76,25 @@ public async Task<IActionResult> UpdatePassword(string email, string currentPass
 
 
 
+        // public async Task<IActionResult> UpdatePassword(string Id , string currntPassword, string newPassword)
+        // {
+        //     bool isMatched = await userService.ValidatePassword(Id,newPassword);
+        //     if(isMatched)
+        //     {
+
+        //         var model = BackgroundJob.Enqueue(()=>userService.UpdateUserPassword(newPassword,Id));
+        //         Console.WriteLine("Password updated successfully for {0}",Id);
+        //         return Ok(model);
+
+        //     }
+        //     else
+        //     {
+        //     Console.WriteLine("Password is not matched for {0}",Id);
+
+        //         return NoContent();
+        //     }
+           
+        // }
 
 
     
