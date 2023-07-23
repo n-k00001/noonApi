@@ -72,7 +72,9 @@ namespace noon.Infrastructure
         public virtual async Task<TEntity> GetDetailsAsync(TId id)
         {
             var entityType = typeof(TEntity);
+            // var re = await noonContext.FindAsync(entityType, id);
             var re = await noonContext.FindAsync(entityType, id);
+
             return (TEntity)re;
         }
 

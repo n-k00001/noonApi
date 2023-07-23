@@ -12,8 +12,8 @@ namespace noon.Domain.Models.Identity
     public class AppUser : IdentityUser
     {
         public string DisplayName { get; set; }
-        public List<UserAddress> UserAddresses { get; set; }
-        public List<Order.Order> Orders { set; get; }
-        public List<UserPaymentMethod> paymentMethods { set; get; }
+        public virtual List<UserAddress>? UserAddresses { get; set; }
+        public virtual List<Order.Order>? Orders { set; get; }
+        public virtual List<UserPaymentMethod>? paymentMethods { set; get; }
     }
 }
