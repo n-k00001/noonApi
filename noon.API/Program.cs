@@ -26,6 +26,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore.Proxies;
 using Newtonsoft.Json;
+using Microsoft.AspNet.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,10 +53,10 @@ builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
 {
-    //  op.UseLazyLoadingProxies()
-    //  .UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
- op.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
+    op.UseLazyLoadingProxies()
+    .UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
+    //op.UseLazyLoadingProxies()
+    //       .UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
 });
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
@@ -80,8 +81,19 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 0;
-}).AddEntityFrameworkStores<noonContext>()
-            .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+})
+   .AddEntityFrameworkStores<noonContext>().AddDefaultTokenProviders()
+   .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+//.AddDefaultTokenProviders();
+
+
+
+//.AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultPhoneProvider);
+
+//builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+//              .AddEntityFrameworkStores<noonContext>()
+//              .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+
 
 ////
 /// Get Connection string and database provider from appsettings.json
@@ -113,7 +125,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 ////
 /// add Hangfire
 ////
-builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));////
+//builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
+
 /// start Hangfire servise
 ////
 builder.Services.AddHangfireServer();

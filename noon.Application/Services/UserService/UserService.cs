@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using noon.Context.Context;
 using Microsoft.VisualBasic;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace noon.Application.Services.UserService
 {
@@ -22,8 +23,8 @@ namespace noon.Application.Services.UserService
         private readonly UserManager<AppUser> userManager;
         public UserService(IUserRepository _userRepository, IMapper mapper, UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager)
         {
-            this.userRepository = _userRepository ;
-            this.mapper = mapper;
+            userRepository = _userRepository ;
+            mapper = mapper;
             signInManager = _signInManager;
             userManager = _userManager;
         }
@@ -31,12 +32,14 @@ namespace noon.Application.Services.UserService
 
         public async Task<ProfileDTO> GetProfileById(string id)
         {
-       
-            var appUser = await userRepository.GetByIdAsync(id);
-            var Profile = mapper.Map<ProfileDTO>(appUser);
+             
+            var appUser = await userManager.FindByIdAsync(id);
+            var Profile =  mapper.Map<ProfileDTO>(appUser);
             return Profile;
 
         }
+
+     
 
         
 
@@ -64,13 +67,11 @@ namespace noon.Application.Services.UserService
 
         public async Task<ProfileDTO> UpdateUser(ProfileDTO profile)
         {
-            var context = new noonContext();
 
             var model = mapper.Map<AppUser>(profile);
 
-            //await userManager.UpdateAsync(model);
-            context.Update(model);
-            await context.SaveChangesAsync();
+            await userManager.UpdateAsync(model);
+           
             return profile;
         }
         public async Task<ProfileDTO> Create(ProfileDTO profile)

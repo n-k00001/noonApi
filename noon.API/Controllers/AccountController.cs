@@ -128,8 +128,8 @@ namespace noon.API.Controllers
                         MailRequestDto mailRequestDTO = new MailRequestDto()
                         {
                             ToEmail = user.Email,
-                            Subject = "text",
-                            Body = "ggg",
+                            Subject = "Ecommerce",
+                            Body = "welcome to ecommerce team",
 
 
                         };
@@ -168,6 +168,8 @@ namespace noon.API.Controllers
 
            
         }
+
+
 
     }
 

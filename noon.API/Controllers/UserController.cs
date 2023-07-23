@@ -23,7 +23,7 @@ namespace noon.API.Controllers
 
     public UserController(IUserService _userService,UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager)
     {
-        this.userService = _userService;
+          userService = _userService;
          signInManager = _signInManager;
             userManager = _userManager;
     }
@@ -51,7 +51,6 @@ namespace noon.API.Controllers
                 else
                 {
                     var model = userService.UpdateUser(profile);
-
                     return Ok(model);
                 }
             }
@@ -65,39 +64,49 @@ namespace noon.API.Controllers
 
 
 
-     [HttpPut("{Id}/Password")]
-public async Task<IActionResult> UpdatePassword(string email, string currentPassword, string newPassword)
-{
+        [HttpPut("{Id}/Password")]
+        public async Task<IActionResult> ChangePassword(string email, string currentPassword, string newPassword)
+        {
 
-     userService.UpdateUserPassword(email, newPassword,currentPassword);
+             userService.UpdateUserPassword(email, newPassword,currentPassword);
 
-    return Ok();
-}
-
-
-
-        // public async Task<IActionResult> UpdatePassword(string Id , string currntPassword, string newPassword)
-        // {
-        //     bool isMatched = await userService.ValidatePassword(Id,newPassword);
-        //     if(isMatched)
-        //     {
-
-        //         var model = BackgroundJob.Enqueue(()=>userService.UpdateUserPassword(newPassword,Id));
-        //         Console.WriteLine("Password updated successfully for {0}",Id);
-        //         return Ok(model);
-
-        //     }
-        //     else
-        //     {
-        //     Console.WriteLine("Password is not matched for {0}",Id);
-
-        //         return NoContent();
-        //     }
-           
-        // }
+            return Ok();
+        }
 
 
-    
+        [HttpPut("PhoneNumber")]
+        public async Task<IActionResult> ChangePhoneNumber(string email, string newPhoneNumber)
+        {
+            var appUser = await userManager.FindByEmailAsync(email);
+         
+            var token = await userManager.GenerateChangePhoneNumberTokenAsync(appUser, newPhoneNumber);
+            var verify = userManager.VerifyChangePhoneNumberTokenAsync(appUser,token,newPhoneNumber);
+
+            var result = await userManager.ChangePhoneNumberAsync(appUser, newPhoneNumber,token);
+            return Ok(result);
+        }
+
+
+        [HttpPut("Email")]
+        public async Task<IActionResult> ChangeEmail(string email, string newEmail)
+        {
+
+            var appUser = await userManager.FindByEmailAsync(email);
+
+            var token = await userManager.GenerateChangeEmailTokenAsync(appUser, newEmail);
+
+            var result = await userManager.ChangeEmailAsync(appUser, newEmail,token);
+
+            return Ok(result);
+
+        }
+
+
+
+
+
+
+
 
     }
 }
