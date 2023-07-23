@@ -9,7 +9,7 @@ namespace noon.DTO.ProductDTO
 {
     public class ProductBrandDTO
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public string name { get; set; }
 
         //LogoUrl: The URL of the brand's logo.
