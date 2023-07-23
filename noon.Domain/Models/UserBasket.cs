@@ -11,10 +11,10 @@ namespace noon.Domain.Models
     public class UserBasket
     {
         public int Id { get; set; }
-        public List<BasketItem> Items { get; set; }
+        public virtual List<BasketItem> Items { get; set; }
 
         [ForeignKey("AppUser")]
         public string userId { get; set; }
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
     }
 }

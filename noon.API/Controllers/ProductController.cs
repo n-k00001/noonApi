@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.ProductServices;
+using noon.DTO.ProductDTO;
 
 namespace noon.API.Controllers
 {
@@ -17,20 +18,54 @@ namespace noon.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public IActionResult GetById(Guid id)
         {
             // 11111111-2222-3333-4444-555555555555
-            var property = await productService.GetById(id);
+            var property = productService.GetById(id);
             return Ok(property);
         }
 
+        //[HttpGet]
+        //[Route("{items},{PageNumber}")]
+        //public async Task<IActionResult> GetAll(int items, int PageNumber)
+        //{
+        //    var property = await productService.GetAllPropertyPagination(items, PageNumber);
+        //    return Ok(property);
+        //}
+
         [HttpGet]
         [Route("{items},{PageNumber}")]
-        public async Task<IActionResult> GetAll(int items, int PageNumber)
+        public IActionResult GetAll(int items, int PageNumber)
         {
-            var property = await productService.GetAllPropertyPagination(items, PageNumber);
+            var property = productService.GetAll(items, PageNumber);
             return Ok(property);
         }
+
+
+        [HttpGet]
+        [Route("Search/{ProductName}")]
+        public async Task<IActionResult> SearchByProductName(string ProductName)
+        {
+            // 11111111-2222-3333-4444-555555555555
+            var property = await productService.SearchByProductName(ProductName);
+            return Ok(property);
+        }
+
+        [HttpGet("reviews")]
+        public async Task<IActionResult> GetUsersReviews(Guid ProductID)
+        {
+            var reviews = productService.GetReviewsByPrdId(ProductID);
+            return Ok(reviews);
+        }
+
+        [HttpPost("CreateReview")]
+        public async Task<IActionResult> CreateReview (UserReviewDTO userReviewDTO)
+        {
+            var review = productService.CreateUserReview(userReviewDTO);
+            return Ok(review);
+        }
+
+
 
     }
 }

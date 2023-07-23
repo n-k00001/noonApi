@@ -11,6 +11,13 @@ namespace noon.Application.Contract
 {
     public interface IProductRep : IRepository<Product, Guid>
     {
+        Task<List<Product>> SearchByProductNameAsync(string ProductName);
+        List<Product> GetAll();
+        Product GetById(Guid id);
+public List<UserReview> GetReviewsByPrdId(Guid productId);
+
+        public UserReview CreateUserReview(UserReview _review);
 
     }
+
 }

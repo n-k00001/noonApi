@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace noon.Infrastructure
 {
@@ -23,22 +24,19 @@ namespace noon.Infrastructure
         }
         public async Task<TEntity> CreateAsync(TEntity TEntity)
         {
-            var entity = (await _DbSet.AddAsync(TEntity)).Entity;
+            var model = (await _DbSet.AddAsync(TEntity)).Entity;
             await SaveChanges();
-            return entity;
-
+            return model;
         }
 
         public Task<IQueryable<TEntity>> GetAllAsync()
         {
-            
-                return Task.FromResult(_DbSet.Select(T => T));
-            
+            return Task.FromResult(_DbSet.Select(T => T));
         }
 
         public async Task<TEntity> GetByIdAsync(TId TId)
         {
-            return (await GetDetailsAsync(TId));
+            return (await _DbSet.FindAsync(TId));
         }
         public Task<int> SaveChanges()
         {
@@ -46,25 +44,46 @@ namespace noon.Infrastructure
         }
         public async Task<bool> DeleteAsync(TId id)
         {
-            var entity = await GetByIdAsync(id);
-            if (entity == null) return false;
-            _DbSet.Remove(entity);
-            await SaveChanges();
-            return true;
+            var TEntity = await GetByIdAsync(id);
+            if (TEntity != null)
+            {
+                _DbSet.Remove(TEntity);
+                await SaveChanges();
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
-        public async Task<TEntity> UpdateAsync(TEntity TEntity)
+        public async Task<bool> UpdateAsync(TEntity TEntity)
         {
-            var entity = (_DbSet.Update(TEntity)).Entity;
-            await SaveChanges();
-            return entity;
+            if (TEntity != null)
+            {
+                _DbSet.Update(TEntity);
+                await SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public virtual async Task<TEntity> GetDetailsAsync(TId id)
         {
             var entityType = typeof(TEntity);
+            // var re = await noonContext.FindAsync(entityType, id);
             var re = await noonContext.FindAsync(entityType, id);
+
             return (TEntity)re;
+        }
+
+        Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

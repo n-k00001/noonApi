@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\noon.Application\noon.Application.csproj" />
+    <ProjectReference Include="..\noon.Context\noon.Context.csproj" />
+    <ProjectReference Include="..\noon.DTO\noon.DTO.csproj" />
+    <ProjectReference Include="..\noon.Infrastructure\noon.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
