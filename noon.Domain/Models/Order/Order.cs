@@ -22,17 +22,16 @@ namespace noon.Domain.Models.Order
         public virtual AppUser AppUser { get; set; }
 
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-<<<<<<< HEAD
+
         [ForeignKey("Address")]
         public int ? ShipToAddressId { set; get; }
         public Address? Address { get; set; }
         [ForeignKey("DeliveryMethod")]
         public int DeliveryMethodId { set; get; }
         public DeliveryMethod? DeliveryMethod { get; set; }
-=======
+
         public virtual Address?  ShipToAddress { get; set; }
-        public virtual DeliveryMethod? DeliveryMethod { get; set; }
->>>>>>> abdelrahman
+
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         /// Gets or sets the payment status identifier
@@ -61,13 +60,11 @@ namespace noon.Domain.Models.Order
             => (Subtotal + DeliveryMethod.Cost);
 
         [ForeignKey("paymentMethod")]
-<<<<<<< HEAD
+
         public int? PaymentIntentId { set; get; }
         public UserPaymentMethod? paymentMethod { get; set; }
-=======
-        public int paymentMethodId { set; get; }
-        public virtual UserPaymentMethod paymentMethod { get; set; }
->>>>>>> abdelrahman
+
+
 
     }
 }
