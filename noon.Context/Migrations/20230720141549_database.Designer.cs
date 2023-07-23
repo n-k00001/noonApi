@@ -12,8 +12,8 @@ using noon.Context.Context;
 namespace noon.Context.Migrations
 {
     [DbContext(typeof(noonContext))]
-    [Migration("20230717120702_addDataBase")]
-    partial class addDataBase
+    [Migration("20230720141549_database")]
+    partial class database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,20 +166,20 @@ namespace noon.Context.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("basketId")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("BasketId");
 
-                    b.HasIndex("basketId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("BasketItems");
                 });
@@ -210,7 +210,7 @@ namespace noon.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresss");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Identity.AppUser", b =>
@@ -303,7 +303,7 @@ namespace noon.Context.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("UserAddresses");
+                    b.ToTable("UserAddress");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Image", b =>
@@ -362,11 +362,7 @@ namespace noon.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BuyerEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DeliveryMethodid")
+                    b.Property<int>("DeliveryMethodId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("OrderDate")
@@ -378,7 +374,7 @@ namespace noon.Context.Migrations
                     b.Property<int?>("PaymentStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PaymentStatusId")
+                    b.Property<int>("PaymentStatusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ShipToAddressId")
@@ -387,16 +383,16 @@ namespace noon.Context.Migrations
                     b.Property<int?>("ShippingStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShippingStatusId")
+                    b.Property<int>("ShippingStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Subtotal")
+                    b.Property<decimal?>("Subtotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("paymentMethodId")
+                    b.Property<int?>("paymentIntentId")
                         .HasColumnType("int");
 
                     b.Property<string>("userId")
@@ -405,11 +401,11 @@ namespace noon.Context.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("DeliveryMethodid");
+                    b.HasIndex("DeliveryMethodId");
 
                     b.HasIndex("ShipToAddressId");
 
-                    b.HasIndex("paymentMethodId");
+                    b.HasIndex("paymentIntentId");
 
                     b.HasIndex("userId");
 
@@ -721,15 +717,15 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.BasketItem", b =>
                 {
-                    b.HasOne("noon.Domain.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                    b.HasOne("noon.Domain.Models.UserBasket", "userBasket")
+                        .WithMany("Items")
+                        .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("noon.Domain.Models.UserBasket", "userBasket")
-                        .WithMany("Items")
-                        .HasForeignKey("basketId")
+                    b.HasOne("noon.Domain.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -772,19 +768,17 @@ namespace noon.Context.Migrations
                 {
                     b.HasOne("noon.Domain.Models.Order.DeliveryMethod", "DeliveryMethod")
                         .WithMany()
-                        .HasForeignKey("DeliveryMethodid")
+                        .HasForeignKey("DeliveryMethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("noon.Domain.Models.Identity.Address", "ShipToAddress")
+                    b.HasOne("noon.Domain.Models.Identity.Address", "Address")
                         .WithMany()
                         .HasForeignKey("ShipToAddressId");
 
                     b.HasOne("noon.Domain.Models.UserPaymentMethod", "paymentMethod")
                         .WithMany("Orders")
-                        .HasForeignKey("paymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("paymentIntentId");
 
                     b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
                         .WithMany("Orders")
@@ -792,11 +786,11 @@ namespace noon.Context.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Address");
+
                     b.Navigation("AppUser");
 
                     b.Navigation("DeliveryMethod");
-
-                    b.Navigation("ShipToAddress");
 
                     b.Navigation("paymentMethod");
                 });

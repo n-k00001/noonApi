@@ -18,7 +18,8 @@ namespace noon.API.Controllers
             this.orderService = orderService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromBody] string UserId)
+        [Route("UserOrders/{UserId}")]
+        public async Task<IActionResult> GetAll(string UserId)
         {
             var property = await orderService.GetAllOrderForUser(UserId);
             return Ok(property);
@@ -47,9 +48,17 @@ namespace noon.API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid Id)
         {
-            return Ok(orderService.Delete(Id));
+            bool isDeleted = await orderService.Delete(Id);
+            if (isDeleted)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
         [HttpGet("deliveryMethods")]
         public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()

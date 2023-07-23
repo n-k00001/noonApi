@@ -13,9 +13,9 @@ namespace noon.Domain.Models.Identity
         public bool isDefualt { get; set; }
         [ForeignKey("Address")]
         public int AddressID { get; set; }
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
         [ForeignKey("AppUser")]
         public string userId { get; set; }
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
     }
 }

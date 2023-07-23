@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace noon.Infrastructure
 {
@@ -23,14 +24,14 @@ namespace noon.Infrastructure
         }
         public async Task<TEntity> CreateAsync(TEntity TEntity)
         {
-            return (await _DbSet.AddAsync(TEntity)).Entity;
+            var model = (await _DbSet.AddAsync(TEntity)).Entity;
+            await SaveChanges();
+            return model;
         }
 
         public Task<IQueryable<TEntity>> GetAllAsync()
         {
-            
             return Task.FromResult(_DbSet.Select(T => T));
-
         }
 
         public async Task<TEntity> GetByIdAsync(TId TId)
@@ -47,6 +48,7 @@ namespace noon.Infrastructure
             if (TEntity != null)
             {
                 _DbSet.Remove(TEntity);
+                await SaveChanges();
                 return true;
 
             }
@@ -62,6 +64,7 @@ namespace noon.Infrastructure
             if (TEntity != null)
             {
                 _DbSet.Update(TEntity);
+                await SaveChanges();
                 return true;
             }
             else
@@ -72,7 +75,9 @@ namespace noon.Infrastructure
         public virtual async Task<TEntity> GetDetailsAsync(TId id)
         {
             var entityType = typeof(TEntity);
+            // var re = await noonContext.FindAsync(entityType, id);
             var re = await noonContext.FindAsync(entityType, id);
+
             return (TEntity)re;
         }
 

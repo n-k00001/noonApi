@@ -16,6 +16,6 @@ namespace noon.Domain.Models
         public string Url { get; set; }
         public bool isDeleted { get; set; }
         public DateTimeOffset Created { get; set; }
-        public List<Product>? Products { get; set; }
+        public virtual List<Product>? Products { get; set; }
     }
 }

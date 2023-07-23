@@ -12,10 +12,10 @@ namespace noon.Domain.Models
         public int id { get; set; }
         [ForeignKey("userBasket")]
         public int BasketId { get; set; }
-        public UserBasket userBasket { get; set; }
+        public virtual UserBasket userBasket { get; set; }
         [ForeignKey("Product")]
         public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
        // public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }
     }
