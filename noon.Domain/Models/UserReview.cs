@@ -14,9 +14,9 @@ namespace noon.Domain.Models
 
         [ForeignKey("AppUser")]
         public string userId { get; set; }
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
         [ForeignKey("Product")]
         public Guid ProductId { get; set; }
-        public Product? Product { get; set; }
+        public virtual Product? Product { get; set; }
     }
 }

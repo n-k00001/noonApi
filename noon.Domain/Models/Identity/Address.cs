@@ -16,6 +16,6 @@ namespace noon.Domain.Models.Identity
             work,
             home
         }
-        public List<UserAddress>? UserAddresses { get; set; }        
+        public virtual List<UserAddress>? UserAddresses { get; set; }        
     }
 }
