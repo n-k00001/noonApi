@@ -8,6 +8,7 @@ using noon.Domain.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
 using BCryptNet = BCrypt.Net.BCrypt;
+using noon.Domain.Models;
 
 namespace noon.Infrastructure.User
 {
@@ -46,41 +47,15 @@ namespace noon.Infrastructure.User
              return await Context.Users.Where(c=> c.Id == id).FirstOrDefaultAsync();
         }
 
-        // public async Task<AppUser> UpdateUserAsync(string id)
-        // {
-        //     var usess = new AppUser();
-            
-        //     var user = await GetProfileAsync(id);
-            
-        // }
 
-        // public async Task<AppUser> UpdatePhoneNumberAsync(string id)
-        // {
+    
 
-        // }
+        public async Task<List<UserPaymentMethod>> GetUserPaymentsAsync(string UserId)
+        {
 
-        //   public async Task<AppUser> UpdatePasswordAsync(string id)
-        // {
+            return await Context.UserPaymentMethods.Where(c=> c.UserID == UserId).ToListAsync();
 
-        // }
-        // public async Task<AppUser> DeleteUserAsync(string id)
-        // {
-
-        // }
-
-        //  public async Task<Address> GetAddressListAsync(string id)
-        // {
-
-        // }
-        //  public async Task<Address> UpdateAddressAsync(string id)
-        // {
-
-        // }
-
-        //  public async Task<Address> AddAddressAsync(string id)
-        // {
-
-        // }
+        }
 
 
 

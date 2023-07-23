@@ -52,5 +52,7 @@ namespace noon.API.Controllers
             var property = await _userPaymentService.GetAllPropertyPagination();
             return Ok(property);
         }
+
+
     }
 }
