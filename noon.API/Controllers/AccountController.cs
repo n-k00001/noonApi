@@ -97,7 +97,7 @@ namespace noon.API.Controllers
                     try
                     {
                         //var filePath = @"\EmailVertificationTemplate.html";
-                        var filePath = @"X:\test\noonApi\noon.API\Templetes\EmailVertificationTemplate.html" ;
+                        var filePath = @"/noon.API/Templetes/EmailVertificationTemplate.html" ;
                         string mailText;
                         using (var str = new StreamReader(filePath))
                         {

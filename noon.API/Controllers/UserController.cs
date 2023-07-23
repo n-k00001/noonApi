@@ -68,9 +68,28 @@ namespace noon.API.Controllers
         public async Task<IActionResult> ChangePassword(string email, string currentPassword, string newPassword)
         {
 
-             userService.UpdateUserPassword(email, newPassword,currentPassword);
+              //userService.UpdateUserPassword(email, newPassword,currentPassword);
 
-            return Ok();
+                 var appUser = await userManager.FindByEmailAsync(email);
+            var ValidatePassword = await userManager.CheckPasswordAsync(appUser, currentPassword);
+
+            if (ValidatePassword)
+            {
+                var result = await userManager.ChangePasswordAsync(appUser, currentPassword, newPassword);
+                if (!result.Succeeded)
+                {
+                    
+                    
+                    return BadRequest("Update password failed");
+                }
+
+            }
+            
+                Console.WriteLine("Update password successful");
+                 return Ok();
+
+            
+
         }
 
 

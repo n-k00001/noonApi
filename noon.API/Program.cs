@@ -1,3 +1,4 @@
+# region Using
 using Microsoft.AspNetCore.Hosting;
 using Hangfire;
 using Hangfire.PostgreSql;
@@ -31,6 +32,8 @@ using noon.Application.Services.OrderServices;
 using noon.Domain.Contract;
 using noon.Domain.Models.Order;
 
+#endregion
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -56,8 +59,7 @@ builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
 {
-    op.UseLazyLoadingProxies()
-    .UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
+    op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
     //op.UseLazyLoadingProxies()
     //       .UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
 });
@@ -139,6 +141,7 @@ builder.Services.AddHangfireServer();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 
+#region  dependency injection  
 
 builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
 builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
@@ -167,6 +170,13 @@ builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IRepository<DeliveryMethod, int>, Repositoy<DeliveryMethod, int>>();
 
+
+builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
+
+
+
+#endregion
+
 builder.Services.AddCors(op =>
 {
     op.AddDefaultPolicy(builder =>
@@ -176,7 +186,6 @@ builder.Services.AddCors(op =>
 });
 
 
-builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
 var app = builder.Build();
 app.UseCors();
 // Configure the HTTP request pipeline.

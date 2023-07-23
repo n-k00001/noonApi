@@ -6,15 +6,13 @@ using noon.Domain.Models.Identity;
 using noon.DTO.OrderDTO;
 using noon.DTO.ProductDTO;
 using noon.DTO.UserPaymentDto;
-using noon.DTO.UserPaymentDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using noon.Domain.Models.Identity;
 using noon.DTO.UserDTO;
-using noon.Domain.Models.Identity;
+
 
 namespace noon.DTO.Helper
 {
