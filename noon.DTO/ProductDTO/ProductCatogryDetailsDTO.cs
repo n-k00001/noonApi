@@ -1,4 +1,4 @@
-using noon.Domain.Models;
+﻿using noon.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace noon.DTO.ProductDTO
 {
-    public class ProductCategoryDTO
+    public class ProductCatogryDetailsDTO
     {
         public int id { get; set; }
         public string name { get; set; }
 
         public string? imgUrl { set; get; }
         public int? parentCategoryId { get; set; }
-        //public List<ProductCategory>? childrenCategories { get; set; }
-
+        public List<ProductCategoryDTO>? childrenCategories { get; set; }
     }
 }

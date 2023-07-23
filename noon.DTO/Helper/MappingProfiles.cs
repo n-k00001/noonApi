@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using noon.Domain.Models.Order;
 using noon.Domain.Models;
 using noon.DTO.BasketDTO;
@@ -35,6 +35,7 @@ namespace noon.DTO.Helper
 
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<ProductCategory, ProductCategoryDTO>().ReverseMap();
+            CreateMap<ProductCategory, ProductCatogryDetailsDTO>().ReverseMap();
             CreateMap<BasketItem, BasketItemForUpdateDto>().ReverseMap();
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
             CreateMap<UserBasket, UserBasketForUpdateDto>().ReverseMap();

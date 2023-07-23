@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,7 +12,7 @@ namespace noon.Domain.Contract
         public Task<TEntity> CreateAsync(TEntity TEntity);
         public Task<TEntity> GetByIdAsync(TId TId);
         public Task<IQueryable<TEntity>> GetAllAsync();
-        public Task<TEntity> UpdateAsync(TEntity TEntity);
+        public Task<bool> UpdateAsync(TEntity TEntity);
         public Task<bool> DeleteAsync(TId TId);
         public Task<int> SaveChanges();
         public Task<TEntity?> GetDetailsAsync(TId id);
