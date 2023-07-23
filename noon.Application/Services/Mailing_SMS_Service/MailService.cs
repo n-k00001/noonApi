@@ -49,6 +49,8 @@ namespace noon.Application.Services.Mailing_SMS_Service
                 }
             }
          }
+         else
+         {
 
          builder.HtmlBody = body;
          email.Body = builder.ToMessageBody();
@@ -62,7 +64,7 @@ namespace noon.Application.Services.Mailing_SMS_Service
          await smtpClient.SendAsync(email);
 
          smtpClient.Disconnect(true);
-
+         }
         }
     }
 }

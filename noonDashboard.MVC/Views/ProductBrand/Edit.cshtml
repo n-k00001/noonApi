@@ -1,0 +1,38 @@
+﻿@model ProductBrandDTO
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-action="Edit" class="form-group" method="post">
+
+    <div class="m-2">
+        <label asp-for="name" class="py-2">Brand Name</label>
+        <input class="form-control" type="text" asp-for="name" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="name" class="text-danger shadow-sm "></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="logoUrl" class="py-2">
+            Brand Logo Url
+        </label>
+        <input class="form-control" type="text" asp-for="logoUrl" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="logoUrl" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-content-center  my-3">
+        <input type="submit" class="btn-success my-5 border shadow-5 px-5 py-3 rounded-3" value="Save" />
+    </div>
+</form>
+
+<a asp-action="Index" class="btn btn-info ">Back to list</a>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+

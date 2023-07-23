@@ -8,15 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using noon.Domain.Models.Identity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace noon.Context.Context
 {
     public class noonContext : IdentityDbContext<AppUser>
     {
+       
+
         public noonContext(DbContextOptions<noonContext> options) : base(options)
         {
-
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.LazyLoadingEnabled = false;
+            // ChangeTracker.CascadeDeletingTiming = CascadeTiming.OnSaveChanges;
+            ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
+            //  ChangeTracker.ConcurrencyTokenInterceptor = new ConcurrencyTokenInterceptor();
         }
+
+
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategorys { get; set; }

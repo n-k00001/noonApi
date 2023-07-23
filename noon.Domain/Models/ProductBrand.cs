@@ -15,6 +15,6 @@ namespace noon.Domain.Models
         //LogoUrl: The URL of the brand's logo.
         public string? logoUrl { get; set; }
         public bool isDeleted { get; set; }
-        public List<Product>? products { get; set; }
+        public virtual List<Product>? products { get; set; }
     }
 }

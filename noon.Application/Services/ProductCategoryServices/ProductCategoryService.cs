@@ -27,6 +27,7 @@ namespace noon.Application.Services.ProductCategoryServices
         {
             var cat = _mapper.Map<ProductCategory>(catDTO);
             await _categoryRepository.CreateAsync(cat);
+            await _categoryRepository.SaveChanges();
             return catDTO;
         }
 
@@ -68,6 +69,7 @@ namespace noon.Application.Services.ProductCategoryServices
             {
                 var model = _mapper.Map<ProductCategory>(catDTO);
                 await _categoryRepository.UpdateAsync(model);
+                await _categoryRepository.SaveChanges();
             }
 
             return catDTO;

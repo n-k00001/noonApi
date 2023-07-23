@@ -51,6 +51,20 @@ namespace noon.API.Controllers
             return Ok(property);
         }
 
+        [HttpGet("reviews")]
+        public async Task<IActionResult> GetUsersReviews(Guid ProductID)
+        {
+            var reviews = productService.GetReviewsByPrdId(ProductID);
+            return Ok(reviews);
+        }
+
+        [HttpPost("CreateReview")]
+        public async Task<IActionResult> CreateReview (UserReviewDTO userReviewDTO)
+        {
+            var review = productService.CreateUserReview(userReviewDTO);
+            return Ok(review);
+        }
+
 
 
     }

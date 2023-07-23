@@ -2,6 +2,7 @@
 using noon.Domain.Models.Order;
 using noon.Domain.Models;
 using noon.DTO.BasketDTO;
+using noon.Domain.Models.Identity;
 using noon.DTO.OrderDTO;
 using noon.DTO.ProductDTO;
 using noon.DTO.UserPaymentDto;
@@ -10,7 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using noon.Domain.Models.Identity;
+using noon.DTO.UserDTO;
+
 
 namespace noon.DTO.Helper
 {
@@ -22,7 +24,7 @@ namespace noon.DTO.Helper
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<Product, AddEditProductDto>().ReverseMap();
 
-            CreateMap<Product, ProductDto>().ForMember(dest => dest.images, opt => opt
+             CreateMap<Product, ProductDto>().ForMember(dest => dest.images, opt => opt
             .MapFrom(src => src.images.Select(i => i.ImgURL).ToList()))
             .ForMember(dest => dest.reviews, opt => opt
             .MapFrom(src => src.reviews.Select(i => i.Comments).ToList()))
@@ -41,12 +43,17 @@ namespace noon.DTO.Helper
 
             CreateMap<UserPaymentMethod, CreateOrUpdateUserpaymentDto>().ReverseMap();
             CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
+            CreateMap<UserReview, UserReviewDTO>().ReverseMap();
 
-            CreateMap<Address,AddressDTO>().ReverseMap();
-            CreateMap<UserAddress,UserAddressDTO>().ReverseMap();   
 
-            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
-            CreateMap<Order, OrderDTO.OrderDTO>().ReverseMap();
+
+
+
+
+           
+
+
+
 
         }
     }

@@ -16,5 +16,8 @@ namespace noon.Application.Services.ProductServices
         public Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto);
         public Task<bool> Delete(Guid id);
         public Task<List<ProductDto>> SearchByProductName(string ProductName);
+        public Task<List<UserReviewDTO>> GetReviewsByPrdId (Guid ProductID);
+        public  Task<UserReviewDTO> CreateUserReview (UserReviewDTO reviewDTO);
+
     }
 }

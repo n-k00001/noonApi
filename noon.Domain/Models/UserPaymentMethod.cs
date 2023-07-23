@@ -23,7 +23,7 @@ namespace noon.Domain.Models
         // Other relevant properties
         [ForeignKey("AppUser")]
         public string UserID { get; set; }
-        public AppUser AppUser { get; set; }
-        public ICollection<Order.Order> Orders { get; set; }
+        public virtual AppUser AppUser { get; set; }
+        public virtual ICollection<Order.Order> Orders { get; set; }
     }
 }

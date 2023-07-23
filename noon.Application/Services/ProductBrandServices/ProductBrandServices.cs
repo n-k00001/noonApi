@@ -24,6 +24,7 @@ namespace noon.Application.Services.ProductBrandServices
         {
             var brand = mapper.Map<ProductBrand>(brandDTO);
             await productBrandRep.CreateAsync(brand);
+            await productBrandRep.SaveChanges();
             return brandDTO;
         }
 
@@ -47,9 +48,12 @@ namespace noon.Application.Services.ProductBrandServices
             else
             {
                 var model = mapper.Map<ProductBrand>(brandDTO);
-                await productBrandRep.UpdateAsync(model); 
+                await productBrandRep.UpdateAsync(model);
+
+                await productBrandRep.SaveChanges();
+
             }
-                       
+
             return brandDTO;
         }
 

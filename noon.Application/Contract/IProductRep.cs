@@ -14,6 +14,10 @@ namespace noon.Application.Contract
         Task<List<Product>> SearchByProductNameAsync(string ProductName);
         List<Product> GetAll();
         Product GetById(Guid id);
+public List<UserReview> GetReviewsByPrdId(Guid productId);
+
+        public UserReview CreateUserReview(UserReview _review);
+
     }
 
 }

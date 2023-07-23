@@ -13,6 +13,6 @@ namespace noon.Domain.Models
         public string ImgURL { get; set; }
         [ForeignKey("product")]
         public Guid productId { set; get; }
-        public Product product { get; set; }
+        public virtual Product product { get; set; }
     }
 }
