@@ -42,6 +42,7 @@ namespace noon.DTO.Helper
 
             CreateMap<UserPaymentMethod, CreateOrUpdateUserpaymentDto>().ReverseMap();
             CreateMap<UserPaymentMethod, GetAllUserPaymentMethodDto>().ReverseMap();
+            CreateMap<UserReview, UserReviewDTO>().ReverseMap();
 
 
 

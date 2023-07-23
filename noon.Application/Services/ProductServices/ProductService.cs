@@ -87,5 +87,27 @@ namespace noon.Application.Services.ProductServices
             var model = mapper.Map<List<ProductDto>>(product);
             return model;
         }
+
+        public async Task<List<UserReviewDTO>> GetReviewsByPrdId (Guid ProductID)
+        {
+            var reviews =productRep.GetReviewsByPrdId(ProductID);
+            var model =  mapper.Map<List<UserReviewDTO>>(reviews);
+            return model;
+        }
+
+        public async Task<UserReviewDTO> CreateUserReview(UserReviewDTO reviewDTO)
+        {
+            //  var data = mapper.Map<Product>(AddEditProductDto);
+
+            // await productRep.CreateAsync(data);
+
+            // await productRep.SaveChanges();
+            // return AddEditProductDto;
+
+            var review = mapper.Map<UserReview>(reviewDTO);
+             productRep.CreateUserReview(review);
+             
+             return reviewDTO;
+        }
     }
 }

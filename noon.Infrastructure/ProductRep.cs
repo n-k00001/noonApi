@@ -43,5 +43,31 @@ namespace noon.Infrastructure.Repositorys
                 .Include(b => b.category).Include(b => b.store).Include(b => b.reviews)
                 .FirstOrDefault(p => p.sku == id);
         }
+
+public List<UserReview> GetReviewsByPrdId(Guid productId)
+{
+    var reviews =  context.CustomerReviews.Where(r => r.ProductId == productId).ToList();
+    return reviews;
+}
+
+        public UserReview CreateUserReview(UserReview _review)
+        {
+            var review = new UserReview
+            {
+                ProductId = _review.ProductId,
+                userId = _review.userId,
+                Rating = _review.Rating,
+                ReviewDate = DateTime.Now,
+                isDeleted = false,
+                Comments = _review.Comments
+            };
+
+            context.CustomerReviews.Add(review);
+            context.SaveChanges();
+
+            return review;
+        }
+
+
     }
 }
