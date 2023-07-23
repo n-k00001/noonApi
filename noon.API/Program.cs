@@ -22,6 +22,7 @@ using noon.Application.Services.Mailing_SMS_Service;
 using noon.Application.Services.OrderServices;
 using noon.Domain.Contract;
 using noon.Domain.Models.Order;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +100,11 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IRepository<DeliveryMethod, int>, Repositoy<DeliveryMethod, int>>();
+
+//builder.Services.AddControllers().AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+//});
 
 builder.Services.AddCors(op =>
 {

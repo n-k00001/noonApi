@@ -29,7 +29,7 @@ namespace noon.Infrastructure
             return model;
         }
 
-        public Task<IQueryable<TEntity>> GetAllAsync()
+        public virtual Task<IQueryable<TEntity>> GetAllAsync()
         {
             return Task.FromResult(_DbSet.Select(T => T));
         }
@@ -79,9 +79,6 @@ namespace noon.Infrastructure
             return (TEntity)re;
         }
 
-        Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
