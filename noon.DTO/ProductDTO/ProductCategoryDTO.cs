@@ -1,4 +1,5 @@
-﻿using System;
+﻿using noon.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace noon.DTO.ProductDTO
 
         public string? imgUrl { set; get; }
         public int? parentCategoryId { get; set; }
+        public IQueryable<ProductCategoryDTO>? productCategories { get; set; }
 
     }
 }

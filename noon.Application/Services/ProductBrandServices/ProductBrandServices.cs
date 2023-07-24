@@ -41,20 +41,20 @@ namespace noon.Application.Services.ProductBrandServices
         }
 
         public async Task<ProductBrandDTO> Update(ProductBrandDTO brandDTO)
-        {
+            {
             if (brandDTO.id == 0) {
-                Create(brandDTO);
+                await Create(brandDTO);
+                return brandDTO;
             }
             else
             {
                 var model = mapper.Map<ProductBrand>(brandDTO);
                 await productBrandRep.UpdateAsync(model);
+                productBrandRep.SaveChanges();
 
-                await productBrandRep.SaveChanges();
-
+                return brandDTO;
             }
 
-            return brandDTO;
         }
 
         public async Task<ProductBrandDTO> GetDetails(int id)

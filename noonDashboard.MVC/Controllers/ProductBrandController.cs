@@ -55,5 +55,18 @@ namespace noonDashboard.MVC.Controllers
             }
             return View(brandDTO);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var data = await brandServices.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            brandServices.Delete(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿@model IdentityRole
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+
+<form asp-controller="Roles" asp-action="Details" class="form-group">
+
+
+    <label asp-for="Id">Id</label>
+    <input asp-for="Id" type="text" readonly class="form-control" disabled />
+    <br />
+
+    <label asp-for="Name">Role Name</label>
+    <input asp-for="Name" type="text" class="form-control" disabled />
+    <br />
+
+    
+
+
+    <a asp-action="index" type="button" class="btn btn-info " style="margin-top:2rem">Back to list</a>
+
+</form>

@@ -45,19 +45,20 @@ namespace noon.Infrastructure
         public async Task<bool> DeleteAsync(TId id)
         {
             var TEntity = await GetByIdAsync(id);
-            if (TEntity != null)
-            {
+            //if (TEntity != null)
+            //{
                 _DbSet.Remove(TEntity);
                 await SaveChanges();
                 return true;
 
-            }
-            else
-            {
-                return false;
-            }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
+        
 
         public async Task<bool> UpdateAsync(TEntity TEntity)
         {
@@ -81,9 +82,20 @@ namespace noon.Infrastructure
             return (TEntity)re;
         }
 
-        Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
+
+
+        async Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
         {
-            throw new NotImplementedException();
+            if (TEntity != null)
+            {
+                _DbSet.Update(TEntity);
+                await SaveChanges();
+                return TEntity;
+            }
+            else
+            {
+                return TEntity;
+            }
         }
     }
 }
