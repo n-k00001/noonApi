@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using noon.Context.Context;
 using noon.Domain.Contract;
 using noon.Domain.Models;
@@ -29,7 +29,7 @@ namespace noon.Infrastructure
             return model;
         }
 
-        public Task<IQueryable<TEntity>> GetAllAsync()
+        public virtual Task<IQueryable<TEntity>> GetAllAsync()
         {
             return Task.FromResult(_DbSet.Select(T => T));
         }

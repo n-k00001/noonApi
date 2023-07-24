@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
 using noon.Context.Context;
 using noon.Domain.Models;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace noon.Infrastructure
 {
@@ -24,10 +25,11 @@ namespace noon.Infrastructure
                 .Where(c => c.parentCategory.id == id);
         }
 
-        public override async Task<ProductCategory> GetDetailsAsync(int id)
+        public override async Task<IQueryable<ProductCategory>> GetAllAsync()
         {
-            return noonContext.ProductCategorys.Include(a => a.products).ThenInclude(x => x.images).FirstOrDefault(c => c.id == id);
+            return noonContext.ProductCategorys.Include(s => s.childrenCategories);
         }
+
     }
 
 }

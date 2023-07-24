@@ -31,6 +31,7 @@ using Microsoft.AspNet.Identity;
 using noon.Application.Services.OrderServices;
 using noon.Domain.Contract;
 using noon.Domain.Models.Order;
+using System.Text.Json.Serialization;
 
 #endregion
 
@@ -170,6 +171,10 @@ builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IRepository<DeliveryMethod, int>, Repositoy<DeliveryMethod, int>>();
 
+//builder.Services.AddControllers().AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+//});
 
 builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
 

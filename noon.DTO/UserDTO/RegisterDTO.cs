@@ -27,7 +27,7 @@ namespace noon.DTO.UserDTO
 
         public string Password { get; set; }
         
-        public List<UserAddress>? UserAddresses { get; set; }
+       //public List<UserAddress>? UserAddresses { get; set; }
         // [Required]
         // public string City { get; set; }
         // [Required]

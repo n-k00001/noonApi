@@ -60,6 +60,7 @@ namespace noon.API.Controllers
 
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
+
         {
             var user = new AppUser()
             {
@@ -97,7 +98,7 @@ namespace noon.API.Controllers
                     try
                     {
                         //var filePath = @"\EmailVertificationTemplate.html";
-                        var filePath = @"/noon.API/Templetes/EmailVertificationTemplate.html" ;
+                        var filePath = @"X:\test\noonApi\noon.API\Templetes\EmailVertificationTemplate.html" ;
                         string mailText;
                         using (var str = new StreamReader(filePath))
                         {
@@ -112,8 +113,9 @@ namespace noon.API.Controllers
 
 
                         };
+                        var rand = random();
 
-                        mailText = mailText.Replace("[username]", user.DisplayName).Replace("[email]", mailRequestDTO.ToEmail);
+                        mailText = mailText.Replace("[username]", user.DisplayName).Replace("[email]", mailRequestDTO.ToEmail).Replace("[rendom]",rand);
 
                         await _mailService.SendEmailAsync(
 
@@ -168,9 +170,34 @@ namespace noon.API.Controllers
 
            
         }
+       
+       
+        [HttpDelete("Delete")]
+        public async Task<ActionResult> Delete(string UserId)
+        {
 
+          var user = await userManager.FindByIdAsync(UserId);
+          var result = await userManager.DeleteAsync(user);
+
+          return Ok(result);
+
+        }
+
+
+
+
+    public static string random()
+    {
+
+        Random random = new Random();
+        int randomNumber = random.Next(0, 999999);
+        string formattedNumber = randomNumber.ToString("D6");
+        Console.WriteLine(formattedNumber);
+        return formattedNumber;
+    }
 
 
     }
+
 
 }

@@ -1,3 +1,5 @@
+using System.Reflection;
+using System.Reflection.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using noon.Context.Context;
 using Microsoft.VisualBasic;
 using Castle.Components.DictionaryAdapter.Xml;
+using noon.DTO.UserPaymentDto;
 
 namespace noon.Application.Services.UserService
 {
@@ -34,7 +37,18 @@ namespace noon.Application.Services.UserService
         {
              
             var appUser = await userManager.FindByIdAsync(id);
-            var Profile =  mapper.Map<ProfileDTO>(appUser);
+            // var Profile =  mapper.Map<ProfileDTO>(appUser);
+            var Profile = new ProfileDTO()
+            {
+            DisplayName = appUser.DisplayName,
+            Email = appUser.Email,
+            EmailConfirmed = appUser.EmailConfirmed,
+            Id = appUser.Id,
+            PhoneNumber = appUser.PhoneNumber,
+            PhoneNumberConfirmed=appUser.PhoneNumberConfirmed,
+            UserName= appUser.UserName
+            };
+            
             return Profile;
 
         }
@@ -65,12 +79,27 @@ namespace noon.Application.Services.UserService
 
 
 
-        public async Task<ProfileDTO> UpdateUser(ProfileDTO profile)
+        public async Task<ProfileDTO> UpdateUser(ProfileDTO profile, AppUser appUser)
         {
 
-            var model = mapper.Map<AppUser>(profile);
+             //var model =  mapper.Map<AppUser>(profile);
+           // var model = new AppUser()
+            // {
+            // DisplayName = profile.DisplayName,
+            // Email = profile.Email,
+            // EmailConfirmed = profile.EmailConfirmed,
+            // Id = profile.Id,
+            // PhoneNumber = profile.PhoneNumber,
+            // PhoneNumberConfirmed=profile.PhoneNumberConfirmed,
+            // UserName= profile.UserName
+            // };
+            appUser.DisplayName =profile.DisplayName;
+            appUser.Email = profile.Email;
+            appUser.UserName = profile.UserName;
+            appUser.PhoneNumberConfirmed = profile.PhoneNumberConfirmed;
+            appUser.EmailConfirmed = profile.EmailConfirmed;
 
-            await userManager.UpdateAsync(model);
+            await userManager.UpdateAsync(appUser);
            
             return profile;
         }
@@ -81,7 +110,29 @@ namespace noon.Application.Services.UserService
             return profile;
         }
 
+        public async Task<List<GetAllUserPaymentMethodDto>> getPaymentsAsync(string userId)
+        {
+            var PaymentMethods = await userRepository.GetUserPaymentsAsync(userId);
+           // var PaymentMethodsList =  mapper.Map<List<GetAllUserPaymentMethodDto>>(PaymentMethods);
 
-      
+        var PaymentMethodsList = new List<GetAllUserPaymentMethodDto>();
+        foreach(var _method in PaymentMethods)
+        {
+             var Method = new GetAllUserPaymentMethodDto()
+             {
+               CardNumber = _method.CardNumber,
+               CVV=_method.CVV,
+               ExpirationDate=_method.ExpirationDate,
+               IsDefault= _method.IsDefault,
+               PaymentMethodID= _method.PaymentMethodID,
+               Provider= _method.Provider
+             };
+             PaymentMethodsList.Add(Method);
+
+        }
+            return  PaymentMethodsList;
+        }
+
+     
     }
 }

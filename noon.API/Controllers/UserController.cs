@@ -36,21 +36,21 @@ namespace noon.API.Controllers
             return Ok(property);
         }
 
-        [HttpPut("{Id}")]
+        [HttpPut("UpdateProfile")]
         public async Task<IActionResult> UpdateProfile(string Id, [FromBody] ProfileDTO profile)
         {
 
-            var obj = userService.GetProfileById(Id);
-
+            // var obj = await userService.GetProfileById(Id);
+            var appUser = await userManager.FindByIdAsync(Id);
             try
             {
-                if (obj == null)
+                if (appUser == null)
                 {
                     return NotFound("User not found id : " + Id);
                 }
                 else
                 {
-                    var model = userService.UpdateUser(profile);
+                    var model = userService.UpdateUser(profile, appUser);
                     return Ok(model);
                 }
             }
@@ -62,9 +62,7 @@ namespace noon.API.Controllers
 
 
 
-
-
-        [HttpPut("{Id}/Password")]
+        [HttpPut("UpdatePassword")]
         public async Task<IActionResult> ChangePassword(string email, string currentPassword, string newPassword)
         {
 
@@ -93,7 +91,7 @@ namespace noon.API.Controllers
         }
 
 
-        [HttpPut("PhoneNumber")]
+        [HttpPut("UpdatePhoneNumber")]
         public async Task<IActionResult> ChangePhoneNumber(string email, string newPhoneNumber)
         {
             var appUser = await userManager.FindByEmailAsync(email);
@@ -106,7 +104,7 @@ namespace noon.API.Controllers
         }
 
 
-        [HttpPut("Email")]
+        [HttpPut("UpdateEmail")]
         public async Task<IActionResult> ChangeEmail(string email, string newEmail)
         {
 
@@ -120,7 +118,13 @@ namespace noon.API.Controllers
 
         }
 
+         [HttpPost("Payment")]
+         public async Task<IActionResult> GetPayment(string UserId)
+         {
 
+            var Payments = await userService.getPaymentsAsync(UserId);
+            return Ok(Payments);
+         }
 
 
 

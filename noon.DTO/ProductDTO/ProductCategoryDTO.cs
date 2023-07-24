@@ -1,4 +1,4 @@
-﻿using noon.Domain.Models;
+using noon.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

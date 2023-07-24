@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using noon.Application.Services.OrderServices;
 using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductCategoryServices;
 using noon.DTO.ProductDTO;
@@ -49,14 +50,23 @@ namespace noon.API.Controllers
         [HttpPut("{Id}")]
         public async Task<IActionResult> Update(ProductCategoryDTO property)
         {
-            var cat = catServices.UpdateAsync(property);
+            var cat = await catServices.UpdateAsync(property);
             return Ok(cat);
         }
 
         [HttpDelete]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            return Ok(catServices.DeleteAsync(Id));
+            bool isDeleted = await catServices.DeleteAsync(Id);
+            if (isDeleted)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
     }
 }
