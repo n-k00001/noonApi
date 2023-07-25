@@ -84,18 +84,18 @@ namespace noon.Infrastructure
 
 
 
-        async Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
-        {
-            if (TEntity != null)
-            {
-                _DbSet.Update(TEntity);
-                await SaveChanges();
-                return TEntity;
-            }
-            else
-            {
-                return TEntity;
-            }
-        }
+        //async Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
+        //{
+        //    if (TEntity != null)
+        //    {
+        //        _DbSet.Update(TEntity);
+        //        await SaveChanges();
+        //        return TEntity;
+        //    }
+        //    else
+        //    {
+        //        return TEntity;
+        //    }
+        //}
     }
 }

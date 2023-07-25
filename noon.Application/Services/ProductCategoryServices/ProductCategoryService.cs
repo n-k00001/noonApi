@@ -36,10 +36,10 @@ namespace noon.Application.Services.ProductCategoryServices
             return await _categoryRepository.DeleteAsync(Id);
         }
 
-        public async Task<IQueryable<ProductCatogryDetailsDTO>> GetAllAsync()
+        public async Task<IQueryable<ProductCategoryDTO>> GetAllAsync()
         {
             var cat = await _categoryRepository.GetAllAsync();
-            return cat.Select(item => _mapper.Map<ProductCatogryDetailsDTO>(item)); ;
+            return cat.Select(item => _mapper.Map<ProductCategoryDTO>(item)); ;
         }
 
         public  async Task<ProductCategoryDTO> GetByIdAsync(int Id)

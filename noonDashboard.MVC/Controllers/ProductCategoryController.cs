@@ -23,7 +23,7 @@ namespace noonDashboard.MVC.Controllers
         public async Task<IActionResult> CreateAsync()
         {
             ProductCategoryDTO categoryDTO = new ProductCategoryDTO();
-            categoryDTO.productCategories = await productCategory.GetAllAsync();
+            categoryDTO.productCategories = (IQueryable<ProductCategoryDTO>?)await productCategory.GetAllAsync();
             return View(categoryDTO);
         }
         [HttpPost]

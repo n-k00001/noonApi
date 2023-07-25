@@ -347,14 +347,25 @@
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">fingerprint</i>
-                            <span>Product Brands</span>
+                            <span>Product Category</span>
                             </a>
                             <ul class="ml-menu">
                                 <li>
-                                <a asp-controller="ProductBrand" asp-action="index">Product Brands</a>
+                                <a asp-controller="ProductCategory" asp-action="index">Product Categorys</a>
                                 </li>
                             </ul>
                         </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">fingerprint</i>
+                            <span>Product Brands</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a asp-controller="ProductBrand" asp-action="index">Product Brands</a>
+                            </li>
+                        </ul>
+                    </li>
                     @*}*@
                     @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin")) 
                     {*@
