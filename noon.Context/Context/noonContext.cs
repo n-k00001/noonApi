@@ -51,5 +51,6 @@ namespace noon.Context.Context
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
     }
 }

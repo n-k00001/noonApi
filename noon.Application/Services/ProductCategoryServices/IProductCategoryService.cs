@@ -17,5 +17,7 @@ namespace noon.Application.Services.ProductCategoryServices
         public Task<ProductCategoryDTO> UpdateAsync(ProductCategoryDTO category);
         public Task<bool> DeleteAsync(int Id);
         public Task<ProductCategoryDTO?> GetDetailsAsync(int id);
+        public List<ProductCatogryDetailsDTO> GetAll();
+        public ProductCatogryDetailsDTO GetById(int id);
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using noon.Application.Contract;
 using noon.Context.Context;
 using noon.Domain.Models;
+using noon.DTO.ProductDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,17 @@ namespace noon.Infrastructure
             return noonContext.ProductCategorys.Include(s => s.childrenCategories);
         }
 
+        public ProductCategory GetbyId(int id)
+        {
+            var data = noonContext.ProductCategorys.Include(s => s.parentCategory).FirstOrDefault(a => a.id == id);
+            return data;
+        }
+
+        IQueryable<ProductCategory> IProductCategoryRepository.GetAll()
+        {
+            var data = noonContext.ProductCategorys.Include(s => s.parentCategory);
+            return data;
+        }
     }
 
 }

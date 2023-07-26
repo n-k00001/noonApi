@@ -45,17 +45,16 @@ namespace noon.Infrastructure
         public async Task<bool> DeleteAsync(TId id)
         {
             var TEntity = await GetByIdAsync(id);
-            //if (TEntity != null)
-            //{
+            if (TEntity != null)
+            {
                 _DbSet.Remove(TEntity);
-                await SaveChanges();
                 return true;
 
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            }
+            else
+            {
+                return false;
+            }
         }
 
         

@@ -26,9 +26,9 @@ namespace noon.DTO.ProductDTO
         }
         public string? description { get; set; }
         public int quantity { set; get; }
-        public bool isDeleted { get; set; }
-        public DateTime createdDate { get; set; }
-        public DateTime modifiedDate { get; set; }
+        public bool isDeleted { get; set; } = false;
+        public DateTime? createdDate { get; set; } = DateTime.Now;
+        public DateTime? modifiedDate { get; set; }
         public int? size { get; set; }
         public ProductSize? availableSize
         {

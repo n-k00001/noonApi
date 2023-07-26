@@ -14,13 +14,14 @@ namespace noonDashboard.MVC.Controllers
         {
             this.productCategory = productCategory;
         }
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            var data = await productCategory.GetAllAsync();
+            var data =  productCategory.GetAll();
+            
             return View(data);
         }
 
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create()
         {
             ProductCategoryDTO categoryDTO = new ProductCategoryDTO();
             categoryDTO.productCategories = (IQueryable<ProductCategoryDTO>?)await productCategory.GetAllAsync();
@@ -54,9 +55,9 @@ namespace noonDashboard.MVC.Controllers
             return View(categoryDTO);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var data = await productCategory.GetByIdAsync(id);
+            var data = productCategory.GetById(id);
             return View(data);
         }
 

@@ -30,7 +30,7 @@ namespace noon.Application.Services.ProductBrandServices
 
         public async Task<bool> Delete(int id)
         {
-            return await productBrandRep.DeleteAsync(id);
+            return await productBrandRep.DeleteBrand(id);
         }
 
         public async Task<ProductBrandDTO> GetById(int id)

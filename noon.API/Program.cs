@@ -132,11 +132,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 /// add Hangfire
 ////
 //builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));
-builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
+//builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
 
 /// start Hangfire servise
 ////
-builder.Services.AddHangfireServer();
+//builder.Services.AddHangfireServer();
 
 // Mail settings configuration 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
@@ -205,7 +205,7 @@ app.UseAuthorization();
 ////
 /// use dashboard path
 /// 
- app.UseHangfireDashboard("/dashboard");
+ //app.UseHangfireDashboard("/dashboard");
 
 app.MapControllers();
 

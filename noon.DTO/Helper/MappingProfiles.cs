@@ -35,7 +35,8 @@ namespace noon.DTO.Helper
 
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<ProductCategory, ProductCategoryDTO>().ReverseMap();
-            CreateMap<ProductCategory, ProductCatogryDetailsDTO>().ReverseMap();
+            CreateMap<ProductCategory, ProductCatogryDetailsDTO>()
+                .ForMember(d => d.parentCategory, o => o.MapFrom(s => s.parentCategory.name)).ReverseMap();
             CreateMap<BasketItem, BasketItemForUpdateDto>().ReverseMap();
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
             CreateMap<UserBasket, UserBasketForUpdateDto>().ReverseMap();

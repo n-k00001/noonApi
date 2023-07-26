@@ -1,4 +1,5 @@
 ﻿using noon.Domain.Contract;
+using noon.Domain.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,9 +31,9 @@ namespace noon.Domain.Models
         }
         public string? description { get; set; }
         public int quantity { set; get; }
-        public bool isDeleted { get; set; }
-        public DateTime createdDate { get; set; }
-        public DateTime modifiedDate { get; set; }
+        public bool isDeleted { get; set; } = false;
+        public DateTime? createdDate { get; set; } = DateTime.Now;
+        public DateTime? modifiedDate { get; set; }
         public int? size { get; set; }
         public virtual ProductSize? availableSize
         {
@@ -43,8 +44,11 @@ namespace noon.Domain.Models
         public virtual List<UserReview>? reviews { get; set; }
 
         [ForeignKey("store")]
-        public int storeId { set; get; }
+        public int? storeId { set; get; }
         public virtual Store? store { get; set; }
 
+        [ForeignKey("AppUser")]
+        public string userId { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }

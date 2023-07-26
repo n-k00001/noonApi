@@ -1,4 +1,4 @@
-﻿@model ProductCategoryDTO
+﻿@model ProductCatogryDetailsDTO
 @{
     ViewData["Title"] = "Details";
 }
@@ -9,6 +9,14 @@
         <div class="card-body mb-3">
             <h4 class="card-title">Category Name : @Model.name</h4>
         </div>
+        @if (Model != null && Model.parentCategory != null)
+        {
+            <h3>parentCategory : @Model.parentCategory</h3>
+        }
+        else
+        {
+            <p>parentCategory : null</p>
+        }
     </div>
 </div>
 <div style="width:60%; margin:auto ">

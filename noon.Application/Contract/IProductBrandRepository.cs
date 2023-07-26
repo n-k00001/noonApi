@@ -11,5 +11,6 @@ namespace noon.Application.Contract
     public interface IProductBrandRepository : IRepository<ProductBrand,int>
     {
         Task<IEnumerable<ProductBrand>> FilterByAsync(string filter, int id);
+        Task<bool> DeleteBrand(int id);
     }
 }

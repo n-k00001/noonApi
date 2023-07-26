@@ -30,5 +30,19 @@ namespace noon.Infrastructure
         {
             return noonContext.ProductBrands.Where(a => a.id == id).Include(a => a.products).ThenInclude(x => x.images).FirstOrDefault();
         }
+
+        public async Task<bool> DeleteBrand(int id)
+        {
+            var brand = await noonContext.ProductBrands.FindAsync(id);
+            if (brand == null)
+            {
+                return false;
+            }
+
+            noonContext.ProductBrands.Remove(brand);
+            await noonContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

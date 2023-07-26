@@ -1,6 +1,7 @@
-﻿@model IQueryable<ProductCategoryDTO>
+﻿@model List<ProductCatogryDetailsDTO>
 @{
     ViewData["Title"] = "Index";
+
 }
 
 
@@ -51,7 +52,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>Parent Category Id</th>
+                                    <th>Parent Category</th>
                                     <th>Details</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -63,7 +64,14 @@
                                     <tr>
                                         <td>@item.id</td>
                                         <td>@item.name</td>
-                                        <td>@item.parentCategoryId</td>
+                                        @if (Model != null && @item.parentCategory != null)
+                                        {
+                                            <td>@item.parentCategory</td>
+                                        }
+                                        else
+                                        {
+                                            <td>null</td>
+                                        }
                                         <td><a asp-controller="ProductCategory" asp-action="Details" asp-route-id="@item.id" class="btn btn-success">Details</a></td>
                                         <td><a asp-controller="ProductCategory" asp-action="Edit" asp-route-id="@item.id" class="btn btn-warning">Update</a></td>
                                         <td><a asp-controller="ProductCategory" asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger">Delete</a></td>
