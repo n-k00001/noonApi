@@ -30,9 +30,9 @@ namespace noon.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-         public async Task<IActionResult> GetProfileByID(string id)
+         public async Task<IActionResult> GetProfileByEmail(string emai)
         {
-            var property = await userService.GetProfileById(id);
+            var property = await userService.GetProfileByEmail(emai);
             return Ok(property);
         }
 

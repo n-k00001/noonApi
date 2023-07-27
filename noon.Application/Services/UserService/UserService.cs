@@ -33,10 +33,10 @@ namespace noon.Application.Services.UserService
         }
        
 
-        public async Task<ProfileDTO> GetProfileById(string id)
+        public async Task<ProfileDTO> GetProfileByEmail(string email)
         {
              
-            var appUser = await userManager.FindByIdAsync(id);
+            var appUser = await userManager.FindByEmailAsync(email);
             // var Profile =  mapper.Map<ProfileDTO>(appUser);
             var Profile = new ProfileDTO()
             {

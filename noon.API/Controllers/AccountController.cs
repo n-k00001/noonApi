@@ -12,6 +12,9 @@ using noon.Application.Services.Mailing_SMS_Service;
 using noon.Domain.Models.Order;
 using noon.Domain.Models;
 using static System.Net.Mime.MediaTypeNames;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace noon.API.Controllers
 {
@@ -79,7 +82,8 @@ namespace noon.API.Controllers
             {
                 return BadRequest("Failed to create user.");
             }
-
+            
+            await userManager.AddToRoleAsync(user,"user");
             try
             {
                 var userDTO = new UserDTO()
@@ -181,6 +185,21 @@ namespace noon.API.Controllers
 
           return Ok(result);
 
+        }
+     
+
+        [Authorize]
+        [HttpGet("getCurrentUser")]
+        public async Task<ActionResult<UserDTO>> GetCurrentUser()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            return Ok(new UserDTO()
+            {
+                Email = user.Email,
+                DisplayName = $"{user.DisplayName}",
+                token = await tokenService.CreateToken(user, userManager)
+            });
         }
 
 

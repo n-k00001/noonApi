@@ -13,7 +13,7 @@ namespace noon.Application.Services.UserService
         public Task<List<GetAllUserPaymentMethodDto>> getPaymentsAsync(string userId);
 
         // public Task<List<ProfileDTO>> GetAllPropertyPagination(int Items, int PageNumber);
-        public Task<ProfileDTO> GetProfileById(string id);
+        public  Task<ProfileDTO> GetProfileByEmail(string email);
 
         public  Task<ProfileDTO> UpdateUser(ProfileDTO profile, AppUser appUser);
 
