@@ -30,11 +30,10 @@ namespace noon.Application.Services.ProductServices
             return model;
         }
 
-        public async Task<List<ProductDto>> GetAllPropertyPagination(int Items, int PageNumber)
+        public List<ProductDto> GetAllProductForAdmin()
         {
-            var product = await productRep.GetAllAsync();
-            var PaginationList = product.Skip(Items * (PageNumber - 1)).Take(Items).Select(a => a).ToList();
-            var model = mapper.Map<List<ProductDto>>(PaginationList);
+            var product = productRep.GetAll();
+            var model = mapper.Map<List<ProductDto>>(product);
             return model;
         }
 
@@ -51,10 +50,10 @@ namespace noon.Application.Services.ProductServices
 
             var data = mapper.Map<Product>(AddEditProductDto);
 
-            await productRep.CreateAsync(data);
-
+            var Product = await productRep.CreateAsync(data);
             await productRep.SaveChanges();
-            return AddEditProductDto;
+            var ProductDto = mapper.Map<AddEditProductDto>(Product);
+            return ProductDto;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -109,5 +108,7 @@ namespace noon.Application.Services.ProductServices
              
              return reviewDTO;
         }
+
+        
     }
 }

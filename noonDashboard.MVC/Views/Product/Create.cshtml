@@ -1,0 +1,94 @@
+﻿@model AddEditProductDto
+@{
+    ViewData["Title"] = "Create";
+
+    SelectList Brand = new SelectList(await Model.productBrands, "id", "name");
+    SelectList Category = new SelectList(ViewBag.Category, "id", "name");
+}
+
+<h2>Create</h2>
+
+<form asp-controller="Product" asp-action="Create" class="form-group" method="post" enctype="multipart/form-data">
+    <div class="m-2">
+        <label asp-for="name" class="py-2">Product Name</label>
+        <input class="form-control" type="text" asp-for="name" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="name" class="text-danger shadow-sm "></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="price" class="py-2"> Product Price </label>
+        <input class="form-control" type="number" asp-for="price" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="price" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="quantity" class="py-2"> Product Quantity </label>
+        <input class="form-control" type="number" asp-for="quantity" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="quantity" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="description" class="py-2"> Product Description </label>
+        <input class="form-control" type="text" asp-for="description" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="description" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="userId" class="py-2"> Product userId </label>
+        <input class="form-control" value="@Model.userId" type="text" asp-for="userId"/>
+        <div class="m-auto text-center">
+            <span asp-validation-for="userId" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+
+    <div class="m-2">
+        <label asp-for="ProductImages" class="py-2"> Product Images </label>
+        <input multiple class="form-control" asp-for="ProductImages" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="ProductImages" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    
+    
+    
+
+    <div class="form-group">
+        <label asp-for="categoryId" class="control-label">Category Name</label>
+        <select asp-for="categoryId" asp-items="Category" class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="categoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="brandId" class="control-label">Brand Name</label>
+        <select asp-for="brandId" asp-items="Brand" class="form-control">
+            <option value="">-- Select Brand --</option>
+        </select>
+        <span asp-validation-for="brandId" class="text-danger"></span>
+    </div>
+
+
+    <div style="margin-top:2rem">
+        <input type="submit" class="btn btn-primary my-5 border shadow-5 px-5 py-3 rounded-3" value="Create Product" />
+        <a asp-action="index" type="button" class="btn btn-info " style="margin-left:2rem">Back to list</a>
+    </div>
+
+
+</form>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

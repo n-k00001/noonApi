@@ -25,4 +25,8 @@
     <ProjectReference Include="..\noon.Infrastructure\noon.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\files\images\" />
+  </ItemGroup>
+
 </Project>

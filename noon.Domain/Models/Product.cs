@@ -1,4 +1,5 @@
-﻿using noon.Domain.Contract;
+﻿using Microsoft.AspNetCore.Http;
+using noon.Domain.Contract;
 using noon.Domain.Models.Identity;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,9 @@ namespace noon.Domain.Models
         [ForeignKey("brand")]
         public int brandId { get; set; }
         public virtual ProductBrand? brand { get; set; }
-        // Image: The URL of the product's image.        
+        //Image: The URL of the product's image.        
         public virtual List<Image>? images { get; set; }
+        //public string ImageName { get; set; }
         public Decimal price { get; set; }
         public bool? inStock {
             get => quantity <= 0 ? false : true;

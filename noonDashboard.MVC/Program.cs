@@ -99,7 +99,7 @@ namespace noonDashboard.MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=ProductBrand}/{action=Index}/{id?}");
+                pattern: "{controller=Product}/{action=Index}/{id?}");
 
             app.Run();
         }

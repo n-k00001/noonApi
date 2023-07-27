@@ -30,7 +30,7 @@ namespace noon.DTO.Helper
             .MapFrom(src => src.reviews.Select(i => i.Comments).ToList()))
             .ForMember(d => d.brand, o => o.MapFrom(s => s.brand.name))
             .ForMember(d => d.category, o => o.MapFrom(s => s.category.name))
-            .ForMember(d => d.store, o => o.MapFrom(s => s.store.Name))
+            .ForMember(d => d.AppUser, o => o.MapFrom(s => s.AppUser.DisplayName))
             .ReverseMap();
 
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();

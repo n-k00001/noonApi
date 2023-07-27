@@ -1,4 +1,5 @@
-﻿using noon.Domain.Models;
+﻿using Microsoft.AspNetCore.Http;
+using noon.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,9 +17,10 @@ namespace noon.DTO.ProductDTO
         public int categoryId { set; get; }
         //public ProductCategory? category { get; set; }
         public int brandId { get; set; }
+        public Task<IQueryable<ProductBrandDTO>>? productBrands { get; set; }
         //public ProductBrand? brand { get; set; }
         // Image: The URL of the product's image.        
-        //public List<Image>? images { get; set; }
+        //public List<string>? images { get; set; }
         public Decimal price { get; set; }
         public bool? inStock
         {
@@ -37,7 +39,11 @@ namespace noon.DTO.ProductDTO
         }
         // Reviews: A list of customer reviews for the product.
         //public List<UserReview>? reviews { get; set; }
-        public int storeId { set; get; }
+        public int? storeId { set; get; }
         //public Store? store { get; set; }
+        public string userId { get; set; }
+
+        public string? ImgURL { get; set; }
+        public List<IFormFile> ProductImages { get; set; }
     }
 }

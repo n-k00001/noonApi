@@ -1,4 +1,5 @@
 ﻿using noon.Domain.Models;
+using noon.Domain.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,7 +37,9 @@ namespace noon.DTO.ProductDTO
         // Reviews: A list of customer reviews for the product.
         public List<string>? reviews { get; set; }
 
-        public int storeId { set; get; }
-        public string store { get; set; }
+        //public int? storeId { set; get; }
+        //public string? store { get; set; }
+        public string userId { get; set; }
+        public string? AppUser { get; set; }
     }
 }
