@@ -9,8 +9,8 @@ namespace noon.DTO.UserDTO
 {
     public class RegisterDTO
     {
-         [Required]
-        public string DisplayName { get; set; }
+        
+        public string DisplayName { get{return $"{FirstName} {LastName}" ;} }
         [Required]
         public string FirstName { get; set; }
         [Required]

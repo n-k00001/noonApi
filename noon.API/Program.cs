@@ -48,7 +48,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRep, ProductRep>();
 
-    
+
 // json
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -60,9 +60,9 @@ builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
 {
-    op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
+     op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
     //op.UseLazyLoadingProxies()
-    //       .UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
+          // op.UseNpgsql(builder.Configuration.GetConnectionString("postgresql"));
 });
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
@@ -111,12 +111,20 @@ string ConnectionString = builder.Configuration.GetConnectionString(dbProvider);
 //// JWT
 builder.Services.AddScoped(typeof(ITokenService), typeof(TokenService));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(/*JwtBearerDefaults.AuthenticationScheme*/
+        options=>
+        {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
     .AddJwtBearer(options=>
-    {
+    {   
+        options.RequireHttpsMetadata= false;
+        options.SaveToken = false;
 
         options.TokenValidationParameters = new TokenValidationParameters()
         {
+            ValidateIssuerSigningKey =true,
             ValidateAudience =true,
             ValidAudience = builder.Configuration["JWT:Audience"],
             ValidateIssuer = true,
@@ -133,16 +141,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 ////
 //builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(ConnectionString));
 //builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
+ builder.Services.AddHangfire(x => x.UseSqlServerStorage(ConnectionString));
 
 /// start Hangfire servise
 ////
 //builder.Services.AddHangfireServer();
 
-// Mail settings configuration 
+// Mail settings configuration
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 
-#region  dependency injection  
+#region  dependency injection
 
 builder.Services.AddScoped<IuserPaymentService, userPayment_Servace>();
 builder.Services.AddScoped<IUserPaymentMethodRepository,UserPaymentMethodRepository>();
@@ -199,13 +208,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 ////
 /// use dashboard path
 /// 
  //app.UseHangfireDashboard("/dashboard");
+///
+ app.UseHangfireDashboard("/dashboard");
 
 app.MapControllers();
 

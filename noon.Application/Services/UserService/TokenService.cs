@@ -28,6 +28,7 @@ namespace noon.Application.Services.UserService
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.DisplayName),
             }; // Private Claims (UserDefined)
+            await userManager.AddToRoleAsync(user, "User");
 
             var userRoles = await userManager.GetRolesAsync(user);
 
@@ -37,16 +38,34 @@ namespace noon.Application.Services.UserService
 
             var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]));
 
+       var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("uid", user.Id)
+            }
+            .Union(authClaims);
+
+        
             var token = new JwtSecurityToken(
 
                 issuer: configuration["JWT:Issuer"],
-                audience: configuration["JWT:Audiance"],
+                audience: configuration["JWT:Audience"],
                 expires: DateTime.Now.AddDays(double.Parse(configuration["JWT:ExpirationInDays"])),
-                claims: authClaims,
+                claims: claims,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature)
                 );
 
+
+
+            
+
             return new JwtSecurityTokenHandler().WriteToken(token);
        }
+
+        
+
+       
     }
 }
