@@ -36,11 +36,29 @@ namespace noon.Application.Services.ProductCategoryServices
             return await _categoryRepository.DeleteAsync(Id);
         }
 
-        public async Task<IQueryable<ProductCatogryDetailsDTO>> GetAllAsync()
+        
+
+        public List<ProductCatogryDetailsDTO> GetAll()
+        {
+            var cat =_categoryRepository.GetAll();
+            var model = _mapper.Map<List<ProductCatogryDetailsDTO>>(cat);
+            return model;
+        }
+
+        public ProductCatogryDetailsDTO GetById(int id)
+        {
+            var cat = _categoryRepository.GetbyId(id);
+            var model = _mapper.Map<ProductCatogryDetailsDTO>(cat);
+            return model;
+        }
+
+        public async Task<IQueryable<ProductCategoryDTO>> GetAllAsync()
         {
             var cat = await _categoryRepository.GetAllAsync();
-            return cat.Select(item => _mapper.Map<ProductCatogryDetailsDTO>(item)); ;
+            return cat.Select(item => _mapper.Map<ProductCategoryDTO>(item)); 
         }
+
+        
 
         public  async Task<ProductCategoryDTO> GetByIdAsync(int Id)
         {

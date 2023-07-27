@@ -1,4 +1,4 @@
-﻿@model ProductBrandDTO
+﻿@model ProductCategoryDTO
 @{
     ViewData["Title"] = "Edit";
 }
@@ -6,7 +6,7 @@
 <form asp-action="Edit" class="form-group" method="post">
 
     <div class="m-2">
-        <label asp-for="name" class="py-2">Brand Name</label>
+        <label asp-for="name" class="py-2">Category Name</label>
         <input class="form-control" type="text" asp-for="name" />
         <div class="m-auto text-center">
             <span asp-validation-for="name" class="text-danger shadow-sm "></span>
@@ -14,12 +14,12 @@
     </div>
 
     <div class="m-2">
-        <label asp-for="logoUrl" class="py-2">
-            Brand Logo Url
+        <label asp-for="imgUrl" class="py-2">
+            Logo Url
         </label>
-        <input class="form-control" type="text" asp-for="logoUrl" />
+        <input class="form-control" type="text" asp-for="imgUrl" />
         <div class="m-auto text-center">
-            <span asp-validation-for="logoUrl" class="text-danger shadow-sm"></span>
+            <span asp-validation-for="imgUrl" class="text-danger shadow-sm"></span>
         </div>
     </div>
 

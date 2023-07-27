@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using noon.Domain.Models.Identity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.AspNetCore.Identity;
 
 namespace noon.Context.Context
 {
     public class noonContext : IdentityDbContext<AppUser>
     {
-       
+        public noonContext()
+        {
+            
+        }
 
         public noonContext(DbContextOptions<noonContext> options) : base(options)
         {
@@ -26,7 +30,12 @@ namespace noon.Context.Context
             //  ChangeTracker.ConcurrencyTokenInterceptor = new ConcurrencyTokenInterceptor();
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+           optionsBuilder.UseSqlServer("Data Source=SQL5106.site4now.net;Initial Catalog=db_a9b12e_ecommerce;User Id=db_a9b12e_ecommerce_admin;Password=NoonEcommerce10; MultipleActiveResultSets=True;");
 
+            base.OnConfiguring(optionsBuilder);
+        }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategorys { get; set; }
@@ -42,5 +51,6 @@ namespace noon.Context.Context
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
     }
 }

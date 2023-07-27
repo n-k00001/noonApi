@@ -266,6 +266,9 @@ namespace noon.Context.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("wishListId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -275,6 +278,8 @@ namespace noon.Context.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("wishListId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -341,7 +346,6 @@ namespace noon.Context.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortName")
@@ -355,7 +359,7 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.Order.Order", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -377,6 +381,9 @@ namespace noon.Context.Migrations
                     b.Property<int?>("ShipToAddressId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ShipToAddressId1")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ShippingStatus")
                         .HasColumnType("int");
 
@@ -396,11 +403,13 @@ namespace noon.Context.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("DeliveryMethodId");
 
                     b.HasIndex("ShipToAddressId");
+
+                    b.HasIndex("ShipToAddressId1");
 
                     b.HasIndex("paymentIntentId");
 
@@ -441,6 +450,9 @@ namespace noon.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("WishListid")
+                        .HasColumnType("int");
+
                     b.Property<int?>("availableSize")
                         .HasColumnType("int");
 
@@ -450,7 +462,7 @@ namespace noon.Context.Migrations
                     b.Property<int>("categoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("createdDate")
+                    b.Property<DateTime?>("createdDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("description")
@@ -459,7 +471,7 @@ namespace noon.Context.Migrations
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("modifiedDate")
+                    b.Property<DateTime?>("modifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("name")
@@ -475,16 +487,24 @@ namespace noon.Context.Migrations
                     b.Property<int?>("size")
                         .HasColumnType("int");
 
-                    b.Property<int>("storeId")
+                    b.Property<int?>("storeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("sku");
+
+                    b.HasIndex("WishListid");
 
                     b.HasIndex("brandId");
 
                     b.HasIndex("categoryId");
 
                     b.HasIndex("storeId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Products");
                 });
@@ -661,6 +681,26 @@ namespace noon.Context.Migrations
                     b.ToTable("CustomerReviews");
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.WishList", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("userId")
+                        .IsUnique();
+
+                    b.ToTable("WishLists");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -731,6 +771,15 @@ namespace noon.Context.Migrations
                     b.Navigation("userBasket");
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.Identity.AppUser", b =>
+                {
+                    b.HasOne("noon.Domain.Models.WishList", "wishList")
+                        .WithMany()
+                        .HasForeignKey("wishListId");
+
+                    b.Navigation("wishList");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.Identity.UserAddress", b =>
                 {
                     b.HasOne("noon.Domain.Models.Identity.Address", "Address")
@@ -773,6 +822,10 @@ namespace noon.Context.Migrations
                         .WithMany()
                         .HasForeignKey("ShipToAddressId");
 
+                    b.HasOne("noon.Domain.Models.Identity.Address", "ShipToAddress")
+                        .WithMany()
+                        .HasForeignKey("ShipToAddressId1");
+
                     b.HasOne("noon.Domain.Models.UserPaymentMethod", "paymentMethod")
                         .WithMany("Orders")
                         .HasForeignKey("paymentIntentId");
@@ -788,6 +841,8 @@ namespace noon.Context.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("DeliveryMethod");
+
+                    b.Navigation("ShipToAddress");
 
                     b.Navigation("paymentMethod");
                 });
@@ -813,6 +868,10 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.Product", b =>
                 {
+                    b.HasOne("noon.Domain.Models.WishList", null)
+                        .WithMany("products")
+                        .HasForeignKey("WishListid");
+
                     b.HasOne("noon.Domain.Models.ProductBrand", "brand")
                         .WithMany("products")
                         .HasForeignKey("brandId")
@@ -827,9 +886,15 @@ namespace noon.Context.Migrations
 
                     b.HasOne("noon.Domain.Models.Store", "store")
                         .WithMany("Products")
-                        .HasForeignKey("storeId")
+                        .HasForeignKey("storeId");
+
+                    b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
+                        .WithMany("products")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("brand");
 
@@ -888,6 +953,17 @@ namespace noon.Context.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("noon.Domain.Models.WishList", b =>
+                {
+                    b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
+                        .WithOne()
+                        .HasForeignKey("noon.Domain.Models.WishList", "userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("noon.Domain.Models.Identity.Address", b =>
                 {
                     b.Navigation("UserAddresses");
@@ -900,6 +976,8 @@ namespace noon.Context.Migrations
                     b.Navigation("UserAddresses");
 
                     b.Navigation("paymentMethods");
+
+                    b.Navigation("products");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Order.Order", b =>
@@ -939,6 +1017,11 @@ namespace noon.Context.Migrations
             modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("noon.Domain.Models.WishList", b =>
+                {
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

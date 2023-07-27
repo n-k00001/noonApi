@@ -14,7 +14,7 @@ namespace noon.DTO.ProductDTO
 
         public string? imgUrl { set; get; }
         public int? parentCategoryId { get; set; }
-        //public List<ProductCategory>? childrenCategories { get; set; }
+        public IQueryable<ProductCategoryDTO>? productCategories { get; set; }
 
     }
 }

@@ -1,0 +1,44 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+
+<form asp-controller="Users" asp-action="Details" class="form-group">
+
+
+    <label asp-for="Id">Id</label>
+    <input asp-for="Id" type="text" readonly class="form-control" disabled />
+    <br />
+
+    <label asp-for="DisplayName">User Name</label>
+    <input asp-for="DisplayName" type="text" class="form-control" disabled />
+    <br />
+
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" type="text" class="form-control" disabled />
+    <br />
+
+    <label asp-for="PhoneNumber">Phone Number</label>
+    <input asp-for="PhoneNumber" type="text" class="form-control" disabled />
+    <br />
+
+    @if (Model != null && Model.UserAddresses != null)
+    {
+        @foreach (var item in Model.UserAddresses)
+        {
+            <h1>@item.Address.fullAddress</h1>
+        }
+    }
+    else
+    {
+        <p>No User Addresses found.</p>
+    }
+    
+
+
+    <a asp-action="index" type="button" class="btn btn-info " style="margin-top:2rem">Back to list</a>
+
+</form>

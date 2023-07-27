@@ -48,7 +48,6 @@ namespace noon.Infrastructure
             if (TEntity != null)
             {
                 _DbSet.Remove(TEntity);
-                await SaveChanges();
                 return true;
 
             }
@@ -58,6 +57,7 @@ namespace noon.Infrastructure
             }
         }
 
+        
 
         public async Task<bool> UpdateAsync(TEntity TEntity)
         {
@@ -81,6 +81,20 @@ namespace noon.Infrastructure
             return (TEntity)re;
         }
 
-        
+
+
+        //async Task<TEntity> IRepository<TEntity, TId>.UpdateAsync(TEntity TEntity)
+        //{
+        //    if (TEntity != null)
+        //    {
+        //        _DbSet.Update(TEntity);
+        //        await SaveChanges();
+        //        return TEntity;
+        //    }
+        //    else
+        //    {
+        //        return TEntity;
+        //    }
+        //}
     }
 }
