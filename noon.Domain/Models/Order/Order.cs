@@ -21,7 +21,7 @@ namespace noon.Domain.Models.Order
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
 
         [ForeignKey("Address")]
-        public int ? ShipToAddressId { set; get; }
+        public string ? ShipToAddressId { set; get; }
         public Address? Address { get; set; }
         [ForeignKey("DeliveryMethod")]
         public int DeliveryMethodId { set; get; }
