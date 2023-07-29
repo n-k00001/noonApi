@@ -44,5 +44,11 @@ namespace noon.Infrastructure
 
             return true;
         }
+
+        public List<ProductBrand> GetAll()
+        {
+            var data = noonContext.ProductBrands.ToList();
+            return data;
+        }
     }
 }

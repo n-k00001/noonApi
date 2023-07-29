@@ -13,6 +13,7 @@ namespace noon.Application.Services.ProductServices
         public List<ProductDto> GetAll(int Items, int PageNumber);
         public List<ProductDto> GetAllProductForAdmin();
         public ProductDto GetById(Guid id);
+        public AddEditProductDto GetByIdAddEdit(Guid id);
         public Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto);
         public Task<bool> Delete(Guid id);
         public Task<List<ProductDto>> SearchByProductName(string ProductName);

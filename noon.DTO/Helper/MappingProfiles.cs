@@ -23,8 +23,9 @@ namespace noon.DTO.Helper
 
             CreateMap<ProductBrand, ProductBrandDTO>().ReverseMap();
             CreateMap<Product, AddEditProductDto>().ReverseMap();
+            CreateMap<ProductDto, AddEditProductDto>().ReverseMap();
 
-             CreateMap<Product, ProductDto>().ForMember(dest => dest.images, opt => opt
+            CreateMap<Product, ProductDto>().ForMember(dest => dest.images, opt => opt
             .MapFrom(src => src.images.Select(i => i.ImgURL).ToList()))
             .ForMember(dest => dest.reviews, opt => opt
             .MapFrom(src => src.reviews.Select(i => i.Comments).ToList()))

@@ -41,6 +41,7 @@ namespace noonDashboard.MVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var data = await productCategory.GetByIdAsync(id);
+            data.productCategories = (IQueryable<ProductCategoryDTO>?)await productCategory.GetAllAsync();
             return View(data);
         }
 

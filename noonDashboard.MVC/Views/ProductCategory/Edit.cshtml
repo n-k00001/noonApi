@@ -1,10 +1,11 @@
 ﻿@model ProductCategoryDTO
 @{
     ViewData["Title"] = "Edit";
+    SelectList listItems = new SelectList(Model.productCategories, "id", "name");
 }
 
 <form asp-action="Edit" class="form-group" method="post">
-
+    <input type="hidden" asp-for="id" />
     <div class="m-2">
         <label asp-for="name" class="py-2">Category Name</label>
         <input class="form-control" type="text" asp-for="name" />
@@ -21,6 +22,14 @@
         <div class="m-auto text-center">
             <span asp-validation-for="imgUrl" class="text-danger shadow-sm"></span>
         </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="parentCategoryId" class="control-label">Parent Category Name</label>
+        <select asp-for="parentCategoryId" asp-items="listItems" class="form-control">
+            <option value="">-- Select Parent Category --</option>
+        </select>
+        <span asp-validation-for="parentCategoryId" class="text-danger"></span>
     </div>
 
     <div class="d-flex justify-content-center align-content-center  my-3">

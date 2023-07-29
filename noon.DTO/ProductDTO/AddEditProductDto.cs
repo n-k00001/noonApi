@@ -18,6 +18,7 @@ namespace noon.DTO.ProductDTO
         //public ProductCategory? category { get; set; }
         public int brandId { get; set; }
         public Task<IQueryable<ProductBrandDTO>>? productBrands { get; set; }
+        public List<ProductCatogryDetailsDTO>? productCategorys { get; set; }
         //public ProductBrand? brand { get; set; }
         // Image: The URL of the product's image.        
         //public List<string>? images { get; set; }
