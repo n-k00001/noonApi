@@ -17,6 +17,10 @@ namespace noon.Infrastructure
         public OrderItemRepository(noonContext noonContext) : base(noonContext)
         {
             this.noonContext = noonContext;
-        }       
+        }
+        public async Task<IQueryable<OrderItem>> GetAllItemForOrderAsync(Guid orderId)
+        {
+           return (await GetAllAsync()).Where(o => o.orderId == orderId);
+        }
     }
 }

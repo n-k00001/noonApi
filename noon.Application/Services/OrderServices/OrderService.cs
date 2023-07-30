@@ -40,9 +40,15 @@ namespace noon.Application.Services.OrderServices
 
         public async Task<bool> Delete(Guid id)
         {
+            var items = await orderItemRepository.GetAllItemForOrderAsync(id);
+            foreach (var item in items)
+            {
+                await orderItemRepository.DeleteAsync(item.id);
+            }
             bool isDeleted = await orderRepository.DeleteAsync(id);
             if (isDeleted)
             {
+                
                 await orderRepository.SaveChanges();
             }
             return isDeleted;
@@ -58,8 +64,6 @@ namespace noon.Application.Services.OrderServices
         public async Task<OrderDTO> GetById(Guid id)
         {
             var order = await orderRepository.GetByIdAsync(id);
-            var orderItem = (await orderItemRepository.GetAllAsync()).Where(o=>o.orderId==id);
-            order.Items = orderItem;
             return mapper.Map<OrderDTO>(order);
         }
 
