@@ -3,12 +3,13 @@
 @{
     ViewData["Title"] = "Edit";
 
-    SelectList Brand = new SelectList(await Model.productBrands, "id", "name");
-    SelectList Category = new SelectList(Model.productCategorys, "id", "name");
+    SelectList Brand = new SelectList(Model.productBrands, "id", "name");
+    SelectList Category = new SelectList(await Model.productCategorys, "id", "name");
 }
 
 <form asp-action="Edit" class="form-group" method="post">
 
+    <input type="hidden" asp-for="sku" />
     <div class="m-2">
         <label asp-for="name" class="py-2">Product Name</label>
         <input class="form-control" type="text" asp-for="name" />

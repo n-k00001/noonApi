@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Create";
 
-    SelectList Brand = new SelectList(await Model.productBrands, "id", "name");
+    SelectList Brand = new SelectList(Model.productBrands, "id", "name");
     SelectList Category = new SelectList(ViewBag.Category, "id", "name");
 }
 

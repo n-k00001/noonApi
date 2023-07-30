@@ -14,5 +14,6 @@ namespace noon.DTO.ProductDTO
 
         //LogoUrl: The URL of the brand's logo.
         public string? logoUrl { get; set; }
+        //public IQueryable<ProductBrandDTO>? productBrands { get; set; }
     }
 }

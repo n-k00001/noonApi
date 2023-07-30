@@ -20,7 +20,7 @@ namespace noonDashboard.MVC.Controllers
         }
         public async Task <IActionResult> Index()
         {
-            var data = await brandServices.GetAllBrand();
+            var data = brandServices.GetAll();
             return View(data);
         }
 
