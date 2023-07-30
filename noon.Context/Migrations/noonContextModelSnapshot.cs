@@ -450,9 +450,6 @@ namespace noon.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("WishListid")
-                        .HasColumnType("int");
-
                     b.Property<int?>("availableSize")
                         .HasColumnType("int");
 
@@ -495,8 +492,6 @@ namespace noon.Context.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("sku");
-
-                    b.HasIndex("WishListid");
 
                     b.HasIndex("brandId");
 
@@ -689,11 +684,16 @@ namespace noon.Context.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<Guid>("productsku")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("userId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("productsku");
 
                     b.HasIndex("userId")
                         .IsUnique();
@@ -868,10 +868,6 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.Product", b =>
                 {
-                    b.HasOne("noon.Domain.Models.WishList", null)
-                        .WithMany("products")
-                        .HasForeignKey("WishListid");
-
                     b.HasOne("noon.Domain.Models.ProductBrand", "brand")
                         .WithMany("products")
                         .HasForeignKey("brandId")
@@ -955,6 +951,12 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.WishList", b =>
                 {
+                    b.HasOne("noon.Domain.Models.Product", "product")
+                        .WithMany()
+                        .HasForeignKey("productsku")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("noon.Domain.Models.Identity.AppUser", "AppUser")
                         .WithOne()
                         .HasForeignKey("noon.Domain.Models.WishList", "userId")
@@ -962,6 +964,8 @@ namespace noon.Context.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("noon.Domain.Models.Identity.Address", b =>
@@ -1017,11 +1021,6 @@ namespace noon.Context.Migrations
             modelBuilder.Entity("noon.Domain.Models.UserPaymentMethod", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("noon.Domain.Models.WishList", b =>
-                {
-                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

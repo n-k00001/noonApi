@@ -11,7 +11,7 @@ namespace noon.Domain.Models
     public class WishList
     {
         public int id { get; set; }
-        public List<Product>? products { get; set; }
+        public Product product { get; set; }
         [ForeignKey("AppUser")]
         public string userId { get; set; }
         public AppUser? AppUser { get; set; }
