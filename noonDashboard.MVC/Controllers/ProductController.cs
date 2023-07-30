@@ -80,5 +80,42 @@ namespace noonDashboard.MVC.Controllers
             }
             return View(productDto);
         }
+
+        public IActionResult Details(Guid id)
+        {
+            var data = productService.GetById(id);
+            return View(data);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var data = productService.GetByIdAddEdit(id);
+            data.productCategorys = productCategory.GetAll();
+            data.productBrands = productBrand.GetAllBrand();
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            data.userId = user.Id;
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AddEditProductDto productDto)
+        {
+            if (ModelState.IsValid)
+            {
+
+                productService.Update(productDto);
+                return RedirectToAction("index");
+            }
+            return View(productDto);
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            productService.Delete(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

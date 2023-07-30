@@ -48,6 +48,7 @@ namespace noon.Infrastructure
             if (TEntity != null)
             {
                 _DbSet.Remove(TEntity);
+                await SaveChanges();
                 return true;
 
             }

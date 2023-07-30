@@ -12,5 +12,6 @@ namespace noon.Application.Contract
     {
         Task<IEnumerable<ProductBrand>> FilterByAsync(string filter, int id);
         Task<bool> DeleteBrand(int id);
+        List<ProductBrand> GetAll();
     }
 }

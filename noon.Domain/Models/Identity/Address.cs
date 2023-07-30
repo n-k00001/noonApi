@@ -6,7 +6,7 @@ namespace noon.Domain.Models.Identity
 {
     public class Address
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string fullAddress { get; set; }
@@ -16,6 +16,6 @@ namespace noon.Domain.Models.Identity
             work,
             home
         }
-        public virtual List<UserAddress>? UserAddresses { get; set; }        
+        public virtual List<UserAddress>? UserAddresses { get; set; }
     }
 }

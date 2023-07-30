@@ -30,6 +30,13 @@ namespace noon.Application.Services.ProductServices
             return model;
         }
 
+        public AddEditProductDto GetByIdAddEdit(Guid id)
+        {
+            var product = productRep.GetById(id);
+            var model = mapper.Map<AddEditProductDto>(product);
+            return model;
+        }
+
         public List<ProductDto> GetAllProductForAdmin()
         {
             var product = productRep.GetAll();

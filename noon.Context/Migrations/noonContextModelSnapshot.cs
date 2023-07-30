@@ -183,11 +183,8 @@ namespace noon.Context.Migrations
 
             modelBuilder.Entity("noon.Domain.Models.Identity.Address", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -289,8 +286,9 @@ namespace noon.Context.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AddressID")
-                        .HasColumnType("int");
+                    b.Property<string>("AddressID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("isDefualt")
                         .HasColumnType("bit");
@@ -349,7 +347,6 @@ namespace noon.Context.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -378,11 +375,11 @@ namespace noon.Context.Migrations
                     b.Property<int>("PaymentStatusId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShipToAddressId")
-                        .HasColumnType("int");
+                    b.Property<string>("ShipToAddressId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ShipToAddressId1")
-                        .HasColumnType("int");
+                    b.Property<string>("ShipToAddressId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("ShippingStatus")
                         .HasColumnType("int");

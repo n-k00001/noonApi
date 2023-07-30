@@ -1,0 +1,46 @@
+﻿@model ProductDto
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row " style="width:85%; margin:auto ">
+    <div class="p-5 card col-sd-12 col-md-9">
+            <img src="~/files/images/@Model.images[0]" class="card-img-top" alt="..." style="width:100%">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product Name : @Model.name</h4>
+                </div>
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product Price : @Model.price</h4>
+                </div>
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product quantity : @Model.quantity</h4>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product Name : @Model.description</h4>
+                </div>
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product brand : @Model.brand</h4>
+                </div>
+                <div class="card-body mb-3">
+                    <h4 class="card-title">Product category : @Model.category</h4>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="row my-5">
+            <div class="col-md-5"></div>
+            <div class="col-md-5">
+                <a asp-action="Index" asp-controller="Product" class="btn btn-primary m-5 w-25">Back to list</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
