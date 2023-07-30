@@ -12,13 +12,9 @@ using noon.Context.Context;
 namespace noon.Context.Migrations
 {
     [DbContext(typeof(noonContext))]
-<<<<<<<< HEAD:noon.Context/Migrations/20230730123544_editproduct.Designer.cs
-    [Migration("20230730123544_editproduct")]
-    partial class editproduct
-========
+    
     [Migration("20230729230615_init")]
     partial class init
->>>>>>>> d2a669f4c15d2922366682b7034343508b0b7e5f:noon.Context/Migrations/20230729230615_init.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
