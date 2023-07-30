@@ -1,18 +1,18 @@
 ﻿@model AppUser
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Profile";
 }
 
-<h2>Edit</h2>
+<h2>Edit Profile</h2>
 
 
 <form asp-controller="Users" asp-action="Edit" class="form-group">
 
 
-    <input asp-for="Id" type="hidden"  class="form-control" />
+    <input asp-for="Id" type="hidden" readonly class="form-control" />
     <br />
 
-    <label asp-for="DisplayName">User Name</label>
+    <label asp-for="DisplayName">Store Name</label>
     <input asp-for="DisplayName" type="text" class="form-control" />
     <br />
 
@@ -27,6 +27,6 @@
 
     <input type="submit" value="Edit" class="btn btn-primary btn-block" />
     <br />
-    <a asp-action="index" type="button" class="btn btn-info " >Back to list</a>
+    <a asp-action="index" asp-controller="Home" type="button" class="btn btn-info " >Back</a>
 
 </form>

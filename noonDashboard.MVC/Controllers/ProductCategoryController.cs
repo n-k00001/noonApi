@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.ProductBrandServices;
 using noon.Application.Services.ProductCategoryServices;
 using noon.Domain.Models;
@@ -6,6 +7,7 @@ using noon.DTO.ProductDTO;
 
 namespace noonDashboard.MVC.Controllers
 {
+    [Authorize(Roles = "admin ")]
     public class ProductCategoryController : Controller
     {
         private readonly IProductCategoryService productCategory;

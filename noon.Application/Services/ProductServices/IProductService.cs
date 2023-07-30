@@ -12,6 +12,7 @@ namespace noon.Application.Services.ProductServices
         public Task<AddEditProductDto> Create(AddEditProductDto AddEditProductDto);
         public List<ProductDto> GetAll(int Items, int PageNumber);
         public List<ProductDto> GetAllProductForAdmin();
+        public List<ProductDto> GetProductForStor(string storId);
         public ProductDto GetById(Guid id);
         public AddEditProductDto GetByIdAddEdit(Guid id);
         public Task<AddEditProductDto> Update(AddEditProductDto AddEditProductDto);

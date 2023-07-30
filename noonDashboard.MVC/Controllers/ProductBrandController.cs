@@ -10,6 +10,7 @@ using System.Data;
 
 namespace noonDashboard.MVC.Controllers
 {
+    [Authorize(Roles = "admin ")]
     public class ProductBrandController : Controller
     {
         private readonly IProductBrandServices brandServices;

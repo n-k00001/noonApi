@@ -59,6 +59,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
 builder.Services.AddDbContext<noonContext>(op =>
+
 {
      op.UseSqlServer(builder.Configuration.GetConnectionString("Cs"));
     //op.UseLazyLoadingProxies()

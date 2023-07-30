@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using noonDashboard.MVC.Models;
 using System.Diagnostics;
 
 namespace noonDashboard.MVC.Controllers
 {
+    [Authorize(Roles = "admin,store")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
