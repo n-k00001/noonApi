@@ -66,7 +66,8 @@ namespace noon.Application.Services.ProductBrandServices
         public async Task<IQueryable<ProductBrandDTO>> GetAllBrand()
         {
             var brand = await productBrandRep.GetAllAsync();
-            return brand.Select(item => mapper.Map<ProductBrandDTO>(item));
+            var data = mapper.Map<IQueryable<ProductBrandDTO>>(brand);
+            return data;
         }
 
         public List<ProductBrandDTO> GetAll()

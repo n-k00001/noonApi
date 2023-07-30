@@ -43,7 +43,7 @@ namespace noonDashboard.MVC.Controllers
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await userManager.FindByEmailAsync(email);
             productDto.userId = user.Id;
-            productDto.productBrands = productBrand.GetAllBrand();
+            productDto.productBrands = productBrand.GetAll();
             //ViewData["Brand"] = productBrand.GetAllBrand();
             ViewData["Category"] = productCategory.GetAll();
             return View(productDto);
@@ -91,8 +91,8 @@ namespace noonDashboard.MVC.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var data = productService.GetByIdAddEdit(id);
-            data.productCategorys = productCategory.GetAll();
-            data.productBrands = productBrand.GetAllBrand();
+            data.productBrands = productBrand.GetAll();
+            data.productCategorys = productCategory.GetAllAsync();
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await userManager.FindByEmailAsync(email);
             data.userId = user.Id;

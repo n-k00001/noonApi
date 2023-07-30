@@ -24,7 +24,7 @@ namespace noon.Infrastructure.Repositorys
         {
             return await context.Products
                 .Where(a => a.name.ToLower().Contains(ProductName.ToLower())).Include(p => p.images).Include(b => b.brand)
-                .Include(b => b.category).Include(b => b.store).Include(b => b.reviews)
+                .Include(b => b.category).Include(b => b.AppUser).Include(b => b.reviews)
             .ToListAsync();
         }
 
@@ -32,7 +32,7 @@ namespace noon.Infrastructure.Repositorys
         {
 
             return  context.Products.Include(p => p.images).Include(b => b.brand)
-                .Include(b => b.category).Include(b => b.store).Include(b => b.reviews).ToList();
+                .Include(b => b.category).Include(b => b.AppUser).Include(b => b.reviews).ToList();
 
 
         }
@@ -40,7 +40,7 @@ namespace noon.Infrastructure.Repositorys
         public Product GetById(Guid id)
         {
             return context.Products.Include(p => p.images).Include(b => b.brand)
-                .Include(b => b.category).Include(b => b.store).Include(b => b.reviews)
+                .Include(b => b.category).Include(b => b.AppUser).Include(b => b.reviews)
                 .FirstOrDefault(p => p.sku == id);
         }
 
