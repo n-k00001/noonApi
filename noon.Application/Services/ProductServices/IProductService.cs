@@ -19,6 +19,7 @@ namespace noon.Application.Services.ProductServices
         public Task<List<ProductDto>> SearchByProductName(string ProductName);
         public Task<List<UserReviewDTO>> GetReviewsByPrdId (Guid ProductID);
         public  Task<UserReviewDTO> CreateUserReview (UserReviewDTO reviewDTO);
+        public IEnumerable<ProductDto> GetProductsByCategoryId(int categoryId);
 
     }
 }

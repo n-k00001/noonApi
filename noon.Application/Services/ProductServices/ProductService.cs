@@ -115,7 +115,12 @@ namespace noon.Application.Services.ProductServices
              
              return reviewDTO;
         }
+        public IEnumerable<ProductDto> GetProductsByCategoryId(int categoryId)
+        {
+            var product =  productRep.GetProductsByCategoryId(categoryId);
+            var model = mapper.Map<List<ProductDto>>(product);
+            return model;
+        }
 
-        
     }
 }

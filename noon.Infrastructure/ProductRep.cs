@@ -2,12 +2,15 @@
 using noon.Application.Contract;
 using noon.Context.Context;
 using noon.Domain.Models;
+using noon.DTO.ProductDTO;
 using System;
 using System.Collections.Generic;
+//using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Dapper.SqlMapper;
+
 
 namespace noon.Infrastructure.Repositorys
 {
@@ -44,11 +47,11 @@ namespace noon.Infrastructure.Repositorys
                 .FirstOrDefault(p => p.sku == id);
         }
 
-public List<UserReview> GetReviewsByPrdId(Guid productId)
-{
-    var reviews =  context.CustomerReviews.Where(r => r.ProductId == productId).ToList();
-    return reviews;
-}
+          public List<UserReview> GetReviewsByPrdId(Guid productId)
+          {
+          var reviews =  context.CustomerReviews.Where(r => r.ProductId == productId).ToList();
+          return reviews;
+            }
 
         public UserReview CreateUserReview(UserReview _review)
         {
@@ -68,6 +71,12 @@ public List<UserReview> GetReviewsByPrdId(Guid productId)
             return review;
         }
 
-
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        {
+          
+            var result =context.Products.Where(p => p.categoryId == categoryId).ToList();
+             
+            return result;  
+        }
     }
 }
