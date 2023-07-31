@@ -53,7 +53,7 @@ namespace noon.DTO.ProductDTO
         public string userId { get; set; }
 
         public string? ImgURL { get; set; }
-        [Required(ErrorMessage = "Image Required")]
+        //[Required(ErrorMessage = "Image Required")]
         public List<IFormFile>? ProductImages { get; set; }
     }
 }

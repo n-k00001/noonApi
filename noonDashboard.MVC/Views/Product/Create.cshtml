@@ -61,21 +61,46 @@
     
     
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label asp-for="categoryId" class="control-label">Category Name</label>
-        <select asp-for="categoryId" asp-items="Category" class="form-control">
+        <select asp-for="categoryId" asp-items="Category" class="form-select">
             <option value="">-- Select Category --</option>
         </select>
         <span asp-validation-for="categoryId" class="text-danger"></span>
-    </div>
+    </div>*@
 
     <div class="form-group">
+        <div class="custom-dropdown">
+            <select asp-for="categoryId" asp-items="Category" class="form-select custom-select">
+                <option value="">-- Select Category --</option>
+            </select>
+            <span class="dropdown-icon">
+                <i class="fas fa-chevron-down"></i> <!-- Add a down arrow icon or any other icon of your choice -->
+            </span>
+        </div>
+        <span asp-validation-for="categoryId" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <div class="custom-dropdown">
+            <select asp-for="brandId" asp-items="Brand" class="form-select custom-select">
+                <option value="">-- Select Category --</option>
+            </select>
+            <span class="dropdown-icon">
+                <i class="fas fa-chevron-down"></i> <!-- Add a down arrow icon or any other icon of your choice -->
+            </span>
+        </div>
+        <span asp-validation-for="brandId" class="text-danger"></span>
+    </div>
+
+    @*<div class="form-group">
         <label asp-for="brandId" class="control-label">Brand Name</label>
-        <select asp-for="brandId" asp-items="Brand" class="form-control">
+        <select asp-for="brandId" asp-items="Brand" class="">
             <option value="">-- Select Brand --</option>
         </select>
         <span asp-validation-for="brandId" class="text-danger"></span>
-    </div>
+    </div>*@
 
 
     <div style="margin-top:2rem">

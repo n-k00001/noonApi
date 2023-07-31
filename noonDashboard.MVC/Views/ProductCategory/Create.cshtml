@@ -25,11 +25,25 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <br />
+
+    @*<div class="form-group">
         <label asp-for="parentCategoryId" class="control-label">Parent Category Name</label>
         <select asp-for="parentCategoryId" asp-items="listItems" class="form-control">
             <option value="">-- Select Parent Category --</option>
         </select>
+        <span asp-validation-for="parentCategoryId" class="text-danger"></span>
+    </div>*@
+
+    <div class="form-group">
+        <div class="custom-dropdown">
+            <select asp-for="parentCategoryId" asp-items="listItems" class="form-select custom-select">
+                <option value="">-- Select Parent Category --</option>
+            </select>
+            <span class="dropdown-icon">
+                <i class="fas fa-chevron-down"></i> <!-- Add a down arrow icon or any other icon of your choice -->
+            </span>
+        </div>
         <span asp-validation-for="parentCategoryId" class="text-danger"></span>
     </div>
 

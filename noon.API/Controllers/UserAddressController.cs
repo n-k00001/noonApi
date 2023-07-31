@@ -18,7 +18,7 @@ namespace noon.API.Controllers
         }
 
         [HttpGet]
-        [Route("{UserId}")]
+        [Route("forUser/{userId}")]
         public async Task<IActionResult> GetAll(string userId)
         {
             var property = await userAddressServices.GetAllUserAddressesAsync(userId);
