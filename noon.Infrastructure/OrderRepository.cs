@@ -5,7 +5,7 @@ using noon.Domain.Models;
 using noon.Domain.Models.Order;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+//using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,15 +22,16 @@ namespace noon.Infrastructure
         {
             this.noonContext = noonContext;
         }
-        //public override async Task<Order> GetDetailsAsync(Guid id)
-        //{
+        public override async Task<Order> GetDetailsAsync(Guid id)
+        {
 
-        //    var order = await noonContext.Orders.Include(o=>o.Items).FirstOrDefaultAsync(o => o.OrderId==id);
-                
-        //    return order;
+            var order = await noonContext.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.OrderId == id);
+            return order;
 
-        //}
-
-
+        }
+        public override async Task<IQueryable<Order>> GetAllAsync()
+        {
+            return  noonContext.Orders.Include(o => o.Items);
+        }
     }
 }

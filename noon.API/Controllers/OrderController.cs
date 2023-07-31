@@ -29,7 +29,7 @@ namespace noon.API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var property = await orderService.GetById(id);
+            var property = await orderService.GetDetails(id);
             return Ok(property);
         }
 
@@ -47,10 +47,12 @@ namespace noon.API.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid Id)
+        [HttpDelete("{orderId}")]
+        public async Task<IActionResult> Delete(string Id)
         {
-            bool isDeleted = await orderService.Delete(Id);
+            Console.WriteLine(Id);
+            Guid hh = new Guid() ;
+            bool isDeleted = await orderService.Delete(hh);
             if (isDeleted)
             {
                 return Ok();
