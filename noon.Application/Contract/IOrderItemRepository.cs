@@ -10,5 +10,6 @@ namespace noon.Application.Contract
 {
     public interface IOrderItemRepository : IRepository<OrderItem, int>
     {
+        Task<IQueryable<OrderItem>> GetAllItemForOrderAsync(Guid orderId);
     }
 }

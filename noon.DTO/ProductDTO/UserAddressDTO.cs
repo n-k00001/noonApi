@@ -12,7 +12,9 @@ namespace noon.DTO.ProductDTO
     {
         public string Id { get; set; }
         public bool isDefualt { get; set; }
-        public int AddressID { get; set; }
+        
+        //public AddressDTO Address { get; set; }
+        public int AddressID { set; get; }
         public string userId { get; set; }
     }
 }

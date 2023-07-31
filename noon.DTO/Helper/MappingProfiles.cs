@@ -48,17 +48,11 @@ namespace noon.DTO.Helper
             CreateMap<UserReview, UserReviewDTO>().ReverseMap();
             CreateMap<AppUser, ProfileDTO>().ReverseMap();
 
+            CreateMap<UserAddress, UserAddressDTO>().ReverseMap();
+            CreateMap<Address, AddressDTO>().ReverseMap();
 
-
-
-
-
-
-           
-
-
-
-
+            CreateMap<Order,OrderDTO.OrderDTO>().ReverseMap();
+            CreateMap<OrderItem,OrderItemDTO>().ReverseMap();
         }
     }
 }
