@@ -29,14 +29,24 @@ namespace noonDashboard.MVC.Controllers
             this.productBrand = productBrand;
             this.userManager = userManager;
         }
+        [Authorize(Roles = "admin ")]
         public IActionResult Index()
         {
             var data = productService.GetAllProductForAdmin();
             return View(data);
         }
 
+        [Authorize(Roles = "store ")]
+        public async Task<IActionResult> ProductForStor()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            var data = productService.GetProductForStor(user.Id);
+            return View(data);
+        }
 
-        [Authorize]
+
+        [Authorize(Roles = "store ")]
         public async Task<IActionResult> Create()
         {
             AddEditProductDto productDto = new AddEditProductDto();
@@ -76,18 +86,18 @@ namespace noonDashboard.MVC.Controllers
                     }
                     noonContext.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("ProductForStor");
             }
             return View(productDto);
         }
-
+        [Authorize(Roles = "admin,store")]
         public IActionResult Details(Guid id)
         {
             var data = productService.GetById(id);
             return View(data);
         }
 
-        [Authorize]
+        [Authorize(Roles = "store")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var data = productService.GetByIdAddEdit(id);
@@ -110,7 +120,7 @@ namespace noonDashboard.MVC.Controllers
             }
             return View(productDto);
         }
-
+        [Authorize(Roles = "store")]
         public IActionResult Delete(Guid id)
         {
             productService.Delete(id);

@@ -4,9 +4,11 @@ using noon.Domain.Models.Identity;
 using Castle.Core.Resource;
 using Microsoft.AspNetCore.Identity;
 using noon.DTO.RoleVM;
+using Microsoft.AspNetCore.Authorization;
 
 namespace noonDashboard.MVC.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

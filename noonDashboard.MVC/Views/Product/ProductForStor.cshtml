@@ -1,5 +1,5 @@
 ﻿@model List<ProductDto>
-<h1 class="d-flex justify-content-center text-success">Product</h1>
+<h1 class="d-flex justify-content-center text-success">My Product</h1>
 
 
 
@@ -15,6 +15,7 @@
     <link href="~/Layout/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" />
 }
 
+<a asp-controller="Product" asp-action="Create" class="btn btn-primary ">Create New Product</a>
 
 <br />
 <br />
@@ -42,6 +43,7 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable text-center font-weight-bold">
                             <thead>
                                 <tr>
+                                    @*<th>Image</th>*@
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Description</th>
@@ -49,21 +51,25 @@
                                     <th>Brand</th>
                                     <th>Category</th>
                                     <th>Details</th>
-                                    
+                                    <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                         <td>@item.name</td>
+                                        @*<td>@item.images[0]</td>*@
+                                        <td>@item.name</td>
                                         <td>@item.price</td>
                                         <td>@item.description</td>
                                         <td>@item.AppUser</td>
                                         <td>@item.brand</td>
                                         <td>@item.category</td>
                                         <td><a asp-controller="Product" asp-action="Details" asp-route-id="@item.sku" class="btn btn-success">Details</a></td>
-                                        </tr>
+                                        <td><a asp-controller="Product" asp-action="Edit" asp-route-id="@item.sku" class="btn btn-info">Update</a></td>
+                                        <td><a asp-controller="Product" asp-action="Delete" asp-route-id="@item.sku" class="btn btn-danger">Delete</a></td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
