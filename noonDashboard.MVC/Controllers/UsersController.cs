@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using noon.Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace noonDashboard.MVC.Controllers
 {
+    
     public class UsersController : Controller
     {
         private readonly UserManager<AppUser> userManager;
@@ -13,12 +16,14 @@ namespace noonDashboard.MVC.Controllers
             this.userManager = userManager;
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             var users = userManager.Users;
             return View(users);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
@@ -26,6 +31,17 @@ namespace noonDashboard.MVC.Controllers
             return View(data);
         }
 
+        
+        [HttpGet]
+        [Authorize(Roles = "admin, store")]
+        public async Task<IActionResult> EditProfile()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            return View(user);
+        }
+
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -51,7 +67,7 @@ namespace noonDashboard.MVC.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -74,7 +90,7 @@ namespace noonDashboard.MVC.Controllers
 
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
