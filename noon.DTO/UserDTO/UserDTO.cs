@@ -11,5 +11,7 @@ namespace noon.DTO.UserDTO
         public string DisplayName { get; set; }
         public string Email { get; set; }
         public string token { get; set; }
+
+        public string emailValidation {get; set;}
     }
 }

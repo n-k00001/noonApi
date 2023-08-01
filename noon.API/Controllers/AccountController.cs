@@ -21,19 +21,20 @@ namespace noon.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
-    {
+    {   private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SignInManager<AppUser> signInManager;
         private readonly UserManager<AppUser> userManager;
         private readonly ITokenService tokenService;
         private readonly IMailService _mailService;
-
+        public static string randcode;
         public AccountController(UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager,
-               ITokenService _tokenService, IMailService mailService)
+               ITokenService _tokenService, IMailService mailService, IHttpContextAccessor httpContextAccessor)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             tokenService = _tokenService;
             _mailService = mailService;
+               _httpContextAccessor = httpContextAccessor;
 
         }
 
@@ -83,7 +84,7 @@ namespace noon.API.Controllers
                 return BadRequest("Failed to create user.");
             }
             
-            await userManager.AddToRoleAsync(user,"user");
+         await userManager.AddToRoleAsync(user,"user");
             try
             {
                 var userDTO = new UserDTO()
@@ -118,6 +119,8 @@ namespace noon.API.Controllers
 
                         };
                         var rand = random();
+                        randcode =rand;
+                      HttpContext.Session.SetString("Random", rand);
 
                         mailText = mailText.Replace("[username]", user.DisplayName).Replace("[email]", mailRequestDTO.ToEmail).Replace("[rendom]",rand);
 
@@ -145,14 +148,14 @@ namespace noon.API.Controllers
                     }
 
 
-
+                 Console.WriteLine(userDTO);
 
 
                 }
 
 
                 #endregion
-
+                userDTO.emailValidation= randcode;
                 return Ok(userDTO);
             }
             catch (Exception ex)
@@ -174,13 +177,14 @@ namespace noon.API.Controllers
 
            
         }
-       
-       
+
+        
+
         [HttpDelete("Delete")]
-        public async Task<ActionResult> Delete(string UserId)
+        public async Task<ActionResult> Delete(string id)
         {
 
-          var user = await userManager.FindByIdAsync(UserId);
+          var user = await userManager.FindByIdAsync(id);
           var result = await userManager.DeleteAsync(user);
 
           return Ok(result);
@@ -202,6 +206,18 @@ namespace noon.API.Controllers
             });
         }
 
+        [HttpGet("checkemail")]
+        public async Task<ActionResult> checkemail( string verifyCode) 
+        {
+            var local = HttpContext.Session.GetString("Random");
+            if(verifyCode == local )
+            {
+                return Ok(verifyCode);
+            }
+            else
+            return NotFound();
+        }
+
 
 
 
@@ -212,6 +228,7 @@ namespace noon.API.Controllers
         int randomNumber = random.Next(0, 999999);
         string formattedNumber = randomNumber.ToString("D6");
         Console.WriteLine(formattedNumber);
+
         return formattedNumber;
     }
 

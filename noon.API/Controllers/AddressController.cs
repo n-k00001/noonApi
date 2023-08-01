@@ -38,7 +38,7 @@ namespace noon.API.Controllers
             try
             {
                 var address = await addressServices.AddAddressAsync(property);
-                return Created("", address);
+                return  Created("", address);
             }
             catch
             {
@@ -51,6 +51,8 @@ namespace noon.API.Controllers
             var brand = await addressServices.UpdateAddressAsync(property);
             return Ok(brand);
         }
+
+
 
         [HttpDelete]
         public IActionResult Delete(int Id)

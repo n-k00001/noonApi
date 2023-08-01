@@ -18,7 +18,13 @@ namespace noon.DTO.UserPaymentDto
         public string CardNumber { get; set; }
         public string ExpirationDate { get; set; }
         public string CVV { get; set; }
-        public bool IsDefault { get; set; }
+        private bool _isDefault = false;
+
+            public bool IsDefault
+            {
+                get { return _isDefault; }
+                set { _isDefault = value; }
+            }
 
         // Other relevant properties
         public string UserID { get; set; }

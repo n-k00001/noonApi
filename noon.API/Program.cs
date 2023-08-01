@@ -42,6 +42,13 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+builder.Services.AddDistributedMemoryCache( );
+builder.Services.AddSession(op=>
+{
+    op.IdleTimeout= TimeSpan.FromMinutes(400);
+       op.Cookie.HttpOnly = true;
+        op.Cookie.IsEssential = true;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -201,6 +208,8 @@ builder.Services.AddCors(op =>
 
 
 var app = builder.Build();
+app.UseSession();
+
 app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -210,6 +219,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 ////
 /// use dashboard path
