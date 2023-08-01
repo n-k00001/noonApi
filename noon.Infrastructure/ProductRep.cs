@@ -44,11 +44,11 @@ namespace noon.Infrastructure.Repositorys
                 .FirstOrDefault(p => p.sku == id);
         }
 
-public List<UserReview> GetReviewsByPrdId(Guid productId)
-{
-    var reviews =  context.CustomerReviews.Where(r => r.ProductId == productId).ToList();
-    return reviews;
-}
+        public List<UserReview> GetReviewsByPrdId(Guid productId)
+        {
+            var reviews =  context.CustomerReviews.Where(r => r.ProductId == productId).ToList();
+            return reviews;
+        }
 
         public UserReview CreateUserReview(UserReview _review)
         {

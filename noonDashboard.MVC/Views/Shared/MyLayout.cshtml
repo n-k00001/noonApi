@@ -100,7 +100,7 @@
                     {
                         <li>
                             <form asp-controller="Account" asp-action="LogOff" method="post">
-                                <button type="submit" class="btn btn-primary btn-block" style="padding: 10px; font-size: 1.5rem; margin: 5px;">
+                                <button type="submit" class="btn btn-dark btn-block" style="padding: 10px; font-size: 1.5rem; margin: 5px;">
                                     <i class="material-icons" style="vertical-align: middle; margin-right: 5px; margin: 5px">exit_to_app</i>
                                     Sign Out
                                 </button>
@@ -167,6 +167,17 @@
                             <ul class="ml-menu">
                                 <li>
                                     <a asp-controller="Product" asp-action="ProductForStor">My Products</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">shopping_cart</i>
+                                <span>Orders</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-controller="OrderItem" asp-action="Index">Orders</a>
                                 </li>
                             </ul>
                         </li>
