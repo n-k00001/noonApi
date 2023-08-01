@@ -47,12 +47,11 @@ namespace noon.API.Controllers
             }
         }
 
-        [HttpDelete("{orderId}")]
-        public async Task<IActionResult> Delete(string Id)
+        [HttpDelete]
+        [Route("{orderId}")]
+        public async Task<IActionResult> Delete(Guid Id)
         {
-            Console.WriteLine(Id);
-            Guid hh = new Guid() ;
-            bool isDeleted = await orderService.Delete(hh);
+            bool isDeleted = await orderService.Delete(Id);
             if (isDeleted)
             {
                 return Ok();
@@ -68,5 +67,6 @@ namespace noon.API.Controllers
             var deliveryMethods = await orderService.GetDeliveryMethodsAsync();
             return Ok(deliveryMethods);
         }
+
     }
 }
