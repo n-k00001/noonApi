@@ -32,8 +32,7 @@ namespace noon.API.Controllers
             return Ok(property);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("getById")]
         public async Task<IActionResult> GetById(int id)
         {
             var property = await userAddressServices.GetUserAddressByIdAsync(id);

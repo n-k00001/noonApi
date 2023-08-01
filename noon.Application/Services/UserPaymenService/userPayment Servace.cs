@@ -31,6 +31,13 @@ namespace noon.Application.Services.UserPaymenService
             return model;
         }
 
+            public async Task<List<GetAllUserPaymentMethodDto>> GetUserPayments(string id)
+        {
+            var userPyment = await _userPaymentMethodRepository.GetUserPaymentMethods(id);
+            var model = mapper.Map<List<GetAllUserPaymentMethodDto>>(userPyment);
+            return model;
+        }
+
         public  async Task<CreateOrUpdateUserpaymentDto> Create(CreateOrUpdateUserpaymentDto userDTO)
         {
 

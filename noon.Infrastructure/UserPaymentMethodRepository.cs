@@ -1,4 +1,5 @@
-﻿using noon.Application.Contract;
+﻿using Microsoft.EntityFrameworkCore;
+using noon.Application.Contract;
 using noon.Context.Context;
 using noon.Domain.Models;
 using System;
@@ -24,6 +25,12 @@ namespace noon.Infrastructure
         {
             return noonContext.UserPaymentMethods.FirstOrDefault(p => p.UserID == AppUserId && p.IsDefault == true);
         }
+
+         public async Task<List<UserPaymentMethod>> GetUserPaymentMethods(string AppUserId)
+        {
+            return await noonContext.UserPaymentMethods.Where(p => p.UserID == AppUserId).ToListAsync();
+        }
+
 
        
     }

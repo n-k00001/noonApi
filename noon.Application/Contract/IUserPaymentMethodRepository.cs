@@ -11,5 +11,7 @@ namespace noon.Application.Contract
     public interface IUserPaymentMethodRepository: IRepository<UserPaymentMethod, int>
     {
         public Task<UserPaymentMethod> GetDefualt(string AppUserId);
+         public  Task<List<UserPaymentMethod>> GetUserPaymentMethods(string AppUserId);
+
     }
 }

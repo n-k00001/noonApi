@@ -15,6 +15,8 @@ namespace noon.Application.Services.UserPaymenService
         public Task<GetAllUserPaymentMethodDto> GetById(int id);
         public Task<CreateOrUpdateUserpaymentDto> Update(CreateOrUpdateUserpaymentDto propertyDTO);
         public Task<bool> Delete(int id);
+            public  Task<List<GetAllUserPaymentMethodDto>> GetUserPayments(string id);
+
 
     }
 }

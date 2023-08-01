@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using noon.Application.Services.UserService;
 using noon.Domain.Models.Identity;
 using noon.DTO.UserDTO;
-
+using Microsoft.AspNetCore.Authorization;
 namespace noon.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -27,26 +28,24 @@ namespace noon.API.Controllers
          signInManager = _signInManager;
             userManager = _userManager;
     }
-
-        [HttpGet]
-        [Route("{id}")]
-         public async Task<IActionResult> GetProfileByEmail(string emai)
+        [HttpGet("profile")]
+         public async Task<IActionResult> GetProfileByEmail(string email)
         {
-            var property = await userService.GetProfileByEmail(emai);
+            var property = await userService.GetProfileByEmail(email);
             return Ok(property);
         }
 
         [HttpPut("UpdateProfile")]
-        public async Task<IActionResult> UpdateProfile(string Id, [FromBody] ProfileDTO profile)
+        public async Task<IActionResult> UpdateProfile(string email, [FromBody] ProfileDTO profile)
         {
 
             // var obj = await userService.GetProfileById(Id);
-            var appUser = await userManager.FindByIdAsync(Id);
+            var appUser = await userManager.FindByEmailAsync(email);
             try
             {
                 if (appUser == null)
                 {
-                    return NotFound("User not found id : " + Id);
+                    return NotFound("User not found  : " + email);
                 }
                 else
                 {

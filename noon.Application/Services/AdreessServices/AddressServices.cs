@@ -23,9 +23,15 @@ namespace noon.Application.Services.AdreessServices
 
         public async Task<AddressDTO> AddAddressAsync(AddressDTO address)
         {
-            var model = mapper.Map<Address>(address);
+            // var model = mapper.Map<Address>(address);
+            var model = new Address(){
+                FirstName= address.FirstName,
+                LastName= address.LastName,
+                phoneNumber= address.phoneNumber,
+                fullAddress= address.fullAddress
+            };
             await addressRepository.CreateAsync(model);
-            return address;
+            return  address;
         }
 
         public async Task DeleteAddressAsync(int addressId)

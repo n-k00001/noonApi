@@ -15,6 +15,7 @@ namespace noon.DTO.ProductDTO
         
         //public AddressDTO Address { get; set; }
         public int AddressID { set; get; }
+        public string AddressID { get; set; }
         public string userId { get; set; }
     }
 }

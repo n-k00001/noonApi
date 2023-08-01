@@ -24,7 +24,15 @@ namespace noon.Application.Services.UserAddressServices
 
         public async Task<UserAddressDTO> AddUserAddressAsync(UserAddressDTO userAddress)
         {
-            var model = mapper.Map<UserAddress>(userAddress);
+
+            Guid guid=  Guid.NewGuid();
+            // var model = mapper.Map<UserAddress>(userAddress);
+            var model = new UserAddress(){
+                Id= guid.ToString(),
+                AddressID=userAddress.AddressID,
+                userId= userAddress.userId,
+                 isDefualt= userAddress.isDefualt,
+            };
             await userAddressRepository.CreateAsync(model);
             return userAddress;
         }
