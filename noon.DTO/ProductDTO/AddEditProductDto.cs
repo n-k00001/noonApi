@@ -14,8 +14,8 @@ namespace noon.DTO.ProductDTO
     {
         public Guid sku { get; set; }
         [Required(ErrorMessage = "Name Required")]
-        [MinLength(3, ErrorMessage = "Min Lin 3")]
-        [StringLength(100, ErrorMessage = "Max Len 100")]
+        [MinLength(1, ErrorMessage = "Min Lin 1")]
+        [StringLength(150, ErrorMessage = "Max Len 150")]
         public string name { get; set; }
         [Required(ErrorMessage = "Choose Category")]
         public int categoryId { set; get; }
@@ -53,6 +53,7 @@ namespace noon.DTO.ProductDTO
         public string userId { get; set; }
 
         public string? ImgURL { get; set; }
+        //[Required(ErrorMessage = "Image Required")]
         public List<IFormFile>? ProductImages { get; set; }
     }
 }

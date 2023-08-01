@@ -53,6 +53,8 @@ namespace noon.DTO.Helper
 
             CreateMap<Order,OrderDTO.OrderDTO>().ReverseMap();
             CreateMap<OrderItem,OrderItemDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemForStoreDto>().ReverseMap();
+            CreateMap<Order, OrderUpdateDto>().ReverseMap();
         }
     }
 }

@@ -16,6 +16,10 @@ namespace noon.Application.Services.OrderServices
         public Task<bool> Delete(Guid id);
         Task<OrderDTO> GetDetails(Guid id);
         Task<IQueryable<OrderDTO>> GetAllOrderForUser(string UserId);
+        Task<IQueryable<OrderUpdateDto>> GetAllOrderForAdmin();
+        public Task<OrderUpdateDto> GetByIdForAdmin(Guid id);
+
         Task<IQueryable<DeliveryMethod>> GetDeliveryMethodsAsync();
+        public Task<OrderUpdateDto> Update(OrderUpdateDto orderUpdateDto);
     }
 }

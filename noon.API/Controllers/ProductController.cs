@@ -65,7 +65,14 @@ namespace noon.API.Controllers
             var review = productService.CreateUserReview(userReviewDTO);
             return Ok(review);
         }
+        [HttpGet]
+        [Route("category/{categoryId}")]
 
+        public IActionResult GetProductsByCategoryId(int categoryId)
+        {
+            var products = productService.GetProductsByCategoryId(categoryId);
+            return Ok(products);
+        }
 
 
     }

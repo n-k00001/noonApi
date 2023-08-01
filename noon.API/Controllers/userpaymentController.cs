@@ -54,5 +54,12 @@ namespace noon.API.Controllers
         }
 
 
+        [HttpGet("UserPaymentMethod")]
+        public async Task<IActionResult> GetUserPaymentMethods(string UserId)
+        {
+            var paymentMethods = await _userPaymentService.GetUserPayments(UserId);
+            return Ok(paymentMethods);
+        }
+
     }
 }

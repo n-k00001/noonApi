@@ -31,7 +31,10 @@ namespace noon.Infrastructure
         }
         public override async Task<IQueryable<Order>> GetAllAsync()
         {
-            return  noonContext.Orders.Include(o => o.Items);
+            return  noonContext.Orders.Include(o => o.Items).Include(a => a.DeliveryMethod);
         }
+
+
+        
     }
 }
