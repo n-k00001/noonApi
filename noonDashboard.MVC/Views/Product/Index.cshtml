@@ -44,12 +44,11 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Price</th>
+                                    <th>Quantity</th>
                                     <th>Description</th>
                                     <th>Stor Name</th>
                                     <th>Brand</th>
                                     <th>Category</th>
-                                    <th>Details</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,12 +57,12 @@
                                     <tr>
                                          <td>@item.name</td>
                                         <td>@item.price</td>
+                                        <td>@item.quantity</td>
                                         <td>@item.description</td>
                                         <td>@item.AppUser</td>
                                         <td>@item.brand</td>
                                         <td>@item.category</td>
-                                        <td><a asp-controller="Product" asp-action="Details" asp-route-id="@item.sku" class="btn btn-success">Details</a></td>
-                                        </tr>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

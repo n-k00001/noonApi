@@ -90,12 +90,15 @@ namespace noonDashboard.MVC.Controllers
             }
             return View(productDto);
         }
+
+
         [Authorize(Roles = "admin,store")]
         public IActionResult Details(Guid id)
         {
             var data = productService.GetById(id);
             return View(data);
         }
+
 
         [Authorize(Roles = "store")]
         public async Task<IActionResult> Edit(Guid id)
@@ -116,7 +119,7 @@ namespace noonDashboard.MVC.Controllers
             {
 
                 productService.Update(productDto);
-                return RedirectToAction("index");
+                return RedirectToAction("ProductForStor");
             }
             return View(productDto);
         }
