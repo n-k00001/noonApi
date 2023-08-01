@@ -13,7 +13,7 @@ namespace noon.Domain.Models.Order
     {
 
         [Key]
-        public Guid OrderId { get; set; }   
+        public Guid OrderId { set; get; }   
         [ForeignKey("AppUser")]
         public string userId { get; set; }
         public virtual AppUser AppUser { get; set; }
@@ -50,7 +50,7 @@ namespace noon.Domain.Models.Order
             get => (ShippingStatus)ShippingStatusId;
             set => ShippingStatusId = (int)value;
         }
-        public virtual IQueryable<OrderItem> Items { get; set; }
+        public virtual List<OrderItem>? Items { get; set; }
         public decimal? Subtotal { set; get; }
         public decimal? OrderDiscount { get; set; }
         public decimal? GetTotal()

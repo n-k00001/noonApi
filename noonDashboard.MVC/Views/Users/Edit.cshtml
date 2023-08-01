@@ -9,8 +9,7 @@
 <form asp-controller="Users" asp-action="Edit" class="form-group">
 
 
-    <label asp-for="Id">Id</label>
-    <input asp-for="Id" type="text" readonly class="form-control" />
+    <input asp-for="Id" type="hidden"  class="form-control" />
     <br />
 
     <label asp-for="DisplayName">User Name</label>
@@ -27,6 +26,7 @@
 
 
     <input type="submit" value="Edit" class="btn btn-primary btn-block" />
-    <a asp-action="index" type="button" class="btn btn-info " style="margin-left:2rem">Back to list</a>
+    <br />
+    <a asp-action="index" type="button" class="btn btn-info " >Back to list</a>
 
 </form>

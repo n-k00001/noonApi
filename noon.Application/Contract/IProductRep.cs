@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using noon.Domain.Contract;
 using noon.Domain.Models;
+using noon.DTO.ProductDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace noon.Application.Contract
         public List<UserReview> GetReviewsByPrdId(Guid productId);
 
         public UserReview CreateUserReview(UserReview _review);
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId);
 
     }
 

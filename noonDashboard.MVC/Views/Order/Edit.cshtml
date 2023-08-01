@@ -1,0 +1,79 @@
+﻿@model OrderUpdateDto
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" class="form-group" method="post">
+
+    <input type="hidden" asp-for="OrderId" />
+    <div class="m-2">
+        <label asp-for="@Model.DeliveryMethod.ShortName" class="py-2">Product Name</label>
+        <input class="form-control" type="text" asp-for="@Model.DeliveryMethod.ShortName" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="@Model.DeliveryMethod.ShortName" class="text-danger shadow-sm "></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="@Model.DeliveryMethod.Cost" class="py-2"> Product Price </label>
+        <input class="form-control" type="number" asp-for="@Model.DeliveryMethod.Cost" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="@Model.DeliveryMethod.Cost" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="@Model.DeliveryMethod.DeliveryTime" class="py-2"> Product Quantity </label>
+        <input class="form-control" type="text" asp-for="@Model.DeliveryMethod.DeliveryTime" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="@Model.DeliveryMethod.DeliveryTime" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="OrderDate" class="py-2"> Product Description </label>
+        <input class="form-control" type="text" asp-for="OrderDate" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="OrderDate" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="PaymentStatus" class="py-2"> Payment Status </label>
+        <input class="form-control"   asp-for="PaymentStatus" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="PaymentStatus" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="ShippingStatus" class="py-2"> Shipping Status </label>
+        <input class="form-control" asp-for="ShippingStatus" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="ShippingStatus" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="m-2">
+        <label asp-for="Status" class="py-2"> Order Status </label>
+        <input class="form-control" asp-for="Status" />
+        <div class="m-auto text-center">
+            <span asp-validation-for="Status" class="text-danger shadow-sm"></span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-content-center  my-3">
+        <input type="submit" class="btn btn-success my-5 border shadow-5 px-5 py-3 rounded-3" value="Save" />
+    </div>
+    
+</form>
+
+<a asp-action="Index" class="btn btn-primary ">Back to list</a>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

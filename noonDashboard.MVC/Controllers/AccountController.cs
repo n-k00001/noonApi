@@ -42,7 +42,6 @@ namespace noonDashboard.MVC.Controllers
                     {
 
                         UserName = model.Email,
-                        
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
                         DisplayName = model.DisplayName
@@ -58,6 +57,7 @@ namespace noonDashboard.MVC.Controllers
 
                     if (result.Succeeded)
                     {
+                        await userManager.AddToRoleAsync(user, "store");
                         return RedirectToAction("Login");
                     }
                     else
@@ -106,7 +106,7 @@ namespace noonDashboard.MVC.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Product");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -135,7 +135,7 @@ namespace noonDashboard.MVC.Controllers
         public async Task<IActionResult> LogOff()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("index", "ProductBrand");
+            return RedirectToAction("Login", "Account");
         }
 
         #endregion

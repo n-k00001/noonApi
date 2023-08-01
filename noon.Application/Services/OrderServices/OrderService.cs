@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using noon.Application.Contract;
 using noon.Domain.Contract;
+using noon.Domain.Models;
 using noon.Domain.Models.Identity;
 using noon.Domain.Models.Order;
 using noon.DTO.OrderDTO;
@@ -40,12 +41,24 @@ namespace noon.Application.Services.OrderServices
 
         public async Task<bool> Delete(Guid id)
         {
+            var items = await orderItemRepository.GetAllItemForOrderAsync(id);
+            foreach (var item in items)
+            {
+                await orderItemRepository.DeleteAsync(item.id);
+            }
             bool isDeleted = await orderRepository.DeleteAsync(id);
             if (isDeleted)
             {
+                
                 await orderRepository.SaveChanges();
             }
             return isDeleted;
+        }
+
+        public async Task<IQueryable<OrderUpdateDto>> GetAllOrderForAdmin()
+        {
+            var orders = await orderRepository.GetAllAsync();
+            return orders.Select(o => mapper.Map<OrderUpdateDto>(o));
         }
 
         public async Task<IQueryable<OrderDTO>> GetAllOrderForUser(string UserId)
@@ -58,9 +71,13 @@ namespace noon.Application.Services.OrderServices
         public async Task<OrderDTO> GetById(Guid id)
         {
             var order = await orderRepository.GetByIdAsync(id);
-            var orderItem = (await orderItemRepository.GetAllAsync()).Where(o=>o.orderId==id);
-            order.Items = orderItem;
             return mapper.Map<OrderDTO>(order);
+        }
+
+        public async Task<OrderUpdateDto> GetByIdForAdmin(Guid id)
+        {
+            var order = await orderRepository.GetByIdAsync(id);
+            return mapper.Map<OrderUpdateDto>(order);
         }
 
         public async Task<IQueryable<DeliveryMethod>> GetDeliveryMethodsAsync()
@@ -74,5 +91,20 @@ namespace noon.Application.Services.OrderServices
             return mapper.Map<OrderDTO>(order);
         }
 
+        public async Task<OrderUpdateDto> Update(OrderUpdateDto orderUpdateDto)
+        {
+            if (orderUpdateDto.OrderId != null)
+            {
+                var data = mapper.Map<Order>(orderUpdateDto);
+                await orderRepository.UpdateAsync(data);
+                await orderRepository.SaveChanges();
+                return orderUpdateDto;
+
+            }
+            else
+            {
+                return orderUpdateDto;
+            }
+        }
     }
 }

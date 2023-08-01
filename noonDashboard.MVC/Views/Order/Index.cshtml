@@ -1,0 +1,136 @@
+﻿@model Task<IQueryable<OrderUpdateDto>>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1 class="d-flex justify-content-center text-success">All Order</h1>
+
+
+
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
+
+
+@section BootstrapSelect{
+    <link href="~/Layout/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Layout/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" />
+}
+
+
+<br />
+<br />
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>All Order</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable text-center font-weight-bold">
+                            <thead>
+                                <tr>
+                                    <th>Order Id</th>
+                                    <th>ShortName</th>
+                                    <th>Cost</th>
+                                    <th>Delivery Time</th>
+                                    <th>Order Date</th>
+                                    <th>Payment Status</th>
+                                    <th>Shipping Status</th>
+                                    <th>Order Status</th>
+                                    
+                                    <th>Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in await Model)
+                                {
+                                    <tr>
+                                        <td>@item.OrderId</td>
+                                        <td>@item.DeliveryMethod.ShortName</td>
+                                        <td>@item.DeliveryMethod.Cost</td>
+                                        <td>@item.DeliveryMethod.DeliveryTime</td>
+                                        <td>@item.OrderDate</td>
+                                        <td>@item.PaymentStatus.Value</td>
+                                        <td>@item.ShippingStatus.Value</td>
+                                        <td>@item.Status.Value</td>
+                                        
+                                        <td><a asp-controller="Order" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-info">Update</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section DataTableScripts{
+
+    <script src="~/Layout/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+
+
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/Layout/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+
+
+    <script>
+        $(function () {
+            $('.js-basic-example').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 5,
+                bSort: true,
+                bFilter: true,
+                bLengthChange: false,
+                //bInfo: false,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+
+            });
+
+
+
+            var table = $('.js-basic-example').DataTable();
+
+            new $.fn.dataTable.Buttons(table, {
+                buttons: [
+                    'copy', 'excel', 'pdf', 'csv', 'print'
+                ]
+            });
+
+            table.buttons().container()
+                .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+
+
+        });
+
+    </script>
+}
+

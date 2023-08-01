@@ -1,0 +1,32 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+
+<form asp-controller="Users" asp-action="Edit" class="form-group">
+
+
+    <input asp-for="Id" type="hidden" readonly class="form-control" />
+    <br />
+
+    <label asp-for="DisplayName">Store Name</label>
+    <input asp-for="DisplayName" type="text" class="form-control" />
+    <br />
+
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" type="text" class="form-control" />
+    <br />
+
+    <label asp-for="PhoneNumber">Phone Number</label>
+    <input asp-for="PhoneNumber" type="text" class="form-control" />
+    <br />
+
+
+    <input type="submit" value="Edit" class="btn btn-primary btn-block" />
+    <br />
+    <a asp-action="index" asp-controller="Home" type="button" class="btn btn-info " >Back</a>
+
+</form>

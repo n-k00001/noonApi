@@ -44,6 +44,14 @@ namespace noon.Application.Services.ProductServices
             return model;
         }
 
+        public List<ProductDto> GetProductForStor(string storId)
+        {
+            var product = productRep.GetAll();
+            var data = product.Where(a => a.userId == storId).ToList();
+            var model = mapper.Map<List<ProductDto>>(data);
+            return model;
+        }
+
         public List<ProductDto> GetAll(int Items, int PageNumber)
         {
             var product = productRep.GetAll();
@@ -115,7 +123,12 @@ namespace noon.Application.Services.ProductServices
              
              return reviewDTO;
         }
+        public IEnumerable<ProductDto> GetProductsByCategoryId(int categoryId)
+        {
+            var product =  productRep.GetProductsByCategoryId(categoryId);
+            var model = mapper.Map<List<ProductDto>>(product);
+            return model;
+        }
 
-        
     }
 }

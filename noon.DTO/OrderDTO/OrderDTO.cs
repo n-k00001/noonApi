@@ -1,6 +1,4 @@
-﻿using noon.Domain.Models.Order;
-using noon.DTO.ProductDTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +14,6 @@ namespace noon.DTO.OrderDTO
         public int? ShipToAddressId { get; set; }
         public int? PaymentIntentId { set; get; }
         public int DeliveryMethodId { get; set; }
-        public virtual IQueryable<OrderItemDTO> Items { get; set; }
+        public List<OrderItemDTO>? Items { get; set; }
     }
 }
